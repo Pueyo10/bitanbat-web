@@ -1,0 +1,96 @@
+{
+  "Metadata": {
+    "title": "BitanBat - Dantza & Fitness | Hernani",
+    "description": "Dantza eta fitness zentroa Hernanin. Entrenamendu funtzionala, pilates, barrefit, boxeo, zumba, sevillanoak, bachata, urbanoa eta askoz gehiago."
+  },
+  "Nav": {
+    "home": "Hasiera",
+    "about": "Guri buruz",
+    "classes": "Klaseak",
+    "schedule": "Ordutegiak",
+    "gallery": "Galeria",
+    "prices": "Prezioak",
+    "contact": "Kontaktua",
+    "blog": "Bloga"
+  },
+  "Hero": {
+    "title": "Dantza & Fitness",
+    "subtitle": "Zure dantza eta fitness gunea Hernanin",
+    "cta": "Ordutegiak ikusi",
+    "ctaSecondary": "Ezagutu gaitzazu"
+  },
+  "Home": {
+    "featuredTitle": "Gure klaseak",
+    "featuredSubtitle": "Ezagutu eskaintzen ditugun diziplina guztiak",
+    "ctaTitle": "Hasteko prest?",
+    "ctaSubtitle": "Batu BitanBat familiara eta eraldatu zure gorputza eta gogoa",
+    "ctaButton": "Kontaktatu",
+    "locations": "2 lokal Hernanin",
+    "classTypes": "15 diziplina baino gehiago",
+    "allLevels": "Adin guztietarako"
+  },
+  "About": {
+    "title": "Guri buruz",
+    "subtitle": "Ezagutu BitanBat"
+  },
+  "Classes": {
+    "title": "Gure klaseak",
+    "subtitle": "Ezagutu diziplina guztiak",
+    "filterAll": "Denak",
+    "filterDance": "Dantza",
+    "filterFitness": "Fitness",
+    "filterWellness": "Wellness",
+    "filterKids": "Haurrak"
+  },
+  "Schedule": {
+    "title": "Ordutegiak",
+    "subtitle": "Kontsultatu lokal bakoitzaren asteko ordutegia",
+    "local1": "1. Lokala",
+    "local2": "2. Lokala",
+    "monday": "Astelehena",
+    "tuesday": "Asteartea",
+    "wednesday": "Asteazkena",
+    "thursday": "Osteguna",
+    "friday": "Ostirala"
+  },
+  "Gallery": {
+    "title": "Galeria",
+    "subtitle": "Gure momentuak"
+  },
+  "Prices": {
+    "title": "Prezioak",
+    "subtitle": "Aukeratu zure plana",
+    "perMonth": "/hilabete",
+    "perQuarter": "/hiruhileko",
+    "perClass": "/klase",
+    "featured": "Ezagunena"
+  },
+  "Contact": {
+    "title": "Kontaktua",
+    "subtitle": "Galderarik baduzu? Idatzi iezaguzu",
+    "name": "Izena",
+    "email": "Emaila",
+    "phone": "Telefonoa",
+    "message": "Mezua",
+    "send": "Mezua bidali",
+    "success": "Mezua ondo bidali da",
+    "error": "Errorea mezua bidaltzean"
+  },
+  "Blog": {
+    "title": "Bloga",
+    "subtitle": "Berriak eta artikuluak",
+    "readMore": "Irakurri gehiago"
+  },
+  "Footer": {
+    "rights": "Eskubide guztiak erreserbatuak",
+    "followUs": "Jarraitu gaitzazu",
+    "address": "Hernani, Gipuzkoa",
+    "phone": "747 436 503"
+  },
+  "Common": {
+    "learnMore": "Gehiago jakin",
+    "back": "Itzuli",
+    "loading": "Kargatzen...",
+    "noResults": "Ez dago emaitzarik"
+  }
+}

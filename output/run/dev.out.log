@@ -1,0 +1,17 @@
+
+> bitanbat-web@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.5.14 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://100.64.174.69:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+Creating turbopack project {
+  dir: 'C:\\Users\\Pueyo\\Desktop\\Jon\\proyectos\\BitanBat\\bitanbat-web',
+  testMode: true
+}
+ ✓ Compiled middleware in 181ms
+ ✓ Ready in 2.4s
+ ○ Compiling /[locale]/precios ...

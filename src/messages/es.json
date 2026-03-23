@@ -1,0 +1,96 @@
+{
+  "Metadata": {
+    "title": "BitanBat - Dantza & Fitness | Hernani",
+    "description": "Centro de danza y fitness en Hernani. Clases de entrenamiento funcional, pilates, barrefit, boxeo, zumba, sevillanas, bachata, urbano y mucho más."
+  },
+  "Nav": {
+    "home": "Inicio",
+    "about": "Sobre nosotros",
+    "classes": "Clases",
+    "schedule": "Horarios",
+    "gallery": "Galería",
+    "prices": "Precios",
+    "contact": "Contacto",
+    "blog": "Blog"
+  },
+  "Hero": {
+    "title": "Dantza & Fitness",
+    "subtitle": "Tu espacio de danza y fitness en Hernani",
+    "cta": "Ver horarios",
+    "ctaSecondary": "Conócenos"
+  },
+  "Home": {
+    "featuredTitle": "Nuestras clases",
+    "featuredSubtitle": "Descubre todas las disciplinas que ofrecemos",
+    "ctaTitle": "¿Lista para empezar?",
+    "ctaSubtitle": "Únete a la familia BitanBat y transforma tu cuerpo y mente",
+    "ctaButton": "Contactar",
+    "locations": "2 locales en Hernani",
+    "classTypes": "Más de 15 disciplinas",
+    "allLevels": "Para todas las edades"
+  },
+  "About": {
+    "title": "Sobre nosotros",
+    "subtitle": "Conoce BitanBat"
+  },
+  "Classes": {
+    "title": "Nuestras clases",
+    "subtitle": "Descubre todas las disciplinas",
+    "filterAll": "Todas",
+    "filterDance": "Danza",
+    "filterFitness": "Fitness",
+    "filterWellness": "Wellness",
+    "filterKids": "Infantil"
+  },
+  "Schedule": {
+    "title": "Horarios",
+    "subtitle": "Consulta el horario semanal de cada local",
+    "local1": "Local 1",
+    "local2": "Local 2",
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes"
+  },
+  "Gallery": {
+    "title": "Galería",
+    "subtitle": "Nuestros momentos"
+  },
+  "Prices": {
+    "title": "Precios",
+    "subtitle": "Elige tu plan",
+    "perMonth": "/mes",
+    "perQuarter": "/trimestre",
+    "perClass": "/clase",
+    "featured": "Más popular"
+  },
+  "Contact": {
+    "title": "Contacto",
+    "subtitle": "¿Tienes alguna pregunta? Escríbenos",
+    "name": "Nombre",
+    "email": "Email",
+    "phone": "Teléfono",
+    "message": "Mensaje",
+    "send": "Enviar mensaje",
+    "success": "Mensaje enviado correctamente",
+    "error": "Error al enviar el mensaje"
+  },
+  "Blog": {
+    "title": "Blog",
+    "subtitle": "Novedades y artículos",
+    "readMore": "Leer más"
+  },
+  "Footer": {
+    "rights": "Todos los derechos reservados",
+    "followUs": "Síguenos",
+    "address": "Hernani, Gipuzkoa",
+    "phone": "747 436 503"
+  },
+  "Common": {
+    "learnMore": "Saber más",
+    "back": "Volver",
+    "loading": "Cargando...",
+    "noResults": "No hay resultados"
+  }
+}

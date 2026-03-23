@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAFAF8;
+  --foreground: #0A0A0A;
+  --primary: #0A0A0A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #1A1A1A;
+  --accent: #C9A96E;
+  --accent-foreground: #0A0A0A;
+  --muted: #F5F5F0;
+  --muted-foreground: #6B7280;
+  --border: #E5E5E5;
+  --ring: #C9A96E;
+  --destructive: #E63946;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Schedule calendar colors */
+.schedule-entrenamiento-funcional { background-color: #FFEB3B; color: #0A0A0A; }
+.schedule-sevillanas { background-color: #E91E63; color: #FFFFFF; }
+.schedule-fitgipsy { background-color: #9C27B0; color: #FFFFFF; }
+.schedule-predantza { background-color: #FF9800; color: #0A0A0A; }
+.schedule-boxeo { background-color: #F44336; color: #FFFFFF; }
+.schedule-zumba { background-color: #FFEB3B; color: #0A0A0A; }
+.schedule-bungee { background-color: #00BCD4; color: #FFFFFF; }
+.schedule-urbano { background-color: #9C27B0; color: #FFFFFF; }
+.schedule-bachata { background-color: #E91E63; color: #FFFFFF; }
+.schedule-salsa { background-color: #FF5722; color: #FFFFFF; }
+.schedule-pilates { background-color: #4CAF50; color: #FFFFFF; }
+.schedule-barrefit { background-color: #4CAF50; color: #FFFFFF; }
+.schedule-jumping { background-color: #00BCD4; color: #FFFFFF; }
