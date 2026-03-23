@@ -10,14 +10,13 @@ import MobileNav from "./MobileNav";
 
 const navItems = [
   { href: "/", labelKey: "home" },
-  { href: "/sobre-nosotros", labelKey: "about" },
+  { href: "/masajes", labelKey: "massage" },
   { href: "/clases", labelKey: "classes" },
   { href: "/horarios", labelKey: "schedule" },
-  { href: "/masajes", labelKey: "massage" },
-  { href: "/galeria", labelKey: "gallery" },
   { href: "/precios", labelKey: "prices" },
+  { href: "/sobre-nosotros", labelKey: "about" },
   { href: "/contacto", labelKey: "contact" },
-  { href: "/blog", labelKey: "blog" },
+  { href: "/galeria", labelKey: "gallery" },
 ] as const;
 
 export default function Header() {
@@ -68,6 +67,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href as "/"}
+                  aria-current={isActive ? "page" : undefined}
                   className={`relative px-3 py-2 text-sm font-medium transition-colors group ${
                     isActive ? "text-accent" : "text-white/70 hover:text-white"
                   }`}
@@ -90,6 +90,8 @@ export default function Header() {
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden text-white p-2"
               aria-label="Menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -99,6 +101,7 @@ export default function Header() {
 
       {/* Mobile Nav */}
       <MobileNav
+        id="mobile-nav"
         isOpen={mobileOpen}
         onClose={() => setMobileOpen(false)}
         items={navItems}

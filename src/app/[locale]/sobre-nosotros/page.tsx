@@ -84,6 +84,7 @@ export default function SobreNosotrosPage() {
                 poster="/media/instagram/DM0z5uHNGa5.jpg"
                 controls
                 playsInline
+                preload="none"
                 className="w-full"
               />
             </div>
@@ -108,6 +109,7 @@ export default function SobreNosotrosPage() {
                     poster="/media/instagram/DS28hFZDNUA.jpg"
                     controls
                     playsInline
+                    preload="none"
                     className="w-full"
                   />
                 </div>
@@ -117,6 +119,7 @@ export default function SobreNosotrosPage() {
                     poster="/media/instagram/DSz35eLDIio.jpg"
                     controls
                     playsInline
+                    preload="none"
                     className="w-full"
                   />
                 </div>

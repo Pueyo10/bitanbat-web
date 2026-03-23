@@ -116,6 +116,7 @@ export default function MasajesPage() {
                   poster="/media/instagram/DUDUHlZjPlW.jpg"
                   controls
                   playsInline
+                  preload="none"
                   className="w-full"
                 />
               </div>
@@ -125,6 +126,7 @@ export default function MasajesPage() {
                   poster="/media/instagram/DWMe9ngjCSl.jpg"
                   controls
                   playsInline
+                  preload="none"
                   className="w-full"
                 />
               </div>

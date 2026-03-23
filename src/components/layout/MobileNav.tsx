@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,19 +11,32 @@ interface NavItem {
 }
 
 interface MobileNavProps {
+  id?: string;
   isOpen: boolean;
   onClose: () => void;
   items: readonly NavItem[];
 }
 
-export default function MobileNav({ isOpen, onClose, items }: MobileNavProps) {
+export default function MobileNav({ id, isOpen, onClose, items }: MobileNavProps) {
   const t = useTranslations("Nav");
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
+          id={id}
+          role="navigation"
+          aria-label="Menu móvil"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
@@ -38,6 +52,7 @@ export default function MobileNav({ isOpen, onClose, items }: MobileNavProps) {
                   key={item.href}
                   href={item.href as "/"}
                   onClick={onClose}
+                  aria-current={isActive ? "page" : undefined}
                   className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
                     isActive
                       ? "text-accent bg-white/10"

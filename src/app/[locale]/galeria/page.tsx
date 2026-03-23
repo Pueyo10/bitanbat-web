@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -74,6 +74,22 @@ export default function GaleriaPage() {
   const getCaption = (media: GalleryMedia) =>
     getLocalizedField(media, "caption", locale) || "";
 
+  const closeLightbox = useCallback(() => setSelectedMedia(null), []);
+
+  // Escape key to close lightbox + lock body scroll
+  useEffect(() => {
+    if (!selectedMedia) return;
+    document.body.style.overflow = "hidden";
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeLightbox();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedMedia, closeLightbox]);
+
   return (
     <>
       <PageHero
@@ -90,6 +106,7 @@ export default function GaleriaPage() {
               <button
                 key={f.value}
                 onClick={() => setActiveFilter(f.value)}
+                aria-pressed={activeFilter === f.value}
                 className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
                   activeFilter === f.value
                     ? "bg-primary text-primary-foreground"
@@ -185,15 +202,20 @@ export default function GaleriaPage() {
       <AnimatePresence>
         {selectedMedia && (
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={getCaption(selectedMedia) || "Galería"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-            onClick={() => setSelectedMedia(null)}
+            onClick={closeLightbox}
           >
             <button
               className="absolute top-4 right-4 text-white/70 hover:text-white z-10"
-              onClick={() => setSelectedMedia(null)}
+              onClick={closeLightbox}
+              aria-label="Cerrar"
+              autoFocus
             >
               <X size={32} />
             </button>

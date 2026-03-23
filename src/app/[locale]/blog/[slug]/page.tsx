@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import sanitizeHtml from "sanitize-html";
 
 export default async function BlogPostPage({
   params,
@@ -64,7 +65,7 @@ export default async function BlogPostPage({
 
         <div
           className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: content }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }}
         />
       </div>
     </div>

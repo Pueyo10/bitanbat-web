@@ -107,12 +107,14 @@ export default function ContactoPage() {
                 className="space-y-6"
               >
                 <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                  <label htmlFor="contact-name" className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
                     {t("name")}
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
+                    aria-required="true"
                     value={formState.name}
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, name: e.target.value }))
@@ -121,12 +123,14 @@ export default function ContactoPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                  <label htmlFor="contact-email" className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
                     {t("email")}
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     required
+                    aria-required="true"
                     value={formState.email}
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, email: e.target.value }))
@@ -135,10 +139,11 @@ export default function ContactoPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                  <label htmlFor="contact-phone" className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
                     {t("phone")}
                   </label>
                   <input
+                    id="contact-phone"
                     type="tel"
                     value={formState.phone}
                     onChange={(e) =>
@@ -148,11 +153,13 @@ export default function ContactoPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                  <label htmlFor="contact-message" className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
                     {t("message")}
                   </label>
                   <textarea
+                    id="contact-message"
                     required
+                    aria-required="true"
                     rows={4}
                     value={formState.message}
                     onChange={(e) =>
@@ -163,12 +170,12 @@ export default function ContactoPage() {
                 </div>
 
                 {status === "success" && (
-                  <p className="text-sm text-green-600 font-medium">
+                  <p role="status" aria-live="polite" className="text-sm text-green-600 font-medium">
                     {t("success")}
                   </p>
                 )}
                 {status === "error" && (
-                  <p className="text-sm text-destructive font-medium">
+                  <p role="alert" aria-live="assertive" className="text-sm text-destructive font-medium">
                     {t("error")}
                   </p>
                 )}
