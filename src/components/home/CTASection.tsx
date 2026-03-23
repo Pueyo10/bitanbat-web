@@ -1,54 +1,82 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { motion } from "framer-motion";
-import { Phone } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function CTASection() {
   const t = useTranslations("Home");
+  const locale = useLocale();
+  const ref = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   return (
-    <section className="py-20 bg-primary text-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold mb-4"
-        >
-          {t("ctaTitle")}
-        </motion.h2>
+    <section ref={ref} className="relative h-[500px] md:h-[600px] overflow-hidden">
+      {/* Background image with parallax */}
+      <motion.div className="absolute inset-0" style={{ y }}>
+        <Image
+          src="/media/instagram/DRkhijgjMzh.jpg"
+          alt="BitanBat"
+          fill
+          sizes="100vw"
+          className="object-cover scale-110"
+        />
+      </motion.div>
+
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/60" />
+
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 text-center">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-white/70 text-lg mb-10 max-w-2xl mx-auto"
+          className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-6"
         >
-          {t("ctaSubtitle")}
+          {locale === "eu" ? "Batu gure familiara" : "Únete a nuestra familia"}
         </motion.p>
-        <motion.div
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 max-w-4xl"
+        >
+          {t("ctaTitle")}
+        </motion.h2>
+
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="text-white/70 text-lg md:text-xl mb-10 max-w-2xl"
+        >
+          {t("ctaSubtitle")}
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
         >
           <Link
             href="/contacto"
-            className="px-8 py-3 bg-accent text-primary font-semibold rounded-full hover:bg-accent/90 transition-colors shadow-lg"
+            className="inline-block px-12 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
           >
             {t("ctaButton")}
           </Link>
-          <a
-            href={`tel:${SITE_CONFIG.phone}`}
-            className="px-8 py-3 border border-white/30 text-white font-medium rounded-full hover:bg-white/10 transition-colors flex items-center gap-2"
-          >
-            <Phone size={18} />
-            {SITE_CONFIG.phoneFormatted}
-          </a>
         </motion.div>
       </div>
     </section>

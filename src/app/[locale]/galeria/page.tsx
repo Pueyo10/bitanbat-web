@@ -10,6 +10,8 @@ import type { GalleryImage } from "@/types/database";
 import { getLocalizedField } from "@/lib/utils";
 import { SITE_CONFIG } from "@/lib/constants";
 import instagramMedia from "@/data/instagram-media.json";
+import PageHero from "@/components/ui/PageHero";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 type GalleryMedia = {
   id: string;
@@ -73,123 +75,111 @@ export default function GaleriaPage() {
     getLocalizedField(media, "caption", locale) || "";
 
   return (
-    <div className="pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
-        >
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            {t("title")}
-          </h1>
-          <p className="text-muted-foreground text-lg">{t("subtitle")}</p>
-          <a
-            href={SITE_CONFIG.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-4 text-accent hover:text-accent/80 transition-colors font-medium"
-          >
-            <Instagram size={20} />
-            {SITE_CONFIG.instagramHandle}
-          </a>
-        </motion.div>
+    <>
+      <PageHero
+        label={SITE_CONFIG.instagramHandle}
+        title={t("title")}
+        subtitle={t("subtitle")}
+      />
 
-        {/* Category filters */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {categoryFilters.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => setActiveFilter(f.value)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all ${
-                activeFilter === f.value
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-muted text-muted-foreground hover:bg-border"
-              }`}
+      <section className="py-16 md:py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Category filters */}
+          <ScrollReveal className="flex flex-wrap justify-center gap-2 mb-12">
+            {categoryFilters.map((f) => (
+              <button
+                key={f.value}
+                onClick={() => setActiveFilter(f.value)}
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
+                  activeFilter === f.value
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-transparent text-muted-foreground border border-border hover:border-foreground hover:text-foreground"
+                }`}
+              >
+                {t(f.key)}
+              </button>
+            ))}
+          </ScrollReveal>
+
+          {loading && allMedia.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">...</div>
+          ) : filteredMedia.length === 0 ? (
+            <div className="text-center py-20 text-muted-foreground">
+              <p className="text-lg">Proximamente...</p>
+            </div>
+          ) : (
+            <motion.div
+              layout
+              className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
             >
-              {t(f.key)}
-            </button>
-          ))}
-        </div>
-
-        {loading && allMedia.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">...</div>
-        ) : filteredMedia.length === 0 ? (
-          <div className="text-center py-20 text-muted-foreground">
-            <p className="text-lg">Proximamente...</p>
-          </div>
-        ) : (
-          <motion.div
-            layout
-            className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredMedia.map((media) => (
-                <motion.div
-                  key={media.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3 }}
-                  className="break-inside-avoid cursor-pointer group"
-                  onClick={() => setSelectedMedia(media)}
-                >
-                  <div className="relative overflow-hidden rounded-xl bg-black">
-                    {media.type === "video" ? (
-                      <>
-                        <video
+              <AnimatePresence mode="popLayout">
+                {filteredMedia.map((media) => (
+                  <motion.div
+                    key={media.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.3 }}
+                    className="break-inside-avoid cursor-pointer group"
+                    onClick={() => setSelectedMedia(media)}
+                  >
+                    <div className="relative overflow-hidden rounded-lg bg-black">
+                      {media.type === "video" ? (
+                        <>
+                          <video
+                            src={media.url}
+                            poster={media.poster}
+                            muted
+                            playsInline
+                            preload="metadata"
+                            className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10">
+                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/85 text-primary shadow-lg">
+                              <Play size={20} fill="currentColor" />
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        <Image
                           src={media.url}
-                          poster={media.poster}
-                          muted
-                          playsInline
-                          preload="metadata"
+                          alt={getCaption(media) || `BitanBat ${media.id}`}
+                          width={600}
+                          height={400}
                           className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10">
-                          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/85 text-primary shadow-lg">
-                            <Play size={20} fill="currentColor" />
-                          </span>
+                      )}
+
+                      {/* Caption overlay */}
+                      {getCaption(media) && (
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 pt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-white text-sm line-clamp-2">
+                            {getCaption(media)}
+                          </p>
                         </div>
-                      </>
-                    ) : (
-                      <Image
-                        src={media.url}
-                        alt={getCaption(media) || `BitanBat ${media.id}`}
-                        width={600}
-                        height={400}
-                        className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    )}
+                      )}
 
-                    {/* Caption overlay */}
-                    {getCaption(media) && (
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 pt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <p className="text-white text-sm line-clamp-2">
-                          {getCaption(media)}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Instagram link */}
-                    {media.instagramUrl && (
-                      <a
-                        href={media.instagramUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="absolute top-3 right-3 p-1.5 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink size={14} />
-                      </a>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </div>
+                      {/* Instagram link */}
+                      {media.instagramUrl && (
+                        <a
+                          href={media.instagramUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute top-3 right-3 p-1.5 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink size={14} />
+                        </a>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </div>
+      </section>
 
       {/* Lightbox */}
       <AnimatePresence>
@@ -232,7 +222,6 @@ export default function GaleriaPage() {
                   className="max-h-[80vh] w-auto mx-auto object-contain rounded-lg"
                 />
               )}
-              {/* Caption below media */}
               {getCaption(selectedMedia) && (
                 <div className="text-center mt-4">
                   <p className="text-white/90 text-sm md:text-base">
@@ -255,6 +244,6 @@ export default function GaleriaPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }

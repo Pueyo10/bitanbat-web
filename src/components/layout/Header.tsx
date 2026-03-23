@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
@@ -23,9 +23,24 @@ export default function Header() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 50);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-white/10">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled || mobileOpen
+          ? "bg-primary/95 backdrop-blur-md border-b border-white/10"
+          : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -33,12 +48,12 @@ export default function Header() {
             <Image
               src="/images/logo.jpg"
               alt="BitanBat"
-              width={48}
-              height={48}
+              width={44}
+              height={44}
               className="rounded-full"
             />
-            <span className="text-white font-bold text-lg hidden sm:block">
-              BITAN<span className="text-accent">bat</span>
+            <span className="font-heading text-white font-bold text-lg hidden sm:block">
+              BITAN<span className="text-accent">BAT</span>
             </span>
           </Link>
 
@@ -52,13 +67,16 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href as "/"}
-                  className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                    isActive
-                      ? "text-accent bg-white/10"
-                      : "text-white/80 hover:text-white hover:bg-white/5"
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors group ${
+                    isActive ? "text-accent" : "text-white/70 hover:text-white"
                   }`}
                 >
                   {t(item.labelKey)}
+                  <span
+                    className={`absolute bottom-0 left-3 right-3 h-[2px] bg-accent transition-transform duration-300 origin-left ${
+                      isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                  />
                 </Link>
               );
             })}

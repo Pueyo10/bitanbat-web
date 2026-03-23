@@ -29,7 +29,13 @@
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
   --font-sans: var(--font-geist-sans);
+  --font-heading: var(--font-space-grotesk);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Heading font utility */
+.font-heading {
+  font-family: var(--font-heading), system-ui, sans-serif;
 }
 
 body {

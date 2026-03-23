@@ -14,7 +14,10 @@
     "blog": "Blog"
   },
   "Hero": {
-    "title": "Dantza & Fitness",
+    "tagline": "DANTZA & FITNESS",
+    "title": "MUÉVETE.",
+    "titleAccent": "SIENTE.",
+    "titleEnd": "VIVE.",
     "subtitle": "Tu espacio de danza y fitness en Hernani",
     "cta": "Ver horarios",
     "ctaSecondary": "Conócenos"
@@ -25,18 +28,19 @@
     "ctaTitle": "¿Lista para empezar?",
     "ctaSubtitle": "Únete a la familia BitanBat y transforma tu cuerpo y mente",
     "ctaButton": "Contactar",
-    "locations": "2 locales en Hernani",
-    "classTypes": "Más de 15 disciplinas",
-    "allLevels": "Para todas las edades"
+    "statsStudents": "200+ alumnos",
+    "statsClasses": "15+ disciplinas",
+    "statsYears": "En Hernani",
+    "statsLocations": "2 locales"
   },
   "About": {
     "title": "Sobre nosotros",
     "subtitle": "Conoce BitanBat",
     "teamTitle": "Nuestro equipo",
     "communityTitle": "Nuestra familia",
-    "communitySubtitle": "Mas que un gimnasio, somos una comunidad. Gracias a todos los que formais parte de BitanBat.",
-    "testimonialsTitle": "Zergatik BitanBat?",
-    "testimonialsSubtitle": "Nuestros alumnos nos cuentan por que eligieron BitanBat"
+    "communitySubtitle": "Mas que un gimnasio, somos una comunidad. Gracias a todos los que formáis parte de BitanBat.",
+    "testimonialsTitle": "¿Por qué BitanBat?",
+    "testimonialsSubtitle": "Nuestros alumnos nos cuentan por qué eligieron BitanBat"
   },
   "Classes": {
     "title": "Nuestras clases",
@@ -59,7 +63,7 @@
     "friday": "Viernes"
   },
   "Gallery": {
-    "title": "Galeria",
+    "title": "Galería",
     "subtitle": "Nuestros momentos en Instagram",
     "filterAll": "Todo",
     "filterFitness": "Fitness",

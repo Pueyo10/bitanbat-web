@@ -14,7 +14,10 @@
     "blog": "Bloga"
   },
   "Hero": {
-    "title": "Dantza & Fitness",
+    "tagline": "DANTZA & FITNESS",
+    "title": "MUGITU.",
+    "titleAccent": "SENTITU.",
+    "titleEnd": "BIZI.",
     "subtitle": "Zure dantza eta fitness gunea Hernanin",
     "cta": "Ordutegiak ikusi",
     "ctaSecondary": "Ezagutu gaitzazu"
@@ -25,9 +28,10 @@
     "ctaTitle": "Hasteko prest?",
     "ctaSubtitle": "Batu BitanBat familiara eta eraldatu zure gorputza eta gogoa",
     "ctaButton": "Kontaktatu",
-    "locations": "2 lokal Hernanin",
-    "classTypes": "15 diziplina baino gehiago",
-    "allLevels": "Adin guztietarako"
+    "statsStudents": "200+ ikasle",
+    "statsClasses": "15+ diziplina",
+    "statsYears": "Hernanin",
+    "statsLocations": "2 lokal"
   },
   "About": {
     "title": "Guri buruz",

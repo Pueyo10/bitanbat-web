@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Instagram, Send } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
+import PageHero from "@/components/ui/PageHero";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function ContactoPage() {
   const t = useTranslations("Contact");
+  const locale = useLocale();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -36,154 +39,152 @@ export default function ContactoPage() {
   }
 
   return (
-    <div className="pt-24 pb-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            {t("title")}
-          </h1>
-          <p className="text-muted-foreground text-lg">{t("subtitle")}</p>
-        </motion.div>
+    <>
+      <PageHero
+        label={locale === "eu" ? "Hitz egin" : "Hablemos"}
+        title={t("title")}
+        subtitle={t("subtitle")}
+      />
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact info */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
-                  <MapPin size={20} className="text-accent" />
+      <section className="py-16 md:py-24 bg-background">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            {/* Contact info */}
+            <ScrollReveal variant="slide-left">
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center shrink-0">
+                      <MapPin size={20} className="text-accent" />
+                    </div>
+                    <div>
+                      <h3 className="font-heading font-semibold text-foreground text-lg">
+                        {SITE_CONFIG.location}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {locale === "eu" ? "2 lokal Hernanin" : "2 locales en Hernani"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center shrink-0">
+                      <Phone size={20} className="text-accent" />
+                    </div>
+                    <div>
+                      <a
+                        href={`tel:${SITE_CONFIG.phone}`}
+                        className="font-heading font-semibold text-foreground text-lg hover:text-accent transition-colors"
+                      >
+                        {SITE_CONFIG.phoneFormatted}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center shrink-0">
+                      <Instagram size={20} className="text-accent" />
+                    </div>
+                    <div>
+                      <a
+                        href={SITE_CONFIG.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-heading font-semibold text-foreground text-lg hover:text-accent transition-colors"
+                      >
+                        {SITE_CONFIG.instagramHandle}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Form */}
+            <ScrollReveal variant="slide-right">
+              <motion.form
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                    {t("name")}
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formState.name}
+                    onChange={(e) =>
+                      setFormState((s) => ({ ...s, name: e.target.value }))
+                    }
+                    className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-border text-foreground focus:border-accent focus:ring-0 outline-none transition-colors text-lg"
+                  />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">
-                    {SITE_CONFIG.location}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    2 locales en Hernani
+                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                    {t("email")}
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={formState.email}
+                    onChange={(e) =>
+                      setFormState((s) => ({ ...s, email: e.target.value }))
+                    }
+                    className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-border text-foreground focus:border-accent focus:ring-0 outline-none transition-colors text-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                    {t("phone")}
+                  </label>
+                  <input
+                    type="tel"
+                    value={formState.phone}
+                    onChange={(e) =>
+                      setFormState((s) => ({ ...s, phone: e.target.value }))
+                    }
+                    className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-border text-foreground focus:border-accent focus:ring-0 outline-none transition-colors text-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2 tracking-wide uppercase">
+                    {t("message")}
+                  </label>
+                  <textarea
+                    required
+                    rows={4}
+                    value={formState.message}
+                    onChange={(e) =>
+                      setFormState((s) => ({ ...s, message: e.target.value }))
+                    }
+                    className="w-full px-0 py-3 bg-transparent border-0 border-b-2 border-border text-foreground focus:border-accent focus:ring-0 outline-none transition-colors text-lg resize-none"
+                  />
+                </div>
+
+                {status === "success" && (
+                  <p className="text-sm text-green-600 font-medium">
+                    {t("success")}
                   </p>
-                </div>
-              </div>
+                )}
+                {status === "error" && (
+                  <p className="text-sm text-destructive font-medium">
+                    {t("error")}
+                  </p>
+                )}
 
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
-                  <Phone size={20} className="text-accent" />
-                </div>
-                <div>
-                  <a
-                    href={`tel:${SITE_CONFIG.phone}`}
-                    className="font-semibold text-foreground hover:text-accent transition-colors"
-                  >
-                    {SITE_CONFIG.phoneFormatted}
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
-                  <Instagram size={20} className="text-accent" />
-                </div>
-                <div>
-                  <a
-                    href={SITE_CONFIG.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-foreground hover:text-accent transition-colors"
-                  >
-                    {SITE_CONFIG.instagramHandle}
-                  </a>
-                </div>
-              </div>
-            </div>
+                <button
+                  type="submit"
+                  className="px-10 py-4 bg-primary text-primary-foreground font-heading font-semibold text-lg rounded-full hover:bg-secondary hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                >
+                  <Send size={18} />
+                  {t("send")}
+                </button>
+              </motion.form>
+            </ScrollReveal>
           </div>
-
-          {/* Form */}
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            onSubmit={handleSubmit}
-            className="bg-white rounded-2xl p-6 shadow-sm border border-border space-y-4"
-          >
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">
-                {t("name")}
-              </label>
-              <input
-                type="text"
-                required
-                value={formState.name}
-                onChange={(e) =>
-                  setFormState((s) => ({ ...s, name: e.target.value }))
-                }
-                className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">
-                {t("email")}
-              </label>
-              <input
-                type="email"
-                required
-                value={formState.email}
-                onChange={(e) =>
-                  setFormState((s) => ({ ...s, email: e.target.value }))
-                }
-                className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">
-                {t("phone")}
-              </label>
-              <input
-                type="tel"
-                value={formState.phone}
-                onChange={(e) =>
-                  setFormState((s) => ({ ...s, phone: e.target.value }))
-                }
-                className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-1">
-                {t("message")}
-              </label>
-              <textarea
-                required
-                rows={4}
-                value={formState.message}
-                onChange={(e) =>
-                  setFormState((s) => ({ ...s, message: e.target.value }))
-                }
-                className="w-full px-4 py-2.5 rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all resize-none"
-              />
-            </div>
-
-            {status === "success" && (
-              <p className="text-sm text-green-600 font-medium">
-                {t("success")}
-              </p>
-            )}
-            {status === "error" && (
-              <p className="text-sm text-destructive font-medium">
-                {t("error")}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              className="w-full px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-secondary transition-colors flex items-center justify-center gap-2"
-            >
-              <Send size={18} />
-              {t("send")}
-            </button>
-          </motion.form>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
