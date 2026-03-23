@@ -13,6 +13,7 @@ const navItems = [
   { href: "/sobre-nosotros", labelKey: "about" },
   { href: "/clases", labelKey: "classes" },
   { href: "/horarios", labelKey: "schedule" },
+  { href: "/masajes", labelKey: "massage" },
   { href: "/galeria", labelKey: "gallery" },
   { href: "/precios", labelKey: "prices" },
   { href: "/contacto", labelKey: "contact" },

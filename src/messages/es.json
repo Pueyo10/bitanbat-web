@@ -10,6 +10,7 @@
     "schedule": "Horarios",
     "gallery": "Galería",
     "prices": "Precios",
+    "massage": "Masajes",
     "contact": "Contacto",
     "blog": "Blog"
   },
@@ -90,6 +91,28 @@
     "send": "Enviar mensaje",
     "success": "Mensaje enviado correctamente",
     "error": "Error al enviar el mensaje"
+  },
+  "Massage": {
+    "title": "Masajes & Tratamientos",
+    "subtitle": "Dale a tu cuerpo el descanso que merece",
+    "introTitle": "Zure Momentua - Tu Momento",
+    "introText": "En BitanBat no solo cuidamos tu cuerpo en movimiento. Nuestra sala de masajes es un espacio de calma donde desconectar, aliviar tensiones y recuperar el equilibrio.",
+    "introText2": "Contamos con profesionales especializados en diferentes técnicas terapéuticas y de bienestar. Cada sesión se adapta a tus necesidades.",
+    "spaceTitle": "Sala de masajes",
+    "treatmentsTitle": "Nuestros tratamientos",
+    "treatmentsSubtitle": "Desde masajes terapéuticos hasta tratamientos de bienestar, encuentra el que mejor se adapta a ti",
+    "quiromasajeName": "Quiromasaje",
+    "quiromasajeDesc": "Masaje terapéutico manual que alivia tensiones musculares, mejora la circulación y proporciona una relajación profunda.",
+    "descontracturanteName": "Descontracturante",
+    "descontracturanteDesc": "Masaje profundo enfocado en liberar contracturas y nudos musculares. Ideal para dolores crónicos y tensión acumulada.",
+    "ventosasName": "Ventosas",
+    "ventosasDesc": "Técnica milenaria que utiliza copas de succión para estimular la circulación, aliviar el dolor y liberar toxinas.",
+    "reflexologiaName": "Reflexología podal",
+    "reflexologiaDesc": "Estimulación de puntos reflejos en los pies que conectan con diferentes órganos del cuerpo. Equilibra y revitaliza.",
+    "maderoterapiaName": "Maderoterapia",
+    "maderoterapiaDesc": "Tratamiento con instrumentos de madera que moldea, reduce medidas y combate la celulitis de forma natural.",
+    "giftTitle": "Tarjeta regalo",
+    "giftText": "Regala bienestar. Nuestras tarjetas regalo son el detalle perfecto para alguien especial. Disponibles para cualquier tratamiento o combinación de sesiones."
   },
   "Blog": {
     "title": "Blog",

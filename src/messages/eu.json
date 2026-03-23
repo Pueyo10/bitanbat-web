@@ -10,6 +10,7 @@
     "schedule": "Ordutegiak",
     "gallery": "Galeria",
     "prices": "Prezioak",
+    "massage": "Masajeak",
     "contact": "Kontaktua",
     "blog": "Bloga"
   },
@@ -90,6 +91,28 @@
     "send": "Mezua bidali",
     "success": "Mezua ondo bidali da",
     "error": "Errorea mezua bidaltzean"
+  },
+  "Massage": {
+    "title": "Masajeak & Tratamenduak",
+    "subtitle": "Eman zure gorputzari merezi duen atsedena",
+    "introTitle": "Zure Momentua",
+    "introText": "BitanBat-en ez dugu soilik zure gorputza mugimenduan zaintzen. Gure masaje gela lasaitasunezko espazio bat da, non deskonektatu, tentsioak arindu eta oreka berreskuratu.",
+    "introText2": "Teknika terapeutiko eta ongizate desberdinetan espezializatutako profesionalak ditugu. Saio bakoitza zure beharretara egokitzen da.",
+    "spaceTitle": "Masaje gela",
+    "treatmentsTitle": "Gure tratamenduak",
+    "treatmentsSubtitle": "Masaje terapeutikoetatik ongizate tratamenduetara, aurkitu zuretzat egokiena",
+    "quiromasajeName": "Kiromasajea",
+    "quiromasajeDesc": "Eskuzko masaje terapeutikoa, muskulu tentsioak arintzen dituena, zirkulazioa hobetzen duena eta erlaxazio sakona eskaintzen duena.",
+    "descontracturanteName": "Deskontraturatzailea",
+    "descontracturanteDesc": "Kontraturak eta muskulu korapiloak askatzera bideratutako masaje sakona. Min kroniko eta metatutako tentsiorako aproposa.",
+    "ventosasName": "Bentosak",
+    "ventosasDesc": "Xurgapen kopak erabiltzen dituen milurteko teknika, zirkulazioa estimulatzeko, mina arintzeko eta toxinak askatzeko.",
+    "reflexologiaName": "Oin erreflexologia",
+    "reflexologiaDesc": "Oinetako puntu islak estimulatzea, gorputzeko organo desberdinekin konektatzen direnak. Orekatzen eta biziiberritzen du.",
+    "maderoterapiaName": "Maderoterapia",
+    "maderoterapiaDesc": "Egurrezko tresnekin egindako tratamendua, moldatzen, neurriak murrizten eta zelulitisa modu naturalean borrokatzen duena.",
+    "giftTitle": "Opari txartela",
+    "giftText": "Oparitu ongizatea. Gure opari txartelak norbait bereziarentzako detaile ezin hobea dira. Edozein tratamendu edo saio konbinaziorako eskuragarri."
   },
   "Blog": {
     "title": "Bloga",

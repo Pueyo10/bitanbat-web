@@ -23,7 +23,7 @@ export default function CTASection() {
       {/* Background image with parallax */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <Image
-          src="/media/instagram/DRkhijgjMzh.jpg"
+          src="/media/instagram/DKtuhk7tJls.jpg"
           alt="BitanBat"
           fill
           sizes="100vw"
