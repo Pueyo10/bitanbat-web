@@ -1,34 +1,28 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 import type { BlogPost } from "@/types/database";
 import { getLocalizedField } from "@/lib/utils";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
-export default function BlogPage() {
-  const t = useTranslations("Blog");
-  const locale = useLocale();
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+export default async function BlogPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("Blog");
 
-  useEffect(() => {
-    async function fetchPosts() {
-      const supabase = createClient();
-      const { data } = await supabase
-        .from("blog_posts")
-        .select("*")
-        .eq("published", true)
-        .order("created_at", { ascending: false });
-      if (data) setPosts(data as BlogPost[]);
-      setLoading(false);
-    }
-    fetchPosts();
-  }, []);
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("published", true)
+    .order("created_at", { ascending: false });
+  const posts = (data || []) as BlogPost[];
 
   return (
     <>
@@ -40,9 +34,7 @@ export default function BlogPage() {
 
       <section className="py-16 md:py-24 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {loading ? (
-            <div className="text-center py-12 text-muted-foreground">...</div>
-          ) : posts.length === 0 ? (
+          {posts.length === 0 ? (
             <div className="text-center py-20 text-muted-foreground">
               <p className="font-heading text-2xl">
                 {locale === "eu" ? "Laster..." : "Próximamente..."}
@@ -53,7 +45,10 @@ export default function BlogPage() {
               {posts.map((post, i) => (
                 <ScrollReveal key={post.id} delay={i * 0.08}>
                   <Link
-                    href={{ pathname: "/blog/[slug]", params: { slug: post.slug } }}
+                    href={{
+                      pathname: "/blog/[slug]",
+                      params: { slug: post.slug },
+                    }}
                     className="block group overflow-hidden rounded-lg"
                   >
                     {post.image_url && (
