@@ -1,65 +1,58 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
-import {
-  Dumbbell,
-  Music,
-  Heart,
-  Baby,
-  MapPin,
-  Sparkles,
-} from "lucide-react";
+import Image from "next/image";
 
 const classHighlights = [
   {
-    icon: Dumbbell,
     nameEs: "Entrenamiento Funcional",
     nameEu: "Entrenamendu Funtzionala",
     descEs: "Mejora tu fuerza y resistencia con ejercicios funcionales adaptados a todos los niveles.",
     descEu: "Hobetu zure indarra eta erresistentzia maila guztietara egokitutako ariketa funtzionalekin.",
     color: "#FFEB3B",
+    image: "/media/instagram/DPyvmA2DMOz.jpg",
   },
   {
-    icon: Heart,
     nameEs: "Pilates & Barrefit",
     nameEu: "Pilates & Barrefit",
     descEs: "Trabaja la flexibilidad, el equilibrio y el core con nuestras clases de pilates y barrefit.",
     descEu: "Landu malgutasuna, oreka eta core-a gure pilates eta barrefit klaseetan.",
     color: "#4CAF50",
+    image: "/media/instagram/DOeahntDL-l.jpg",
   },
   {
-    icon: Music,
     nameEs: "Danza",
     nameEu: "Dantza",
     descEs: "Sevillanas, bachata, salsa, urbano, zumba... encuentra tu estilo y disfruta bailando.",
     descEu: "Sevillanoak, bachata, salsa, urbanoa, zumba... aurkitu zure estiloa eta gozatu dantzatzen.",
     color: "#E91E63",
+    image: "/media/instagram/DRkhijgjMzh.jpg",
   },
   {
-    icon: Baby,
     nameEs: "Infantil",
     nameEu: "Haurrak",
-    descEs: "Clases de predantza, funcional y urbano para los más pequeños (desde 3 años).",
+    descEs: "Clases de predantza, funcional y urbano para los mas pequenos (desde 3 anos).",
     descEu: "Predantza, funtzional eta urbano klaseak txikienentzat (3 urtetik aurrera).",
     color: "#FF9800",
+    image: "/media/instagram/DQr2HDKjIGL.jpg",
   },
   {
-    icon: Sparkles,
     nameEs: "Bungee & Jumping",
     nameEu: "Bungee & Jumping",
-    descEs: "Vive la experiencia del bungee fitness y jumping: diversión y resultados garantizados.",
+    descEs: "Vive la experiencia del bungee fitness y jumping: diversion y resultados garantizados.",
     descEu: "Bizi bungee fitness eta jumping esperientzia: dibertigarria eta emaitza ziurrak.",
     color: "#00BCD4",
+    image: "/media/instagram/DQaCTUNjPo9.jpg",
   },
   {
-    icon: MapPin,
-    nameEs: "2 Locales",
-    nameEu: "2 Lokal",
-    descEs: "Dos espacios dedicados en Hernani para que encuentres la clase perfecta para ti.",
-    descEu: "Bi gune dedikatu Hernanin klase perfektua aurkitu dezazun.",
-    color: "#C9A96E",
+    nameEs: "Yoga & Wellness",
+    nameEu: "Yoga & Wellness",
+    descEs: "Yoga, masajes y bienestar. Conecta cuerpo y mente en un espacio dedicado a ti.",
+    descEu: "Yoga, masajeak eta ongizatea. Konektatu gorputza eta adimena zuretzat dedikatutako espazio batean.",
+    color: "#8BC34A",
+    image: "/media/instagram/DUiBayBDNcI.jpg",
   },
 ];
 
@@ -78,6 +71,7 @@ const itemVariants = {
 
 export default function FeaturedClasses() {
   const t = useTranslations("Home");
+  const locale = useLocale();
 
   return (
     <section className="py-20 bg-background">
@@ -107,20 +101,31 @@ export default function FeaturedClasses() {
             <motion.div
               key={item.nameEs}
               variants={itemVariants}
-              className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-border hover:border-accent/30"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-border hover:border-accent/30"
             >
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${item.color}20` }}
-              >
-                <item.icon size={24} style={{ color: item.color }} />
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={item.image}
+                  alt={locale === "eu" ? item.nameEu : item.nameEs}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <div
+                  className="absolute bottom-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white"
+                  style={{ backgroundColor: item.color }}
+                >
+                  {locale === "eu" ? item.nameEu : item.nameEs}
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
-                {item.nameEs}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {item.descEs}
-              </p>
+              <div className="p-5">
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {locale === "eu" ? item.nameEu : item.nameEs}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {locale === "eu" ? item.descEu : item.descEs}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>

@@ -31,7 +31,12 @@
   },
   "About": {
     "title": "Guri buruz",
-    "subtitle": "Ezagutu BitanBat"
+    "subtitle": "Ezagutu BitanBat",
+    "teamTitle": "Gure taldea",
+    "communityTitle": "Gure familia",
+    "communitySubtitle": "Gimnasioa baino gehiago, komunitate bat gara. Eskerrik asko BitanBat osatzen duzuen guztioi.",
+    "testimonialsTitle": "Zergatik BitanBat?",
+    "testimonialsSubtitle": "Gure ikasleek kontatzen digute zergatik aukeratu zuten BitanBat"
   },
   "Classes": {
     "title": "Gure klaseak",
@@ -55,7 +60,13 @@
   },
   "Gallery": {
     "title": "Galeria",
-    "subtitle": "Gure momentuak"
+    "subtitle": "Gure momentuak Instagramen",
+    "filterAll": "Dena",
+    "filterFitness": "Fitness",
+    "filterDantza": "Dantza",
+    "filterWellness": "Wellness",
+    "filterComunidad": "Komunitatea",
+    "filterGeneral": "Orokorra"
   },
   "Prices": {
     "title": "Prezioak",

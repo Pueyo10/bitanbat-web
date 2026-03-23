@@ -31,7 +31,12 @@
   },
   "About": {
     "title": "Sobre nosotros",
-    "subtitle": "Conoce BitanBat"
+    "subtitle": "Conoce BitanBat",
+    "teamTitle": "Nuestro equipo",
+    "communityTitle": "Nuestra familia",
+    "communitySubtitle": "Mas que un gimnasio, somos una comunidad. Gracias a todos los que formais parte de BitanBat.",
+    "testimonialsTitle": "Zergatik BitanBat?",
+    "testimonialsSubtitle": "Nuestros alumnos nos cuentan por que eligieron BitanBat"
   },
   "Classes": {
     "title": "Nuestras clases",
@@ -54,8 +59,14 @@
     "friday": "Viernes"
   },
   "Gallery": {
-    "title": "Galería",
-    "subtitle": "Nuestros momentos"
+    "title": "Galeria",
+    "subtitle": "Nuestros momentos en Instagram",
+    "filterAll": "Todo",
+    "filterFitness": "Fitness",
+    "filterDantza": "Danza",
+    "filterWellness": "Wellness",
+    "filterComunidad": "Comunidad",
+    "filterGeneral": "General"
   },
   "Prices": {
     "title": "Precios",

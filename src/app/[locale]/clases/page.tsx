@@ -3,9 +3,31 @@
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import type { ClassType, ClassCategory } from "@/types/database";
 import { getLocalizedField } from "@/lib/utils";
+
+const classImages: Record<string, string> = {
+  "entrenamiento-funcional": "/media/instagram/DPyvmA2DMOz.jpg",
+  "e-funcional-txikiak": "/media/instagram/DQr2HDKjIGL.jpg",
+  pilates: "/media/instagram/DOeahntDL-l.jpg",
+  barrefit: "/media/instagram/DOeahntDL-l.jpg",
+  boxeo: "/media/instagram/DQuAp30DIEu.jpg",
+  "boxeo-txiki": "/media/instagram/DQr2HDKjIGL.jpg",
+  yoga: "/media/instagram/DUiBayBDNcI.jpg",
+  bungee: "/media/instagram/DQaCTUNjPo9.jpg",
+  bachata: "/media/instagram/DVV5mABCGfn.jpg",
+  salsa: "/media/instagram/DVV5mABCGfn.jpg",
+  sevillanas: "/media/instagram/DRkhijgjMzh.jpg",
+  urbano: "/media/instagram/DOI7CdOjLRg.jpg",
+  zumba: "/media/instagram/DS40jDNjC5W.jpg",
+  jumping: "/media/instagram/DQaCTUNjPo9.jpg",
+  masajes: "/media/instagram/DUDUHlZjPlW.jpg",
+  fitgipsy: "/media/instagram/DRkhijgjMzh.jpg",
+  predantza: "/media/instagram/DQr2HDKjIGL.jpg",
+  "hatha-vinyasa": "/media/instagram/DU5Riz4DLBU.jpg",
+};
 
 const filters: { key: string; value: ClassCategory | "all" | "kids" }[] = [
   { key: "filterAll", value: "all" },
@@ -76,36 +98,59 @@ export default function ClasesPage() {
             layout
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {filtered.map((cls) => (
-              <motion.div
-                key={cls.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow"
-              >
-                <div
-                  className="h-3"
-                  style={{ backgroundColor: cls.color }}
-                />
-                <div className="p-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {cls.name}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {getLocalizedField(cls, "description", locale)}
-                  </p>
-                  {cls.min_age && (
-                    <p className="mt-3 text-xs font-medium text-accent">
-                      {cls.min_age}
-                      {cls.max_age ? `-${cls.max_age}` : "+"}{" "}
-                      {locale === "eu" ? "urte" : "años"}
-                    </p>
+            {filtered.map((cls) => {
+              const img = classImages[cls.slug] || cls.image_url;
+              return (
+                <motion.div
+                  key={cls.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="group bg-white rounded-2xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow"
+                >
+                  {img ? (
+                    <div className="relative h-44 overflow-hidden">
+                      <Image
+                        src={img}
+                        alt={cls.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <div
+                        className="absolute bottom-3 left-3 px-3 py-1 rounded-full text-xs font-bold text-white shadow"
+                        style={{ backgroundColor: cls.color }}
+                      >
+                        {cls.name}
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className="h-3"
+                      style={{ backgroundColor: cls.color }}
+                    />
                   )}
-                </div>
-              </motion.div>
-            ))}
+                  <div className="p-5">
+                    {!img && (
+                      <h3 className="text-lg font-semibold text-foreground mb-2">
+                        {cls.name}
+                      </h3>
+                    )}
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {getLocalizedField(cls, "description", locale)}
+                    </p>
+                    {cls.min_age && (
+                      <p className="mt-3 text-xs font-medium text-accent">
+                        {cls.min_age}
+                        {cls.max_age ? `-${cls.max_age}` : "+"}{" "}
+                        {locale === "eu" ? "urte" : "anos"}
+                      </p>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </div>
