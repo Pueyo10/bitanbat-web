@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 export default function LocaleTemplate({
@@ -15,13 +14,5 @@ export default function LocaleTemplate({
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [pathname]);
 
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className="animate-fade-in">{children}</div>;
 }

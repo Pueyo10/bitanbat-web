@@ -1,12 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Play, X, Instagram, ExternalLink } from "lucide-react";
 import { getLocalizedField } from "@/lib/utils";
-import ScrollReveal from "@/components/ui/ScrollReveal";
 
 type GalleryMedia = {
   id: string;
@@ -30,6 +28,8 @@ const categoryFilters = [
   { key: "filterGeneral", value: "general" },
 ];
 
+const ITEMS_PER_PAGE = 12;
+
 export default function GalleryContent({
   allMedia,
   locale,
@@ -40,6 +40,8 @@ export default function GalleryContent({
   const t = useTranslations("Gallery");
   const [selectedMedia, setSelectedMedia] = useState<GalleryMedia | null>(null);
   const [activeFilter, setActiveFilter] = useState("all");
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
 
   const filteredMedia = useMemo(
     () =>
@@ -48,6 +50,32 @@ export default function GalleryContent({
         : allMedia.filter((m) => m.category === activeFilter),
     [activeFilter, allMedia]
   );
+
+  const visibleMedia = filteredMedia.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredMedia.length;
+
+  // Reset visible count on filter change
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE);
+  }, [activeFilter]);
+
+  // Infinite scroll: load more when sentinel is visible
+  useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisibleCount((prev) => prev + ITEMS_PER_PAGE);
+        }
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasMore, visibleCount]);
 
   const getCaption = (media: GalleryMedia) =>
     getLocalizedField(media, "caption", locale) || "";
@@ -71,7 +99,7 @@ export default function GalleryContent({
     <>
       <section className="py-16 md:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal className="flex flex-wrap justify-center gap-2 mb-12">
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
             {categoryFilters.map((f) => (
               <button
                 key={f.value}
@@ -86,26 +114,18 @@ export default function GalleryContent({
                 {t(f.key)}
               </button>
             ))}
-          </ScrollReveal>
+          </div>
 
           {filteredMedia.length === 0 ? (
             <div className="text-center py-20 text-muted-foreground">
               <p className="text-lg">Proximamente...</p>
             </div>
           ) : (
-            <motion.div
-              layout
-              className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4"
-            >
-              <AnimatePresence mode="popLayout">
-                {filteredMedia.map((media) => (
-                  <motion.div
+            <>
+              <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+                {visibleMedia.map((media) => (
+                  <div
                     key={media.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.3 }}
                     className="break-inside-avoid cursor-pointer group"
                     onClick={() => setSelectedMedia(media)}
                   >
@@ -117,7 +137,7 @@ export default function GalleryContent({
                             poster={media.poster}
                             muted
                             playsInline
-                            preload="metadata"
+                            preload="none"
                             className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                           <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10">
@@ -132,6 +152,7 @@ export default function GalleryContent({
                           alt={getCaption(media) || `BitanBat ${media.id}`}
                           width={600}
                           height={400}
+                          loading="lazy"
                           className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       )}
@@ -156,85 +177,84 @@ export default function GalleryContent({
                         </a>
                       )}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
-              </AnimatePresence>
-            </motion.div>
+              </div>
+
+              {/* Infinite scroll sentinel */}
+              {hasMore && (
+                <div ref={loadMoreRef} className="flex justify-center py-8">
+                  <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {selectedMedia && (
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label={getCaption(selectedMedia) || "Galería"}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+      {selectedMedia && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={getCaption(selectedMedia) || "Galería"}
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-fade-in"
+          onClick={closeLightbox}
+        >
+          <button
+            className="absolute top-4 right-4 text-white/70 hover:text-white z-10"
             onClick={closeLightbox}
+            aria-label="Cerrar"
+            autoFocus
           >
-            <button
-              className="absolute top-4 right-4 text-white/70 hover:text-white z-10"
-              onClick={closeLightbox}
-              aria-label="Cerrar"
-              autoFocus
-            >
-              <X size={32} />
-            </button>
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              className="max-w-4xl w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {selectedMedia.type === "video" ? (
-                <video
-                  src={selectedMedia.url}
-                  poster={selectedMedia.poster}
-                  controls
-                  autoPlay
-                  playsInline
-                  className="max-h-[80vh] max-w-full mx-auto rounded-lg"
-                />
-              ) : (
-                <Image
-                  src={selectedMedia.url}
-                  alt={
-                    getCaption(selectedMedia) ||
-                    `BitanBat ${selectedMedia.id}`
-                  }
-                  width={1200}
-                  height={800}
-                  className="max-h-[80vh] w-auto mx-auto object-contain rounded-lg"
-                />
-              )}
-              {getCaption(selectedMedia) && (
-                <div className="text-center mt-4">
-                  <p className="text-white/90 text-sm md:text-base">
-                    {getCaption(selectedMedia)}
-                  </p>
-                  {selectedMedia.instagramUrl && (
-                    <a
-                      href={selectedMedia.instagramUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 mt-2 text-accent/80 hover:text-accent text-sm transition-colors"
-                    >
-                      <Instagram size={14} />
-                      Ver en Instagram
-                    </a>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <X size={32} />
+          </button>
+          <div
+            className="max-w-4xl w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {selectedMedia.type === "video" ? (
+              <video
+                src={selectedMedia.url}
+                poster={selectedMedia.poster}
+                controls
+                autoPlay
+                playsInline
+                className="max-h-[80vh] max-w-full mx-auto rounded-lg"
+              />
+            ) : (
+              <Image
+                src={selectedMedia.url}
+                alt={
+                  getCaption(selectedMedia) ||
+                  `BitanBat ${selectedMedia.id}`
+                }
+                width={1200}
+                height={800}
+                className="max-h-[80vh] w-auto mx-auto object-contain rounded-lg"
+              />
+            )}
+            {getCaption(selectedMedia) && (
+              <div className="text-center mt-4">
+                <p className="text-white/90 text-sm md:text-base">
+                  {getCaption(selectedMedia)}
+                </p>
+                {selectedMedia.instagramUrl && (
+                  <a
+                    href={selectedMedia.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-2 text-accent/80 hover:text-accent text-sm transition-colors"
+                  >
+                    <Instagram size={14} />
+                    Ver en Instagram
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 }

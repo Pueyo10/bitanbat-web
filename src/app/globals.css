@@ -77,3 +77,45 @@ html {
 .animate-ken-burns {
   animation: ken-burns 25s ease-in-out infinite alternate;
 }
+
+/* Page transition fade-in */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out;
+}
+
+/* Scroll reveal - CSS only */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes reveal-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.scroll-reveal {
+  opacity: 0;
+}
+
+.scroll-reveal.is-visible {
+  animation: reveal-up 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.scroll-reveal.slide-left.is-visible {
+  animation: reveal-left 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}
+
+.scroll-reveal.slide-right.is-visible {
+  animation: reveal-right 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+}

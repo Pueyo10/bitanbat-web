@@ -2,10 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 type MosaicItem =
   | { type: "image"; src: string }
@@ -15,29 +14,21 @@ const MOSAIC_SETS: MosaicItem[][] = [
   [
     { type: "image", src: "/media/instagram/DPcKgNdDLja.jpg" },
     { type: "image", src: "/media/instagram/DKtuhk7tJls.jpg" },
-    { type: "image", src: "/media/instagram/CovIjuOr--K.jpg" },
+    { type: "video", src: "/media/instagram/C3zoi2aN0yy.mp4", poster: "/media/instagram/C3zoi2aN0yy.jpg" },
     { type: "image", src: "/media/instagram/CoX5o7xrQiU.jpg" },
     { type: "image", src: "/media/instagram/CysgTyXN9bz.jpg" },
-    { type: "image", src: "/media/instagram/C-AdHmMNp8P.jpg" },
-    {
-      type: "video",
-      src: "/media/instagram/C3zoi2aN0yy.mp4",
-      poster: "/media/instagram/C3zoi2aN0yy.jpg",
-    },
+    { type: "video", src: "/media/instagram/C-AdHmMNp8P.mp4", poster: "/media/instagram/C-AdHmMNp8P.jpg" },
+    { type: "image", src: "/media/instagram/CovIjuOr--K.jpg" },
     { type: "image", src: "/media/instagram/DJJhZLJtVmm.jpg" },
   ],
   [
+    { type: "video", src: "/media/instagram/C-DFo4ftz8W.mp4", poster: "/media/instagram/C-DFo4ftz8W.jpg" },
     { type: "image", src: "/media/instagram/DJFCIaxNdyR.jpg" },
     { type: "image", src: "/media/instagram/CqfHvhRt4KD.jpg" },
-    { type: "image", src: "/media/instagram/C1rjE4Ttcmt.jpg" },
-    { type: "image", src: "/media/instagram/C-DFo4ftz8W.jpg" },
+    { type: "video", src: "/media/instagram/C1rjE4Ttcmt.mp4", poster: "/media/instagram/C1rjE4Ttcmt.jpg" },
     { type: "image", src: "/media/instagram/C5wdLZ4N8yY.jpg" },
+    { type: "video", src: "/media/instagram/C56VQfcNr-m.mp4", poster: "/media/instagram/C56VQfcNr-m.jpg" },
     { type: "image", src: "/media/instagram/DSdoc0ngpqV.jpg" },
-    {
-      type: "video",
-      src: "/media/instagram/C-DFo4ftz8W.mp4",
-      poster: "/media/instagram/C-DFo4ftz8W.jpg",
-    },
     { type: "image", src: "/media/instagram/C3zoi2aN0yy.jpg" },
   ],
 ];
@@ -45,29 +36,25 @@ const MOSAIC_SETS: MosaicItem[][] = [
 export default function Hero() {
   const t = useTranslations("Hero");
   const [activeSet, setActiveSet] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.4, 0.9]);
+  const [secondSetLoaded, setSecondSetLoaded] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => setSecondSetLoaded(true), 3000);
     const interval = setInterval(() => {
       setActiveSet((prev) => (prev + 1) % MOSAIC_SETS.length);
     }, 8000);
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+    };
   }, []);
 
+  const sets = [MOSAIC_SETS[0], ...(secondSetLoaded ? [MOSAIC_SETS[1]] : [])];
+
   return (
-    <section
-      ref={sectionRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden bg-primary"
-    >
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-primary">
       {/* Background mosaic */}
-      {MOSAIC_SETS.map((set, setIndex) => (
+      {sets.map((set, setIndex) => (
         <div
           key={setIndex}
           className={`absolute inset-0 grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 transition-opacity duration-[2000ms] ${
@@ -86,6 +73,7 @@ export default function Hero() {
                   className="object-cover grayscale opacity-35 animate-ken-burns"
                   style={{ animationDelay: `${i * 3}s` }}
                   priority={setIndex === 0}
+                  loading={setIndex === 0 ? undefined : "lazy"}
                 />
               ) : (
                 <video
@@ -106,55 +94,28 @@ export default function Hero() {
         </div>
       ))}
 
-      {/* Parallax overlay */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-b from-primary/50 via-primary/30 to-primary/70"
-        style={{ opacity: overlayOpacity }}
-      />
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/50 via-primary/30 to-primary/70" />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-accent text-sm md:text-base tracking-[0.3em] uppercase font-medium mb-8"
-        >
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto animate-fade-in">
+        <p className="text-accent text-sm md:text-base tracking-[0.3em] uppercase font-medium mb-8">
           {t("tagline")}
-        </motion.p>
+        </p>
 
-        {/* Main heading - bold, dramatic */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 leading-[0.9] tracking-tight"
-        >
+        <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 leading-[0.9] tracking-tight">
           {t("title")}
           <br />
           <span className="text-accent">{t("titleAccent")}</span>
           <br />
           {t("titleEnd")}
-        </motion.h1>
+        </h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto"
-        >
+        <p className="text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto">
           {t("subtitle")}
-        </motion.p>
+        </p>
 
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/horarios"
             className="px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300 shadow-lg"
@@ -167,23 +128,13 @@ export default function Hero() {
           >
             {t("ctaSecondary")}
           </Link>
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        >
-          <ChevronDown className="text-white/40" size={28} />
-        </motion.div>
-      </motion.div>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <ChevronDown className="text-white/40" size={28} />
+      </div>
     </section>
   );
 }

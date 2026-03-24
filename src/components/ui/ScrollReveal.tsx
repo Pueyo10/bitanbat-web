@@ -1,27 +1,14 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 type Variant = "fade-up" | "fade-in" | "slide-left" | "slide-right";
 
-const variants: Record<Variant, Variants> = {
-  "fade-up": {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0 },
-  },
-  "fade-in": {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  },
-  "slide-left": {
-    hidden: { opacity: 0, x: -40 },
-    visible: { opacity: 1, x: 0 },
-  },
-  "slide-right": {
-    hidden: { opacity: 0, x: 40 },
-    visible: { opacity: 1, x: 0 },
-  },
+const variantClass: Record<Variant, string> = {
+  "fade-up": "",
+  "fade-in": "",
+  "slide-left": "slide-left",
+  "slide-right": "slide-right",
 };
 
 export default function ScrollReveal({
@@ -35,16 +22,36 @@ export default function ScrollReveal({
   delay?: number;
   className?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (delay > 0) {
+            setTimeout(() => el.classList.add("is-visible"), delay * 1000);
+          } else {
+            el.classList.add("is-visible");
+          }
+          observer.unobserve(el);
+        }
+      },
+      { rootMargin: "-60px", threshold: 0.01 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay]);
+
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={variants[variant]}
-      transition={{ duration: 0.7, delay, ease: [0.25, 0.1, 0.25, 1] }}
-      className={className}
+    <div
+      ref={ref}
+      className={`scroll-reveal ${variantClass[variant]} ${className}`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
