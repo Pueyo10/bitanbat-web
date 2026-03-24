@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -41,10 +41,13 @@ export default function GalleryContent({
   const [selectedMedia, setSelectedMedia] = useState<GalleryMedia | null>(null);
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const filteredMedia =
-    activeFilter === "all"
-      ? allMedia
-      : allMedia.filter((m) => m.category === activeFilter);
+  const filteredMedia = useMemo(
+    () =>
+      activeFilter === "all"
+        ? allMedia
+        : allMedia.filter((m) => m.category === activeFilter),
+    [activeFilter, allMedia]
+  );
 
   const getCaption = (media: GalleryMedia) =>
     getLocalizedField(media, "caption", locale) || "";

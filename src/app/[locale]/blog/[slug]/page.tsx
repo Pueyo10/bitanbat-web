@@ -5,7 +5,26 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createBuildClient } from "@/lib/supabase/client";
+import { routing } from "@/i18n/routing";
 import sanitizeHtml from "sanitize-html";
+
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  const supabase = createBuildClient();
+  const { data: posts } = await supabase
+    .from("blog_posts")
+    .select("slug")
+    .eq("published", true);
+
+  return (posts || []).flatMap((post) =>
+    routing.locales.map((locale) => ({
+      locale,
+      slug: post.slug,
+    }))
+  );
+}
 
 export default async function BlogPostPage({
   params,

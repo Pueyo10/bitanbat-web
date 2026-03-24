@@ -6,6 +6,8 @@ import instagramMedia from "@/data/instagram-media.json";
 import PageHero from "@/components/ui/PageHero";
 import GalleryContent from "./GalleryContent";
 
+export const revalidate = 3600;
+
 type GalleryMedia = {
   id: string;
   type: "image" | "video";

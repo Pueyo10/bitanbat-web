@@ -93,6 +93,7 @@ export default function Hero() {
                   loop
                   muted
                   playsInline
+                  preload="none"
                   poster={item.poster}
                   className="absolute inset-0 w-full h-full object-cover grayscale opacity-35 animate-ken-burns"
                   style={{ animationDelay: `${i * 3}s` }}

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { BlogPost } from "@/types/database";
+
+export const revalidate = 3600;
 import { getLocalizedField } from "@/lib/utils";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";

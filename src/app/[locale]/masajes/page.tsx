@@ -1,43 +1,100 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { Phone } from "lucide-react";
+import { Phone, Play, Pause } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
+function VideoPlayer({ src, poster }: { src: string; poster: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  const toggle = () => {
+    const v = ref.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+  };
+
+  return (
+    <div className="rounded-lg overflow-hidden relative group cursor-pointer" onClick={toggle}>
+      <video
+        ref={ref}
+        src={src}
+        poster={poster}
+        playsInline
+        preload="none"
+        className="w-full"
+        onEnded={() => setPlaying(false)}
+      />
+      <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity duration-300 ${playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"}`}>
+        <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+          {playing ? <Pause size={24} className="text-primary" /> : <Play size={24} className="text-primary ml-1" />}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const treatments = [
-  {
-    id: "quiromasaje",
-    image: "/media/instagram/ClTYGnaNqXA.jpg",
-    price: "38",
-    duration: "50 min",
-  },
-  {
-    id: "descontracturante",
-    image: "/media/instagram/CoDWQMELtOh.jpg",
-    price: "42",
-    duration: "50 min",
-  },
   {
     id: "ventosas",
     image: "/media/instagram/CmJ86qCNkAa.jpg",
     price: "40",
-    duration: "45 min",
+    memberPrice: "35",
+  },
+  {
+    id: "drenajelinfatico",
+    image: "/media/instagram/CoDWQMELtOh.jpg",
+    price: "40",
+    memberPrice: "35",
   },
   {
     id: "reflexologia",
     image: "/media/instagram/CoDWQMELtOh.jpg",
-    price: "38",
-    duration: "45 min",
+    price: "40",
+    memberPrice: "35",
+  },
+  {
+    id: "descontracturante",
+    image: "/media/instagram/ClTYGnaNqXA.jpg",
+    price: "40",
+    memberPrice: "35",
+  },
+  {
+    id: "relajante",
+    image: "/media/instagram/DUDUHlZjPlW.jpg",
+    price: "40",
+    memberPrice: "35",
   },
   {
     id: "maderoterapia",
     image: "/media/instagram/CmWMSL8tXuX.jpg",
-    price: "45",
-    duration: "50 min",
+    price: "40",
+    memberPrice: "35",
+  },
+  {
+    id: "craneo",
+    image: "/media/instagram/CmJ86qCNkAa.jpg",
+    price: "40",
+    memberPrice: "35",
+  },
+  {
+    id: "bitanbat",
+    image: "/media/instagram/ClTYGnaNqXA.jpg",
+    price: "65",
+    memberPrice: "60",
+    duration: "90 min",
+    featured: true,
   },
 ];
 
@@ -110,26 +167,8 @@ export default function MasajesPage() {
           </ScrollReveal>
           <ScrollReveal>
             <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <div className="rounded-lg overflow-hidden">
-                <video
-                  src="/media/instagram/DUDUHlZjPlW.mp4"
-                  poster="/media/instagram/DUDUHlZjPlW.jpg"
-                  controls
-                  playsInline
-                  preload="none"
-                  className="w-full"
-                />
-              </div>
-              <div className="rounded-lg overflow-hidden">
-                <video
-                  src="/media/instagram/DWMe9ngjCSl.mp4"
-                  poster="/media/instagram/DWMe9ngjCSl.jpg"
-                  controls
-                  playsInline
-                  preload="none"
-                  className="w-full"
-                />
-              </div>
+              <VideoPlayer src="/media/instagram/DUDUHlZjPlW.mp4" poster="/media/instagram/DUDUHlZjPlW.jpg" />
+              <VideoPlayer src="/media/instagram/DWMe9ngjCSl.mp4" poster="/media/instagram/DWMe9ngjCSl.jpg" />
             </div>
           </ScrollReveal>
         </div>
@@ -150,35 +189,45 @@ export default function MasajesPage() {
             </p>
           </ScrollReveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {treatments.map((treatment, i) => (
-              <ScrollReveal key={treatment.id} delay={i * 0.08}>
-                <div className="group rounded-lg overflow-hidden bg-muted">
-                  <div className="relative h-56 overflow-hidden">
+              <ScrollReveal key={treatment.id} delay={i * 0.06}>
+                <div className={`group rounded-lg overflow-hidden bg-muted ${treatment.featured ? "ring-2 ring-accent sm:col-span-2 lg:col-span-1" : ""}`}>
+                  <div className="relative h-48 overflow-hidden">
                     <Image
                       src={treatment.image}
                       alt={t(`${treatment.id}Name`)}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
+                    {treatment.featured && (
+                      <div className="absolute top-3 left-3 bg-accent text-primary text-xs font-bold px-3 py-1 rounded-full">
+                        PREMIUM
+                      </div>
+                    )}
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-heading text-xl font-bold text-foreground mb-2">
+                  <div className="p-5">
+                    <h3 className="font-heading text-lg font-bold text-foreground mb-1.5">
                       {t(`${treatment.id}Name`)}
                     </h3>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                       {t(`${treatment.id}Desc`)}
                     </p>
                     <div className="flex items-end justify-between">
-                      <div>
+                      <div className="space-y-0.5">
                         <span className="font-heading text-2xl font-bold text-accent">
                           {treatment.price}&euro;
                         </span>
+                        <p className="text-xs text-muted-foreground">
+                          {t("memberPrice")}: <span className="font-semibold text-foreground">{treatment.memberPrice}&euro;</span>
+                        </p>
                       </div>
-                      <span className="text-muted-foreground text-sm">
-                        {treatment.duration}
-                      </span>
+                      {treatment.duration && (
+                        <span className="text-muted-foreground text-sm">
+                          {treatment.duration}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

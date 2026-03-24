@@ -4,6 +4,8 @@ import type { ClassType } from "@/types/database";
 import PageHero from "@/components/ui/PageHero";
 import ClassesContent from "./ClassesContent";
 
+export const revalidate = 3600;
+
 export default async function ClasesPage({
   params,
 }: {

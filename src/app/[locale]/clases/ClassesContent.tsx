@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -47,11 +47,11 @@ export default function ClassesContent({
   const t = useTranslations("Classes");
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
-  const filtered = classes.filter((c) => {
-    if (activeFilter === "all") return true;
-    if (activeFilter === "kids") return c.min_age !== null;
-    return c.category === activeFilter;
-  });
+  const filtered = useMemo(() => {
+    if (activeFilter === "all") return classes;
+    if (activeFilter === "kids") return classes.filter((c) => c.min_age !== null);
+    return classes.filter((c) => c.category === activeFilter);
+  }, [activeFilter, classes]);
 
   return (
     <>
