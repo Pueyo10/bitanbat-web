@@ -6,6 +6,7 @@ import { MapPin, Phone, Instagram } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import VideoPlayer from "@/components/ui/VideoPlayer";
 
 export default function SobreNosotrosPage() {
   const t = useTranslations("About");
@@ -78,15 +79,8 @@ export default function SobreNosotrosPage() {
             <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
               {t("communitySubtitle")}
             </p>
-            <div className="max-w-2xl mx-auto rounded-lg overflow-hidden aspect-video">
-              <video
-                src="/media/instagram/DM0z5uHNGa5.mp4"
-                poster="/media/instagram/DM0z5uHNGa5.jpg"
-                controls
-                playsInline
-                preload="none"
-                className="w-full h-full object-cover"
-              />
+            <div className="max-w-2xl mx-auto">
+              <VideoPlayer src="/media/instagram/DM0z5uHNGa5.mp4" poster="/media/instagram/DM0z5uHNGa5.jpg" />
             </div>
           </ScrollReveal>
 
@@ -103,26 +97,8 @@ export default function SobreNosotrosPage() {
                 {t("testimonialsSubtitle")}
               </p>
               <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <div className="rounded-lg overflow-hidden aspect-video">
-                  <video
-                    src="/media/instagram/DS28hFZDNUA.mp4"
-                    poster="/media/instagram/DS28hFZDNUA.jpg"
-                    controls
-                    playsInline
-                    preload="none"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="rounded-lg overflow-hidden aspect-video">
-                  <video
-                    src="/media/instagram/DSz35eLDIio.mp4"
-                    poster="/media/instagram/DSz35eLDIio.jpg"
-                    controls
-                    playsInline
-                    preload="none"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <VideoPlayer src="/media/instagram/DS28hFZDNUA.mp4" poster="/media/instagram/DS28hFZDNUA.jpg" />
+                <VideoPlayer src="/media/instagram/DSz35eLDIio.mp4" poster="/media/instagram/DSz35eLDIio.jpg" />
               </div>
             </div>
           </ScrollReveal>
