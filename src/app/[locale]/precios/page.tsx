@@ -104,7 +104,6 @@ export default async function PreciosPage({
 
       {/* ── DANTZA ─────────────────────────────────────── */}
       <section className="py-16 md:py-24 bg-[#0a0a0a] relative overflow-hidden">
-        {/* Subtle background pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(200,170,110,0.03)_0%,transparent_70%)]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -123,11 +122,9 @@ export default async function PreciosPage({
             {dantzaDisciplines.map((discipline, i) => (
               <ScrollReveal key={discipline.name} delay={i * 0.06}>
                 <div className="group relative h-full">
-                  {/* Glow effect on hover */}
                   <div className={`absolute -inset-0.5 bg-gradient-to-b ${discipline.color} rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
 
-                  <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 h-full hover:border-white/20 transition-all duration-300">
-                    {/* Colored top accent line */}
+                  <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                     <div className={`absolute top-0 left-6 right-6 h-[2px] ${discipline.accent} rounded-full opacity-60`} />
 
                     <h3 className="font-heading text-xl font-bold text-white mb-4 mt-1">
@@ -144,10 +141,10 @@ export default async function PreciosPage({
                             {opt.hours} / {locale === "eu" ? "astean" : "sem"}
                           </span>
                           <div className="text-right">
-                            <span className="font-heading text-2xl font-bold text-accent">
+                            <span className="font-heading text-2xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
                               {opt.price}
                             </span>
-                            <span className="text-accent/60 text-sm">€</span>
+                            <span className="text-accent/50 text-sm font-heading">€</span>
                             <span className="text-white/30 text-xs ml-1">{t("perMonth")}</span>
                           </div>
                         </div>
@@ -161,9 +158,12 @@ export default async function PreciosPage({
         </div>
       </section>
 
+      {/* Section divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+
       {/* ── FITNESS ────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(200,170,110,0.05)_0%,transparent_50%)]" />
+      <section className="py-16 md:py-24 bg-[#070707] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(200,170,110,0.04)_0%,transparent_50%)]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <ScrollReveal>
@@ -171,11 +171,11 @@ export default async function PreciosPage({
               <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-3">
                 {t("fitnessDesc")}
               </p>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
                 {t("fitness")}
               </h2>
             </div>
-            <p className="text-center text-xs text-muted-foreground mb-12 max-w-lg mx-auto">
+            <p className="text-center text-xs text-white/40 mb-12 max-w-lg mx-auto">
               {t("fitnessClasses")}
             </p>
           </ScrollReveal>
@@ -183,44 +183,65 @@ export default async function PreciosPage({
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {fitnessPrices.map((item, i) => (
               <ScrollReveal key={item.sessions} delay={i * 0.06}>
-                <div className={`group relative h-full ${item.popular ? "z-10" : ""}`}>
-                  {/* Popular card glow */}
-                  {item.popular && (
-                    <div className="absolute -inset-1 bg-gradient-to-b from-accent/40 to-accent/10 rounded-2xl blur-md" />
-                  )}
+                {item.popular ? (
+                  /* ── Popular card: animated gradient border + glow ── */
+                  <div className="relative z-10 h-full">
+                    {/* Outer glow pulse */}
+                    <div className="absolute -inset-3 bg-accent/15 rounded-3xl blur-xl animate-glow-pulse" />
 
-                  <div
-                    className={`relative text-center p-5 rounded-2xl border transition-all duration-300 h-full flex flex-col justify-center ${
-                      item.popular
-                        ? "bg-accent border-accent/50 shadow-2xl shadow-accent/20 scale-105"
-                        : "bg-white border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 hover:-translate-y-1"
-                    }`}
-                  >
-                    {item.popular && (
-                      <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                        <span className="bg-primary text-accent text-[10px] font-bold px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap shadow-lg">
-                          <Star size={10} fill="currentColor" />
-                          {t("featured")}
-                        </span>
+                    {/* Badge above border container */}
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+                      <span className="bg-accent text-primary text-[10px] font-bold px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap shadow-lg">
+                        <Star size={10} fill="currentColor" />
+                        {t("featured")}
+                      </span>
+                    </div>
+
+                    {/* Animated border container */}
+                    <div className="relative rounded-2xl p-[1.5px] overflow-hidden h-full">
+                      <div className="absolute inset-[-200%] animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
+                      <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 pt-6 text-center h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                        <p className="text-xs mb-1 text-white/50">
+                          {item.sessions} {t("sessions")}
+                        </p>
+                        <div>
+                          <span className="font-heading text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                            {item.price}
+                          </span>
+                          <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                        </div>
+                        <p className="text-[10px] mt-2 text-white/30">
+                          {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
+                        </p>
                       </div>
-                    )}
-                    <p className={`text-xs mb-1 ${item.popular ? "text-primary/60" : "text-muted-foreground"}`}>
-                      {item.sessions} {t("sessions")}
-                    </p>
-                    <p className={`font-heading text-4xl font-bold leading-none ${item.popular ? "text-primary" : "text-foreground"}`}>
-                      {item.price}
-                      <span className={`text-lg ${item.popular ? "text-primary/60" : "text-muted-foreground"}`}>€</span>
-                    </p>
-                    <p className={`text-[10px] mt-2 ${item.popular ? "text-primary/50" : "text-muted-foreground/70"}`}>
-                      {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
-                    </p>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  /* ── Regular fitness card ── */
+                  <div className="group relative h-full">
+                    <div className="relative text-center p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                      <p className="text-xs mb-1 text-white/40">
+                        {item.sessions} {t("sessions")}
+                      </p>
+                      <div>
+                        <span className="font-heading text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                          {item.price}
+                        </span>
+                        <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                      </div>
+                      <p className="text-[10px] mt-2 text-white/30">
+                        {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
+
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
       {/* ── BOXEO + YOGA ──────────────────────────────── */}
       <section className="py-16 md:py-24 bg-[#0a0a0a] relative overflow-hidden">
@@ -232,7 +253,7 @@ export default async function PreciosPage({
             <ScrollReveal>
               <div className="group relative h-full">
                 <div className="absolute -inset-0.5 bg-gradient-to-b from-red-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
-                <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300">
+                <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                   <div className="absolute top-0 left-8 right-8 h-[2px] bg-red-500 rounded-full opacity-60" />
                   <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1">
                     {t("boxeo")}
@@ -246,10 +267,12 @@ export default async function PreciosPage({
                         <p className="text-xs text-white/40 mb-2">
                           {item.sessions} {t("sessions")}
                         </p>
-                        <p className="font-heading text-3xl font-bold text-accent leading-none">
-                          {item.price}
-                          <span className="text-lg text-accent/50">€</span>
-                        </p>
+                        <div>
+                          <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                            {item.price}
+                          </span>
+                          <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                        </div>
                         <p className="text-[10px] text-white/30 mt-2">
                           {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
                         </p>
@@ -264,7 +287,7 @@ export default async function PreciosPage({
             <ScrollReveal delay={0.1}>
               <div className="group relative h-full">
                 <div className="absolute -inset-0.5 bg-gradient-to-b from-purple-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
-                <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300">
+                <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                   <div className="absolute top-0 left-8 right-8 h-[2px] bg-purple-500 rounded-full opacity-60" />
                   <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1">
                     {t("yoga")}
@@ -279,10 +302,10 @@ export default async function PreciosPage({
                           {item.sessions} {t("sessions")}
                         </span>
                         <div className="text-right">
-                          <span className="font-heading text-2xl font-bold text-accent">
+                          <span className="font-heading text-2xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
                             {item.price}
                           </span>
-                          <span className="text-accent/50 text-sm">€</span>
+                          <span className="text-accent/50 text-sm font-heading">€</span>
                           <p className="text-[10px] text-white/30 mt-0.5">
                             {t("yogaStudents")}:{" "}
                             <span className="text-white/60 font-semibold">
@@ -300,9 +323,11 @@ export default async function PreciosPage({
         </div>
       </section>
 
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+
       {/* ── MASAJES ────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(121,85,72,0.05)_0%,transparent_60%)]" />
+      <section className="py-16 md:py-24 bg-[#070707] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(200,170,110,0.04)_0%,transparent_60%)]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <ScrollReveal>
@@ -310,7 +335,7 @@ export default async function PreciosPage({
               <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-3">
                 {t("masajesDesc")}
               </p>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
                 {t("masajes")}
               </h2>
             </div>
@@ -319,46 +344,55 @@ export default async function PreciosPage({
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
             {masajeTreatments.map((name, i) => (
               <ScrollReveal key={name} delay={i * 0.04}>
-                <div className="group text-center p-5 rounded-2xl bg-white border border-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 hover:-translate-y-1 transition-all duration-300">
-                  <p className="font-medium text-foreground text-sm mb-3">{name}</p>
-                  <p className="font-heading text-3xl font-bold text-foreground leading-none">
-                    40<span className="text-lg text-muted-foreground">€</span>
-                  </p>
-                  <div className="w-8 h-[1px] bg-border mx-auto my-2.5" />
-                  <p className="text-xs text-muted-foreground">
+                <div className="group text-center p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                  <p className="font-medium text-white text-sm mb-3">{name}</p>
+                  <div>
+                    <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                      40
+                    </span>
+                    <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                  </div>
+                  <div className="w-8 h-[1px] bg-white/[0.08] mx-auto my-2.5" />
+                  <p className="text-xs text-white/40">
                     <Users size={10} className="inline mr-1" />
                     {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
-                    <span className="font-bold text-accent">35€</span>
+                    <span className="font-bold text-accent/80">35€</span>
                   </p>
                 </div>
               </ScrollReveal>
             ))}
 
-            {/* Premium BitanBat */}
+            {/* Premium BitanBat - animated gradient border */}
             <ScrollReveal delay={masajeTreatments.length * 0.04}>
-              <div className="group relative text-center p-5 rounded-2xl overflow-hidden">
-                {/* Gradient border effect */}
-                <div className="absolute inset-0 bg-gradient-to-b from-accent via-accent/50 to-accent/20 rounded-2xl" />
-                <div className="absolute inset-[1.5px] bg-primary rounded-[14px]" />
+              <div className="relative">
+                {/* Outer glow pulse */}
+                <div className="absolute -inset-2 bg-accent/10 rounded-3xl blur-xl animate-glow-pulse" />
 
-                <div className="relative">
-                  <div className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[10px] font-bold px-3 py-1 rounded-full mb-3">
-                    <Crown size={10} />
-                    PREMIUM
+                {/* Animated border container */}
+                <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
+                  <div className="absolute inset-[-200%] animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
+                  <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                    <div className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[10px] font-bold px-3 py-1 rounded-full mb-3 border border-accent/20">
+                      <Crown size={10} />
+                      PREMIUM
+                    </div>
+                    <p className="font-medium text-white text-sm mb-3">
+                      Masaje BitanBat
+                    </p>
+                    <div>
+                      <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                        65
+                      </span>
+                      <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                    </div>
+                    <div className="w-8 h-[1px] bg-white/[0.08] mx-auto my-2.5" />
+                    <p className="text-xs text-white/40">
+                      <Users size={10} className="inline mr-1" />
+                      {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
+                      <span className="font-bold text-accent/80">60€</span>
+                    </p>
+                    <p className="text-[10px] text-white/25 mt-1">90 min</p>
                   </div>
-                  <p className="font-medium text-white text-sm mb-3">
-                    Masaje BitanBat
-                  </p>
-                  <p className="font-heading text-3xl font-bold text-accent leading-none">
-                    65<span className="text-lg text-accent/50">€</span>
-                  </p>
-                  <div className="w-8 h-[1px] bg-white/10 mx-auto my-2.5" />
-                  <p className="text-xs text-white/40">
-                    <Users size={10} className="inline mr-1" />
-                    {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
-                    <span className="font-bold text-accent/80">60€</span>
-                  </p>
-                  <p className="text-[10px] text-white/30 mt-1">90 min</p>
                 </div>
               </div>
             </ScrollReveal>
@@ -376,6 +410,8 @@ export default async function PreciosPage({
           </ScrollReveal>
         </div>
       </section>
+
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
       {/* ── DESCUENTOS ─────────────────────────────────── */}
       <section className="py-16 md:py-24 bg-[#0a0a0a] relative overflow-hidden">
@@ -397,7 +433,7 @@ export default async function PreciosPage({
             <ScrollReveal>
               <div className="group relative">
                 <div className="absolute -inset-0.5 bg-gradient-to-b from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
-                <div className="relative flex items-center gap-5 p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-accent/20 transition-all duration-300">
+                <div className="relative flex items-center gap-5 p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-accent/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/10 flex items-center justify-center shrink-0">
                     <Users size={22} className="text-accent" />
                   </div>
@@ -414,7 +450,7 @@ export default async function PreciosPage({
             <ScrollReveal delay={0.1}>
               <div className="group relative">
                 <div className="absolute -inset-0.5 bg-gradient-to-b from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
-                <div className="relative flex items-center gap-5 p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-accent/20 transition-all duration-300">
+                <div className="relative flex items-center gap-5 p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-accent/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                   <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/10 flex items-center justify-center shrink-0">
                     <span className="text-accent font-heading font-bold text-xl">10€</span>
                   </div>

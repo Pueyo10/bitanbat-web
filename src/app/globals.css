@@ -119,3 +119,21 @@ html {
 .scroll-reveal.slide-right.is-visible {
   animation: reveal-right 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
 }
+
+/* Animated border rotation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 4s linear infinite;
+}
+
+/* Glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
