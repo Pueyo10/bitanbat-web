@@ -47,22 +47,28 @@ export default function GalleryContent({
     () =>
       activeFilter === "all"
         ? allMedia
-        : allMedia.filter((m) => m.category === activeFilter),
+        : allMedia.filter((media) => media.category === activeFilter),
     [activeFilter, allMedia]
+  );
+  const categoryCount = useMemo(
+    () => new Set(allMedia.map((media) => media.category).filter(Boolean)).size,
+    [allMedia]
+  );
+  const videoCount = useMemo(
+    () => allMedia.filter((media) => media.type === "video").length,
+    [allMedia]
   );
 
   const visibleMedia = filteredMedia.slice(0, visibleCount);
   const hasMore = visibleCount < filteredMedia.length;
 
-  // Reset visible count on filter change
   useEffect(() => {
     setVisibleCount(ITEMS_PER_PAGE);
   }, [activeFilter]);
 
-  // Infinite scroll: load more when sentinel is visible
   useEffect(() => {
-    const el = loadMoreRef.current;
-    if (!el || !hasMore) return;
+    const element = loadMoreRef.current;
+    if (!element || !hasMore) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -73,9 +79,9 @@ export default function GalleryContent({
       { rootMargin: "200px" }
     );
 
-    observer.observe(el);
+    observer.observe(element);
     return () => observer.disconnect();
-  }, [hasMore, visibleCount]);
+  }, [hasMore]);
 
   const getCaption = (media: GalleryMedia) =>
     getLocalizedField(media, "caption", locale) || "";
@@ -85,8 +91,8 @@ export default function GalleryContent({
   useEffect(() => {
     if (!selectedMedia) return;
     document.body.style.overflow = "hidden";
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") closeLightbox();
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") closeLightbox();
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -97,39 +103,91 @@ export default function GalleryContent({
 
   return (
     <>
-      <section className="py-16 md:py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {categoryFilters.map((f) => (
-              <button
-                key={f.value}
-                onClick={() => setActiveFilter(f.value)}
-                aria-pressed={activeFilter === f.value}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
-                  activeFilter === f.value
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-transparent text-muted-foreground border border-border hover:border-foreground hover:text-foreground"
-                }`}
-              >
-                {t(f.key)}
-              </button>
-            ))}
+      <section className="lux-section-dark py-16 text-white md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12">
+            <div className="grid gap-8 xl:grid-cols-[1.35fr_0.9fr] xl:items-end">
+              <div>
+                <p className="text-accent text-sm font-medium uppercase tracking-[0.2em]">
+                  {locale === "eu" ? "Komunitatea" : "Comunidad"}
+                </p>
+                <h2 className="mt-3 font-heading text-3xl font-bold text-white md:text-5xl">
+                  {locale === "eu" ? "BitanBat uneak" : "Instantes de BitanBat"}
+                </h2>
+                <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/64 md:text-lg">
+                  {locale === "eu"
+                    ? "Klaseak, ongizatea eta eguneroko giroa bilduta: mugimendua, energia eta komunitatea leku berean."
+                    : "Una mezcla de clases, bienestar y vida diaria del centro para que la galeria se sienta como una extension de la marca, no solo como un volcado de contenido."}
+                </p>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-3">
+                <div className="border-t border-accent/25 pt-4">
+                  <p className="font-heading text-2xl font-bold text-gradient-gold">
+                    {allMedia.length}
+                  </p>
+                  <p className="mt-1 text-sm text-white/58">
+                    {locale === "eu" ? "Pieza ikusgai" : "Piezas visibles"}
+                  </p>
+                </div>
+                <div className="border-t border-accent/25 pt-4">
+                  <p className="font-heading text-2xl font-bold text-gradient-gold">
+                    {videoCount}
+                  </p>
+                  <p className="mt-1 text-sm text-white/58">
+                    {locale === "eu" ? "Bideo" : "Videos"}
+                  </p>
+                </div>
+                <div className="border-t border-accent/25 pt-4">
+                  <p className="font-heading text-2xl font-bold text-gradient-gold">
+                    {categoryCount}
+                  </p>
+                  <p className="mt-1 text-sm text-white/58">
+                    {locale === "eu" ? "Kategoriak" : "Categorias"}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-2 border-t border-white/10 pt-6 xl:justify-start">
+              {categoryFilters.map((filter) => (
+                <button
+                  key={filter.value}
+                  onClick={() => setActiveFilter(filter.value)}
+                  aria-pressed={activeFilter === filter.value}
+                  className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
+                    activeFilter === filter.value
+                      ? "bg-accent text-primary shadow-[0_14px_30px_rgba(201,169,110,0.22)]"
+                      : "border border-white/10 bg-white/[0.02] text-white/72 hover:border-white/18 hover:bg-white/[0.05] hover:text-white"
+                  }`}
+                >
+                  {t(filter.key)}
+                </button>
+              ))}
+            </div>
           </div>
 
           {filteredMedia.length === 0 ? (
-            <div className="text-center py-20 text-muted-foreground">
-              <p className="text-lg">Proximamente...</p>
+            <div className="border-t border-white/10 px-6 py-20 text-center text-white/64">
+              <p className="font-heading text-2xl text-white">
+                {locale === "eu" ? "Laster gehiago" : "Proximamente mas"}
+              </p>
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/58 md:text-base">
+                {locale === "eu"
+                  ? "Une honetan ez dago elementurik iragazki honetan, baina material gehiago prestatzen ari gara."
+                  : "Ahora mismo no hay piezas para este filtro, pero el espacio queda listo para crecer sin sentirse vacio."}
+              </p>
             </div>
           ) : (
-            <>
-              <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+            <div className="border-t border-white/10 pt-6">
+              <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
                 {visibleMedia.map((media) => (
                   <div
                     key={media.id}
-                    className="break-inside-avoid cursor-pointer group"
+                    className="group mb-4 cursor-pointer break-inside-avoid"
                     onClick={() => setSelectedMedia(media)}
                   >
-                    <div className="relative overflow-hidden rounded-lg bg-black">
+                    <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/50 shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
                       {media.type === "video" ? (
                         <>
                           <video
@@ -138,12 +196,15 @@ export default function GalleryContent({
                             muted
                             playsInline
                             preload="none"
-                            className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                           />
                           <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10">
-                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/85 text-primary shadow-lg">
+                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/88 text-primary shadow-lg">
                               <Play size={20} fill="currentColor" />
                             </span>
+                          </div>
+                          <div className="absolute left-3 top-3 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/76">
+                            Video
                           </div>
                         </>
                       ) : (
@@ -153,25 +214,24 @@ export default function GalleryContent({
                           width={600}
                           height={400}
                           loading="lazy"
-                          className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                       )}
 
-                      {getCaption(media) && (
-                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 pt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <p className="text-white text-sm line-clamp-2">
-                            {getCaption(media)}
-                          </p>
-                        </div>
-                      )}
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-4 pt-12">
+                        <p className="line-clamp-2 text-sm text-white/88">
+                          {getCaption(media) ||
+                            (locale === "eu" ? "Pieza ireki" : "Abrir pieza")}
+                        </p>
+                      </div>
 
                       {media.instagramUrl && (
                         <a
                           href={media.instagramUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="absolute top-3 right-3 p-1.5 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-all opacity-0 group-hover:opacity-100"
-                          onClick={(e) => e.stopPropagation()}
+                          className="absolute right-3 top-3 rounded-full border border-white/10 bg-black/45 p-1.5 text-white/70 opacity-100 transition-all hover:bg-black/60 hover:text-white"
+                          onClick={(event) => event.stopPropagation()}
                         >
                           <ExternalLink size={14} />
                         </a>
@@ -181,28 +241,26 @@ export default function GalleryContent({
                 ))}
               </div>
 
-              {/* Infinite scroll sentinel */}
               {hasMore && (
                 <div ref={loadMoreRef} className="flex justify-center py-8">
-                  <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+                  <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
                 </div>
               )}
-            </>
+            </div>
           )}
         </div>
       </section>
 
-      {/* Lightbox */}
       {selectedMedia && (
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={getCaption(selectedMedia) || "Galería"}
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 animate-fade-in"
+          aria-label={getCaption(selectedMedia) || "Galeria"}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/92 p-4 backdrop-blur-sm animate-fade-in"
           onClick={closeLightbox}
         >
           <button
-            className="absolute top-4 right-4 text-white/70 hover:text-white z-10"
+            className="absolute right-4 top-4 z-10 rounded-full border border-white/10 bg-white/5 p-2 text-white/70 hover:text-white"
             onClick={closeLightbox}
             aria-label="Cerrar"
             autoFocus
@@ -210,8 +268,8 @@ export default function GalleryContent({
             <X size={32} />
           </button>
           <div
-            className="max-w-4xl w-full"
-            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-4xl rounded-[2rem] border border-white/10 bg-black/40 p-4 shadow-[0_30px_80px_rgba(0,0,0,0.3)] md:p-6"
+            onClick={(event) => event.stopPropagation()}
           >
             {selectedMedia.type === "video" ? (
               <video
@@ -220,23 +278,20 @@ export default function GalleryContent({
                 controls
                 autoPlay
                 playsInline
-                className="max-h-[80vh] max-w-full mx-auto rounded-lg"
+                className="mx-auto max-h-[80vh] max-w-full rounded-[1.5rem]"
               />
             ) : (
               <Image
                 src={selectedMedia.url}
-                alt={
-                  getCaption(selectedMedia) ||
-                  `BitanBat ${selectedMedia.id}`
-                }
+                alt={getCaption(selectedMedia) || `BitanBat ${selectedMedia.id}`}
                 width={1200}
                 height={800}
-                className="max-h-[80vh] w-auto mx-auto object-contain rounded-lg"
+                className="mx-auto max-h-[80vh] w-auto rounded-[1.5rem] object-contain"
               />
             )}
             {getCaption(selectedMedia) && (
-              <div className="text-center mt-4">
-                <p className="text-white/90 text-sm md:text-base">
+              <div className="mt-4 text-center">
+                <p className="text-sm text-white/90 md:text-base">
                   {getCaption(selectedMedia)}
                 </p>
                 {selectedMedia.instagramUrl && (
@@ -244,7 +299,7 @@ export default function GalleryContent({
                     href={selectedMedia.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 mt-2 text-accent/80 hover:text-accent text-sm transition-colors"
+                    className="mt-2 inline-flex items-center gap-1.5 text-sm text-accent/80 transition-colors hover:text-accent"
                   >
                     <Instagram size={14} />
                     Ver en Instagram

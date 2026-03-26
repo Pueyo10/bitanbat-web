@@ -1,18 +1,10 @@
 import type { MetadataRoute } from "next";
-import { createClient } from "@/lib/supabase/server";
 
 export const revalidate = 86400;
 
 const BASE_URL = "https://bitanbat.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = await createClient();
-
-  const { data: posts } = await supabase
-    .from("blog_posts")
-    .select("slug, updated_at, created_at")
-    .eq("published", true);
-
   const staticRoutes = [
     { path: "", priority: 1.0, changeFrequency: "weekly" as const },
     { path: "/masajes", priority: 0.9, changeFrequency: "monthly" as const },
@@ -22,7 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/sobre-nosotros", priority: 0.7, changeFrequency: "yearly" as const },
     { path: "/contacto", priority: 0.8, changeFrequency: "yearly" as const },
     { path: "/galeria", priority: 0.7, changeFrequency: "monthly" as const },
-    { path: "/blog", priority: 0.6, changeFrequency: "weekly" as const },
   ];
 
   const euPaths: Record<string, string> = {
@@ -34,7 +25,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/sobre-nosotros": "/guri-buruz",
     "/contacto": "/kontaktua",
     "/galeria": "/galeria",
-    "/blog": "/blog",
   };
 
   const entries: MetadataRoute.Sitemap = [];
@@ -52,23 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
       },
     });
-  }
-
-  if (posts) {
-    for (const post of posts) {
-      entries.push({
-        url: `${BASE_URL}/blog/${post.slug}`,
-        lastModified: new Date(post.updated_at || post.created_at),
-        changeFrequency: "monthly",
-        priority: 0.5,
-        alternates: {
-          languages: {
-            es: `${BASE_URL}/blog/${post.slug}`,
-            eu: `${BASE_URL}/eu/blog/${post.slug}`,
-          },
-        },
-      });
-    }
   }
 
   return entries;

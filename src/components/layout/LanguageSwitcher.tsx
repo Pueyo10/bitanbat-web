@@ -13,14 +13,18 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="flex items-center gap-1 bg-white/10 rounded-full p-0.5" role="group" aria-label="Idioma">
+    <div
+      className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.05] p-1 shadow-inner shadow-black/10"
+      role="group"
+      aria-label="Idioma"
+    >
       <button
         onClick={() => switchLocale("es")}
         aria-pressed={locale === "es"}
-        className={`px-2.5 py-1 text-xs font-medium rounded-full transition-colors ${
+        className={`min-w-[2.5rem] rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-all ${
           locale === "es"
-            ? "bg-accent text-primary"
-            : "text-white/70 hover:text-white"
+            ? "bg-accent text-primary shadow-[0_10px_25px_rgba(201,169,110,0.28)]"
+            : "text-white/72 hover:bg-white/[0.05] hover:text-white"
         }`}
       >
         ES
@@ -28,10 +32,10 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => switchLocale("eu")}
         aria-pressed={locale === "eu"}
-        className={`px-2.5 py-1 text-xs font-medium rounded-full transition-colors ${
+        className={`min-w-[2.5rem] rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-all ${
           locale === "eu"
-            ? "bg-accent text-primary"
-            : "text-white/70 hover:text-white"
+            ? "bg-accent text-primary shadow-[0_10px_25px_rgba(201,169,110,0.28)]"
+            : "text-white/72 hover:bg-white/[0.05] hover:text-white"
         }`}
       >
         EU

@@ -40,9 +40,9 @@ export default function MobileNav({ id, isOpen, onClose, items }: MobileNavProps
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
           exit={{ opacity: 0, height: 0 }}
-          className="lg:hidden bg-primary border-t border-white/10 overflow-hidden"
+          className="mx-auto mt-3 max-w-7xl overflow-hidden rounded-[1.5rem] border border-white/10 bg-primary/95 shadow-[0_24px_70px_rgba(0,0,0,0.35)] lg:hidden"
         >
-          <nav className="px-4 py-4 space-y-1">
+          <nav className="grid gap-1 px-3 py-3">
             {items.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -53,10 +53,10 @@ export default function MobileNav({ id, isOpen, onClose, items }: MobileNavProps
                   href={item.href as "/"}
                   onClick={onClose}
                   aria-current={isActive ? "page" : undefined}
-                  className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors ${
+                  className={`block rounded-2xl border px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] transition-all ${
                     isActive
-                      ? "text-accent bg-white/10"
-                      : "text-white/80 hover:text-white hover:bg-white/5"
+                      ? "border-accent/30 bg-white/[0.08] text-white"
+                      : "border-transparent bg-white/[0.02] text-white/78 hover:border-white/10 hover:bg-white/[0.05] hover:text-white"
                   }`}
                 >
                   {t(item.labelKey)}

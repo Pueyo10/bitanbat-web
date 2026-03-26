@@ -39,9 +39,51 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at top, rgba(201, 169, 110, 0.12), transparent 28%),
+    linear-gradient(180deg, #fafaf8 0%, #f6f2ea 100%);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(201, 169, 110, 0.3);
+  color: #0A0A0A;
+}
+
+.lux-section-light {
+  background:
+    radial-gradient(circle at top, rgba(201, 169, 110, 0.12), transparent 26%),
+    linear-gradient(180deg, #fbf7f0 0%, #f5efe4 100%);
+}
+
+.lux-section-dark {
+  background:
+    radial-gradient(circle at top, rgba(201, 169, 110, 0.15), transparent 24%),
+    linear-gradient(180deg, #17120f 0%, #090909 100%);
+}
+
+.lux-card {
+  background: linear-gradient(180deg, rgba(255, 252, 246, 0.98) 0%, rgba(246, 238, 225, 0.98) 100%);
+  border: 1px solid rgba(201, 169, 110, 0.16);
+  box-shadow:
+    0 20px 45px rgba(16, 15, 12, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+.lux-card-dark {
+  background: linear-gradient(180deg, rgba(21, 18, 15, 0.98) 0%, rgba(10, 10, 10, 0.98) 100%);
+  border: 1px solid rgba(201, 169, 110, 0.14);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #f2dfb3 0%, #c9a96e 42%, #8f6a31 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Smooth scrolling */
@@ -106,6 +148,7 @@ html {
 
 .scroll-reveal {
   opacity: 0;
+  transform: translateY(24px);
 }
 
 .scroll-reveal.is-visible {

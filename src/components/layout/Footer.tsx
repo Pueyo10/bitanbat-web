@@ -13,7 +13,6 @@ const footerLinks = [
   { href: "/precios", labelKey: "prices" },
   { href: "/galeria", labelKey: "gallery" },
   { href: "/contacto", labelKey: "contact" },
-  { href: "/blog", labelKey: "blog" },
 ] as const;
 
 export default function Footer() {

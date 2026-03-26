@@ -20,7 +20,10 @@ export default function VideoPlayer({ src, poster }: { src: string; poster: stri
   };
 
   return (
-    <div className="rounded-lg overflow-hidden relative group cursor-pointer" onClick={toggle}>
+    <div
+      className="group relative cursor-pointer overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/70 shadow-[0_24px_60px_rgba(0,0,0,0.25)]"
+      onClick={toggle}
+    >
       <video
         ref={ref}
         src={src}
@@ -30,8 +33,12 @@ export default function VideoPlayer({ src, poster }: { src: string; poster: stri
         className="w-full"
         onEnded={() => setPlaying(false)}
       />
-      <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity duration-300 ${playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"}`}>
-        <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+      <div
+        className={`absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/45 via-black/10 to-transparent transition-opacity duration-300 ${
+          playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+        }`}
+      >
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/92 shadow-lg">
           {playing ? <Pause size={24} className="text-primary" /> : <Play size={24} className="text-primary ml-1" />}
         </div>
       </div>
