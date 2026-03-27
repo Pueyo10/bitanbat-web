@@ -3,6 +3,7 @@ export const SITE_CONFIG = {
   fullName: "BitanBat - Dantza & Fitness",
   phone: "747436503",
   phoneFormatted: "747 436 503",
+  whatsapp: "https://wa.me/34747436503",
   location: "Hernani, Gipuzkoa",
   instagram: "https://www.instagram.com/bitanbat_/",
   instagramHandle: "@bitanbat_",

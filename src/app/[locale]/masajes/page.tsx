@@ -139,7 +139,9 @@ export default function MasajesPage() {
                 </div>
                 <div className="pt-2">
                   <a
-                    href={`tel:${SITE_CONFIG.phone}`}
+                    href={SITE_CONFIG.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 font-heading font-semibold text-primary-foreground transition-all duration-300 hover:bg-secondary hover:scale-105"
                   >
                     <Phone size={18} />
@@ -149,29 +151,6 @@ export default function MasajesPage() {
               </div>
             </ScrollReveal>
           </div>
-        </div>
-      </section>
-
-      {/* Video showcase */}
-      <section className="lux-section-dark py-16 md:py-24 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal className="mb-12 text-center">
-            <p className="mb-4 text-accent text-sm font-medium uppercase tracking-[0.2em]">
-              {locale === "eu" ? "Gure espazioa" : "Nuestro espacio"}
-            </p>
-            <h2 className="font-heading text-3xl font-bold text-white md:text-5xl">
-              {t("spaceTitle")}
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/62 md:text-lg">
-              {spaceNote}
-            </p>
-          </ScrollReveal>
-          <ScrollReveal>
-            <div className="grid max-w-4xl gap-6 sm:grid-cols-2 mx-auto">
-              <VideoPlayer src="/media/instagram/DUDUHlZjPlW.mp4" poster="/media/instagram/DUDUHlZjPlW.jpg" />
-              <VideoPlayer src="/media/instagram/DWMe9ngjCSl.mp4" poster="/media/instagram/DWMe9ngjCSl.jpg" />
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
@@ -261,6 +240,29 @@ export default function MasajesPage() {
         </div>
       </section>
 
+      {/* Video showcase */}
+      <section className="lux-section-dark py-16 md:py-24 text-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal className="mb-12 text-center">
+            <p className="mb-4 text-accent text-sm font-medium uppercase tracking-[0.2em]">
+              {locale === "eu" ? "Gure espazioa" : "Nuestro espacio"}
+            </p>
+            <h2 className="font-heading text-3xl font-bold text-white md:text-5xl">
+              {t("spaceTitle")}
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/62 md:text-lg">
+              {spaceNote}
+            </p>
+          </ScrollReveal>
+          <ScrollReveal>
+            <div className="grid max-w-4xl gap-6 sm:grid-cols-2 mx-auto">
+              <VideoPlayer src="/media/instagram/DUDUHlZjPlW.mp4" poster="/media/instagram/DUDUHlZjPlW.jpg" />
+              <VideoPlayer src="/media/instagram/DWMe9ngjCSl.mp4" poster="/media/instagram/DWMe9ngjCSl.jpg" />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* Gift card + CTA */}
       <section className="py-20 md:py-28 bg-primary">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -289,7 +291,9 @@ export default function MasajesPage() {
                 </p>
                 <div className="flex flex-wrap gap-4 pt-4">
                   <a
-                    href={`tel:${SITE_CONFIG.phone}`}
+                    href={SITE_CONFIG.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 font-heading font-semibold text-primary transition-all duration-300 hover:bg-white hover:scale-105"
                   >
                     <Phone size={18} />

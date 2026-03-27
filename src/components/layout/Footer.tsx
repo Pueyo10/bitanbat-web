@@ -41,7 +41,9 @@ export default function Footer() {
               {locale === "eu" ? "Kontaktatu" : "Contactar"}
             </Link>
             <a
-              href={`tel:${SITE_CONFIG.phone}`}
+              href={SITE_CONFIG.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-10 py-4 border border-white/30 text-white font-heading font-medium text-lg rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
             >
               <Phone size={18} />

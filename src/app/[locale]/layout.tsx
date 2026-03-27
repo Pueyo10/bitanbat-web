@@ -7,6 +7,7 @@ import { hasLocale } from "next-intl";
 import { Geist, Space_Grotesk } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { SITE_CONFIG } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -128,6 +129,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer />
+          <WhatsAppButton />
         </NextIntlClientProvider>
         <LocalBusinessSchema />
       </body>

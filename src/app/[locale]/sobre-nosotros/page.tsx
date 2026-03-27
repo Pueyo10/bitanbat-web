@@ -57,7 +57,7 @@ export default function SobreNosotrosPage() {
             <ScrollReveal variant="slide-right">
               <div className="space-y-6 md:max-w-xl">
                 <div className="inline-flex rounded-full border border-accent/25 bg-accent/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.24em] text-accent">
-                  {locale === "eu" ? "Gure istorioa" : "Nuestra historia"}
+                  {locale === "eu" ? "Gure historia" : "Nuestra historia"}
                 </div>
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
                   BITAN<span className="text-accent">BAT</span>

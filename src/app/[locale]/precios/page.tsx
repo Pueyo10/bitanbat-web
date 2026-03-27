@@ -127,7 +127,7 @@ export default async function PreciosPage({
                   <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                     <div className={`absolute top-0 left-6 right-6 h-[2px] ${discipline.accent} rounded-full opacity-60`} />
 
-                    <h3 className="font-heading text-xl font-bold text-white mb-4 mt-1">
+                    <h3 className="font-heading text-xl font-bold text-white mb-4 mt-1 text-center">
                       {discipline.name}
                     </h3>
 
@@ -255,7 +255,7 @@ export default async function PreciosPage({
                 <div className="absolute -inset-0.5 bg-gradient-to-b from-red-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
                 <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                   <div className="absolute top-0 left-8 right-8 h-[2px] bg-red-500 rounded-full opacity-60" />
-                  <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1">
+                  <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
                     {t("boxeo")}
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
@@ -289,7 +289,7 @@ export default async function PreciosPage({
                 <div className="absolute -inset-0.5 bg-gradient-to-b from-purple-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
                 <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                   <div className="absolute top-0 left-8 right-8 h-[2px] bg-purple-500 rounded-full opacity-60" />
-                  <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1">
+                  <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
                     {t("yoga")}
                   </h2>
                   <div className="space-y-3">
@@ -468,7 +468,9 @@ export default async function PreciosPage({
           <ScrollReveal>
             <div className="mt-14 flex flex-wrap justify-center gap-4">
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
+                href={SITE_CONFIG.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-heading font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/20"
               >
                 <div className="absolute inset-0 bg-accent" />

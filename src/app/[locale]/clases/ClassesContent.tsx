@@ -11,22 +11,21 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const classImages: Record<string, string> = {
   "entrenamiento-funcional": "/media/instagram/DPyvmA2DMOz.jpg",
-  "e-funcional-txikiak": "/media/instagram/DQr2HDKjIGL.jpg",
-  pilates: "/media/instagram/DOeahntDL-l.jpg",
-  barrefit: "/media/instagram/DOeahntDL-l.jpg",
-  boxeo: "/media/instagram/DQuAp30DIEu.jpg",
-  "boxeo-txiki": "/media/instagram/DQr2HDKjIGL.jpg",
+  pilates: "/media/instagram/Ch-babUsd9k.jpg",
+  barrefit: "/media/instagram/DKtuhk7tJls.jpg",
+  boxeo: "/media/instagram/CoX5o7xrQiU.jpg",
+  "boxeo-txiki": "/media/instagram/CoX5o7xrQiU.jpg",
   yoga: "/media/instagram/DUiBayBDNcI.jpg",
   bungee: "/media/instagram/DQaCTUNjPo9.jpg",
-  bachata: "/media/instagram/DVV5mABCGfn.jpg",
-  salsa: "/media/instagram/DVV5mABCGfn.jpg",
+  bachata: "/media/instagram/DB65K-0tLqq.jpg",
+  salsa: "/media/instagram/DB65K-0tLqq.jpg",
   sevillanas: "/media/instagram/DRkhijgjMzh.jpg",
   urbano: "/media/instagram/DOI7CdOjLRg.jpg",
-  zumba: "/media/instagram/DS40jDNjC5W.jpg",
+  zumba: "/media/instagram/DGu3i1DNSVW.jpg",
   jumping: "/media/instagram/DQaCTUNjPo9.jpg",
   masajes: "/media/instagram/DUDUHlZjPlW.jpg",
-  fitgipsy: "/media/instagram/DRkhijgjMzh.jpg",
-  predantza: "/media/instagram/DQr2HDKjIGL.jpg",
+  fitgipsy: "/media/instagram/C1rjE4Ttcmt.jpg",
+  predantza: "/media/instagram/CysgTyXN9bz.jpg",
   "hatha-vinyasa": "/media/instagram/DU5Riz4DLBU.jpg",
 };
 
@@ -56,9 +55,10 @@ export default function ClassesContent({
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const filtered = useMemo(() => {
-    if (activeFilter === "all") return classes;
-    if (activeFilter === "kids") return classes.filter((c) => c.min_age !== null);
-    return classes.filter((c) => c.category === activeFilter);
+    const visible = classes.filter((c) => c.slug !== "e-funcional-txikiak");
+    if (activeFilter === "all") return visible;
+    if (activeFilter === "kids") return visible.filter((c) => c.min_age !== null);
+    return visible.filter((c) => c.category === activeFilter);
   }, [activeFilter, classes]);
 
   const activeFilterLabel =
@@ -66,55 +66,23 @@ export default function ClassesContent({
 
   return (
     <>
-      <div className="mb-12 space-y-6">
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="text-accent text-xs tracking-[0.24em] uppercase font-medium mb-2">
-              {locale === "eu" ? "Aukeraketa" : "Selección"}
-            </p>
-            <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-              {locale === "eu"
-                ? "Erraz iragazi eta zurea aurkitu."
-                : "Filtra y encuentra la tuya."}
-            </h3>
-          </div>
-          <p className="text-sm text-muted-foreground max-w-xl">
-            {locale === "eu"
-              ? `${filtered.length} aukera ikusgai une honetan. Ikusi estilo bakoitza eta aukeratu zure erritmoa.`
-              : `${filtered.length} opciones visibles ahora mismo. Mira cada estilo y elige el ritmo que más te encaje.`}
-          </p>
-        </div>
-
-        <ScrollReveal className="rounded-3xl border border-border bg-white/80 backdrop-blur-xl p-2 shadow-[0_18px_60px_rgba(10,10,10,0.06)]">
-          <div className="flex flex-wrap justify-center gap-2">
-            {filters.map((f) => (
-              <button
-                key={f.value}
-                onClick={() => setActiveFilter(f.value)}
-                aria-pressed={activeFilter === f.value}
-                className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
-                  activeFilter === f.value
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "bg-transparent text-muted-foreground border border-transparent hover:border-border hover:bg-background hover:text-foreground"
-                }`}
-              >
-                {activeFilter === f.value && <Sparkles size={14} />}
-                {t(f.key)}
-              </button>
-            ))}
-          </div>
-        </ScrollReveal>
-
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-background/80 px-4 py-3 text-sm text-muted-foreground">
-          <span>
-            {locale === "eu"
-              ? `Une honetan ${filtered.length} klase ari dira erakusten.`
-              : `Ahora mismo se muestran ${filtered.length} clases.`}
-          </span>
-          <span className="inline-flex items-center gap-2 font-medium text-foreground">
-            <BadgeCheck size={14} className="text-accent" />
-            {t(activeFilterLabel)}
-          </span>
+      <div className="mb-10">
+        <div className="flex flex-wrap justify-center gap-2 rounded-3xl border border-border bg-white/80 backdrop-blur-xl p-2 shadow-[0_18px_60px_rgba(10,10,10,0.06)]">
+          {filters.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => setActiveFilter(f.value)}
+              aria-pressed={activeFilter === f.value}
+              className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
+                activeFilter === f.value
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "bg-transparent text-muted-foreground border border-transparent hover:border-border hover:bg-background hover:text-foreground"
+              }`}
+            >
+              {activeFilter === f.value && <Sparkles size={14} />}
+              {t(f.key)}
+            </button>
+          ))}
         </div>
       </div>
 

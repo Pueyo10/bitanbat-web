@@ -90,7 +90,9 @@ export default function ContactoPage() {
                     </div>
                     <div>
                       <a
-                        href={`tel:${SITE_CONFIG.phone}`}
+                        href={SITE_CONFIG.whatsapp}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="font-heading text-lg font-semibold text-foreground transition-colors hover:text-accent"
                       >
                         {SITE_CONFIG.phoneFormatted}
@@ -237,6 +239,37 @@ export default function ContactoPage() {
                   {t("send")}
                 </button>
               </motion.form>
+            </ScrollReveal>
+          </div>
+        </div>
+
+        <div className="relative mt-20 md:mt-28">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <ScrollReveal>
+              <div className="text-center mb-8">
+                <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-4">
+                  {locale === "eu" ? "Non gaude" : "Dónde estamos"}
+                </p>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  {locale === "eu" ? "Bisitatu gaitzazu" : "Visítanos"}
+                </h2>
+                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                  {SITE_CONFIG.location}
+                </p>
+              </div>
+              <div className="overflow-hidden rounded-[1.75rem] border border-border/70 shadow-[0_24px_70px_rgba(0,0,0,0.12)]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1109!2d-1.9767211!3d43.2689845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd51af1990bc0659%3A0x4829e8f05ae18f69!2sbitanbat!5e0!3m2!1ses!2ses!4v1"
+                  width="100%"
+                  height="400"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="BitanBat - Hernani"
+                  className="w-full"
+                />
+              </div>
             </ScrollReveal>
           </div>
         </div>

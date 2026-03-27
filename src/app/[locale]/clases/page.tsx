@@ -4,35 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import type { ClassType } from "@/types/database";
 import PageHero from "@/components/ui/PageHero";
 import ClassesContent from "./ClassesContent";
-import { ArrowRight, Clock3, Phone, Sparkles, Users } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
-
-const classHighlights = [
-  {
-    key: "dance",
-    titleEs: "Danza con identidad",
-    titleEu: "Nortasuneko dantza",
-    descEs: "Clases con ritmo, técnica y presencia. Desde iniciación hasta niveles más expresivos.",
-    descEu: "Erritmoa, teknika eta presentzia duten klaseak. Hasiberrietatik maila adierazkorretara.",
-    icon: Sparkles,
-  },
-  {
-    key: "fitness",
-    titleEs: "Entrena con intención",
-    titleEu: "Intentzioz entrenatu",
-    descEs: "Sesiones para ganar fuerza, energía y constancia sin perder el gusto por moverte.",
-    descEu: "Indarra, energia eta jarraikortasuna irabazteko saioak, mugitzeko gogoa galdu gabe.",
-    icon: Users,
-  },
-  {
-    key: "schedule",
-    titleEs: "Encuentra tu horario",
-    titleEu: "Aurkitu zure ordutegia",
-    descEs: "Consulta el horario y elige la disciplina que mejor encaje con tu ritmo semanal.",
-    descEu: "Ikusi ordutegia eta aukeratu zure asteko erritmoarekin hobekien egokitzen den diziplina.",
-    icon: Clock3,
-  },
-] as const;
 
 export const revalidate = 3600;
 
@@ -63,46 +36,6 @@ export default async function ClasesPage({
         <div className="absolute right-0 bottom-12 h-72 w-72 rounded-full bg-black/5 blur-3xl" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 space-y-8">
-            <div className="max-w-3xl space-y-6">
-              <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium">
-                {locale === "eu" ? "Aukeratu zure bidea" : "Elige tu camino"}
-              </p>
-              <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground max-w-3xl">
-                {locale === "eu"
-                  ? "Mugimendua landu eta zure erritmoa aurkitu."
-                  : "Una selección pensada para moverte con intención."}
-              </h2>
-              <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl">
-                {locale === "eu"
-                  ? "Dantza, fitness eta ongizatea espazio berean elkartzen dira. Aukeratu zure energia, erritmoa eta helburua, eta hasi zentzuzko zerbait eraikitzen."
-                  : "Danza, fitness y bienestar se encuentran en un mismo espacio. Elige tu energía, tu ritmo y tu objetivo para empezar a construir algo que encaje contigo."}
-              </p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              {classHighlights.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div key={item.key} className="border-t border-accent/20 pt-5">
-                    <div className="flex items-center gap-3">
-                      <Icon size={18} className="text-accent" />
-                      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                        {locale === "eu" ? "Laburpena" : "Resumen"}
-                      </p>
-                    </div>
-                    <h3 className="mt-4 font-heading text-2xl font-bold text-foreground">
-                      {locale === "eu" ? item.titleEu : item.titleEs}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-                      {locale === "eu" ? item.descEu : item.descEs}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
           <ClassesContent classes={classes} locale={locale} />
         </div>
       </section>
@@ -135,7 +68,9 @@ export default async function ClasesPage({
                 <ArrowRight size={18} />
               </Link>
               <a
-                href={`tel:${SITE_CONFIG.phone}`}
+                href={SITE_CONFIG.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-8 py-4 font-heading text-lg font-medium text-white transition-all duration-300 hover:bg-white/10"
               >
                 <Phone size={18} />
