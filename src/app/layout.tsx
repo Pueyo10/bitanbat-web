@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Centro de danza y fitness en Hernani, Gipuzkoa. Clases de entrenamiento funcional, pilates, barrefit, boxeo, zumba, sevillanas, bachata, urbano y más.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
     apple: "/apple-icon.png",
   },
   openGraph: {
