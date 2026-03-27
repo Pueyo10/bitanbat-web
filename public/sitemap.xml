@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://bitanbat.com</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu"/>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/clases</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/clases"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/clases"/>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/masajes</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/masajes"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/masajes"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/precios</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/precios"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/precios"/>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/horarios</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/horarios"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/horarios"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/sobre-nosotros</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/sobre-nosotros"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/sobre-nosotros"/>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/contacto</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/contacto"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/contacto"/>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/blog"/>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://bitanbat.com/galeria</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://bitanbat.com/galeria"/>
+    <xhtml:link rel="alternate" hreflang="eu" href="https://bitanbat.com/eu/galeria"/>
+    <priority>0.5</priority>
+  </url>
+</urlset>

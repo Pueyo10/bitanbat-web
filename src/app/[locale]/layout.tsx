@@ -65,6 +65,11 @@ function LocalBusinessSchema() {
       addressRegion: "Gipuzkoa",
       addressCountry: "ES",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 43.2689806,
+      longitude: -1.9741462,
+    },
     image: `${BASE_URL}/images/logo.jpg`,
     sameAs: [SITE_CONFIG.instagram],
     areaServed: {

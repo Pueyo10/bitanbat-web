@@ -180,3 +180,27 @@ html {
 .animate-glow-pulse {
   animation: glow-pulse 3s ease-in-out infinite;
 }
+
+/* Accessibility: focus-visible */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* No-JS fallback for scroll animations */
+@media (scripting: none) {
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

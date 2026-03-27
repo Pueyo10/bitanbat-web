@@ -158,7 +158,7 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, name: e.target.value }))
                     }
-                    className="w-full border-0 border-b-2 border-primary/12 bg-transparent px-0 py-3 text-lg text-foreground outline-none transition-colors focus:border-accent focus:ring-0"
+                    className="w-full border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
@@ -178,7 +178,7 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, email: e.target.value }))
                     }
-                    className="w-full border-0 border-b-2 border-primary/12 bg-transparent px-0 py-3 text-lg text-foreground outline-none transition-colors focus:border-accent focus:ring-0"
+                    className="w-full border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
@@ -187,7 +187,7 @@ export default function ContactoPage() {
                     htmlFor="contact-phone"
                     className="mb-2 block text-sm font-medium uppercase tracking-wide text-muted-foreground"
                   >
-                    {t("phone")}
+                    {t("phone")} <span className="text-muted-foreground/60 font-normal">({locale === "eu" ? "aukerakoa" : "opcional"})</span>
                   </label>
                   <input
                     id="contact-phone"
@@ -196,7 +196,7 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, phone: e.target.value }))
                     }
-                    className="w-full border-0 border-b-2 border-primary/12 bg-transparent px-0 py-3 text-lg text-foreground outline-none transition-colors focus:border-accent focus:ring-0"
+                    className="w-full border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
@@ -216,12 +216,12 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, message: e.target.value }))
                     }
-                    className="w-full resize-none border-0 border-b-2 border-primary/12 bg-transparent px-0 py-3 text-lg text-foreground outline-none transition-colors focus:border-accent focus:ring-0"
+                    className="w-full resize-none border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
                 {status === "success" && (
-                  <p role="status" aria-live="polite" className="text-sm font-medium text-green-700">
+                  <p role="status" aria-live="polite" className="text-sm font-medium text-accent">
                     {t("success")}
                   </p>
                 )}
@@ -261,36 +261,19 @@ export default function ContactoPage() {
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1109!2d-1.9767211!3d43.2689845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd51af1990bc0659%3A0x4829e8f05ae18f69!2sbitanbat!5e0!3m2!1ses!2ses!4v1"
                   width="100%"
-                  height="400"
+                  height="300"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="BitanBat - Hernani"
-                  className="w-full"
+                  className="w-full h-[280px] sm:h-[350px] md:h-[400px]"
                 />
               </div>
             </ScrollReveal>
           </div>
         </div>
 
-        <div className="relative mt-20 md:mt-28">
-          <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-            <p className="mb-4 text-accent text-sm font-medium uppercase tracking-[0.2em]">
-              {locale === "eu" ? "Prest gaude" : "Estamos listos"}
-            </p>
-            <h2 className="mb-4 font-heading text-2xl font-bold text-foreground md:text-4xl">
-              {locale === "eu"
-                ? "Batu zaitez hurrengo pausora"
-                : "Demos el siguiente paso"}
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              {locale === "eu"
-                ? "Helarazi zure ideia eta guk erantzun, antolatu eta gidatuko zaitugu."
-                : "Cuéntanos tu idea y nosotros te responderemos, organizaremos y te guiaremos."}
-            </p>
-          </div>
-        </div>
       </section>
     </>
   );

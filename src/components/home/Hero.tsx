@@ -103,7 +103,7 @@ export default function Hero() {
           {t("tagline")}
         </p>
 
-        <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 leading-[0.9] tracking-tight">
+        <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-[0.9] tracking-tight">
           {t("title")}
           <br />
           <span className="text-accent">{t("titleAccent")}</span>
