@@ -9,6 +9,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import { SITE_CONFIG } from "@/lib/constants";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -137,6 +138,7 @@ export default async function LocaleLayout({
           <WhatsAppButton />
         </NextIntlClientProvider>
         <LocalBusinessSchema />
+        <Analytics />
       </body>
     </html>
   );
