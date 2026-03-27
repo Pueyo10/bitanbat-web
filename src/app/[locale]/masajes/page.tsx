@@ -142,7 +142,7 @@ export default function MasajesPage() {
                     href={SITE_CONFIG.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 font-heading font-semibold text-primary-foreground transition-all duration-300 hover:bg-secondary hover:scale-105"
+                    className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3 font-heading font-semibold text-primary-foreground transition-all duration-300 hover:bg-secondary hover:scale-105"
                   >
                     <Phone size={18} />
                     {locale === "eu" ? "Erreserbatu" : "Reservar cita"}
@@ -232,7 +232,7 @@ export default function MasajesPage() {
           <ScrollReveal className="mt-12 text-center">
             <Link
               href="/precios"
-              className="inline-flex items-center gap-2 rounded-full border border-accent/35 bg-white/[0.03] px-8 py-3 font-heading font-semibold text-white transition-all duration-300 hover:border-accent hover:bg-white/[0.06]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-accent/35 bg-white/[0.03] px-8 py-3 font-heading font-semibold text-white transition-all duration-300 hover:border-accent hover:bg-white/[0.06]"
             >
               {locale === "eu" ? "Tarifak ikusi" : "Ver tarifas completas"}
             </Link>

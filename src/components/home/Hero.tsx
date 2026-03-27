@@ -118,13 +118,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/horarios"
-            className="px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300 shadow-lg"
+            className="w-full sm:w-auto text-center px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300 shadow-lg"
           >
             {t("cta")}
           </Link>
           <Link
             href="/sobre-nosotros"
-            className="px-10 py-4 border border-white/30 text-white font-medium text-lg rounded-full hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+            className="w-full sm:w-auto text-center px-10 py-4 border border-white/30 text-white font-medium text-lg rounded-full hover:bg-white/10 hover:border-white/50 transition-all duration-300"
           >
             {t("ctaSecondary")}
           </Link>

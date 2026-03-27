@@ -36,7 +36,7 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contacto"
-              className="px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
+              className="w-full sm:w-auto text-center px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
             >
               {locale === "eu" ? "Kontaktatu" : "Contactar"}
             </Link>
@@ -44,7 +44,7 @@ export default function Footer() {
               href={SITE_CONFIG.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-10 py-4 border border-white/30 text-white font-heading font-medium text-lg rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
+              className="w-full sm:w-auto justify-center px-10 py-4 border border-white/30 text-white font-heading font-medium text-lg rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
             >
               <Phone size={18} />
               {SITE_CONFIG.phoneFormatted}

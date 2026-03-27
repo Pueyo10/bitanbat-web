@@ -233,7 +233,7 @@ export default function ContactoPage() {
 
                 <button
                   type="submit"
-                  className="relative z-10 flex items-center gap-2 rounded-full bg-primary px-10 py-4 font-heading text-lg font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-secondary"
+                  className="w-full sm:w-auto relative z-10 flex items-center justify-center gap-2 rounded-full bg-primary px-10 py-4 font-heading text-lg font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-secondary"
                 >
                   <Send size={18} />
                   {t("send")}

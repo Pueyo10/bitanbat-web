@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileNav from "./MobileNav";
 
@@ -97,7 +97,7 @@ export default function Header() {
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
             >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+              <Menu size={24} />
             </button>
           </div>
         </div>

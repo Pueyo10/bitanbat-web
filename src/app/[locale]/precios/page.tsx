@@ -341,7 +341,7 @@ export default async function PreciosPage({
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {masajeTreatments.map((name, i) => (
               <ScrollReveal key={name} delay={i * 0.04}>
                 <div className="group text-center p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
@@ -471,7 +471,7 @@ export default async function PreciosPage({
                 href={SITE_CONFIG.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-heading font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/20"
+                className="w-full sm:w-auto text-center group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 font-heading font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/20"
               >
                 <div className="absolute inset-0 bg-accent" />
                 <div className="absolute inset-0 bg-gradient-to-r from-accent to-yellow-500/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -480,7 +480,7 @@ export default async function PreciosPage({
               </a>
               <Link
                 href="/contacto"
-                className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/20 text-white font-heading font-semibold rounded-full hover:bg-white/5 hover:border-white/30 transition-all duration-300"
+                className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-white/20 text-white font-heading font-semibold rounded-full hover:bg-white/5 hover:border-white/30 transition-all duration-300"
               >
                 {locale === "eu" ? "Kontaktatu" : "Contactar"}
               </Link>

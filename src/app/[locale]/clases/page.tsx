@@ -62,7 +62,7 @@ export default async function ClasesPage({
             <div className="flex flex-col sm:flex-row lg:flex-col gap-4">
               <Link
                 href="/contacto"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 font-heading text-lg font-semibold text-primary transition-all duration-300 hover:bg-white hover:scale-105"
+                className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 font-heading text-lg font-semibold text-primary transition-all duration-300 hover:bg-white hover:scale-105"
               >
                 {locale === "eu" ? "Kontaktatu" : "Contactar"}
                 <ArrowRight size={18} />
@@ -71,7 +71,7 @@ export default async function ClasesPage({
                 href={SITE_CONFIG.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-8 py-4 font-heading text-lg font-medium text-white transition-all duration-300 hover:bg-white/10"
+                className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 rounded-full border border-white/25 px-8 py-4 font-heading text-lg font-medium text-white transition-all duration-300 hover:bg-white/10"
               >
                 <Phone size={18} />
                 {SITE_CONFIG.phoneFormatted}
