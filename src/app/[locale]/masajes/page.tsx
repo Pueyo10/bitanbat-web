@@ -12,49 +12,49 @@ import VideoPlayer from "@/components/ui/VideoPlayer";
 const treatments = [
   {
     id: "ventosas",
-    image: "/media/instagram/CmJ86qCNkAa.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "drenajelinfatico",
-    image: "/media/instagram/CoDWQMELtOh.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "reflexologia",
-    image: "/media/instagram/CoDWQMELtOh.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "descontracturante",
-    image: "/media/instagram/ClTYGnaNqXA.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "relajante",
-    image: "/media/instagram/DUDUHlZjPlW.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "maderoterapia",
-    image: "/media/instagram/CmWMSL8tXuX.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "craneo",
-    image: "/media/instagram/CmJ86qCNkAa.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "bitanbat",
-    image: "/media/instagram/ClTYGnaNqXA.jpg",
+    image: "/media/bitanbat/massage-treatment.jpg",
     price: "65",
     memberPrice: "60",
     duration: "90 min",
@@ -99,7 +99,7 @@ export default function MasajesPage() {
             <ScrollReveal variant="slide-left">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/80 shadow-[0_24px_70px_rgba(16,13,10,0.12)]">
                 <Image
-                  src="/media/instagram/ClTYGnaNqXA.jpg"
+                  src="/media/bitanbat/massage-treatment.jpg"
                   alt={t("title")}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -107,7 +107,7 @@ export default function MasajesPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
                 <div className="absolute right-4 top-4 rounded-full bg-white/92 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary shadow-lg">
-                  {locale === "eu" ? "Wellness" : "Wellness"}
+                  {"Wellness"}
                 </div>
               </div>
             </ScrollReveal>
@@ -174,7 +174,7 @@ export default function MasajesPage() {
               <ScrollReveal key={treatment.id} delay={i * 0.06}>
                 <div
                   className={`lux-card-dark group relative overflow-hidden rounded-[1.5rem] ${
-                    treatment.featured ? "ring-1 ring-accent/50 sm:col-span-2 lg:col-span-1" : ""
+                    treatment.featured ? "ring-1 ring-accent/80" : ""
                   }`}
                 >
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/80 to-transparent" />
@@ -195,7 +195,7 @@ export default function MasajesPage() {
                   </div>
                   <div className="p-5">
                     <div className="mb-3 flex items-center justify-between gap-4">
-                      <p className="text-[11px] uppercase tracking-[0.2em] text-white/42">
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/42">
                         {locale === "eu" ? "Ongizatea" : "Bienestar"}
                       </p>
                       {treatment.duration && (
@@ -215,7 +215,7 @@ export default function MasajesPage() {
                         <span className="font-heading text-2xl font-bold text-gradient-gold">
                           {treatment.price}&euro;
                         </span>
-                        <p className="text-xs text-white/48">
+                        <p className="text-xs text-white/70">
                           {t("memberPrice")}:{" "}
                           <span className="font-semibold text-white">{treatment.memberPrice}&euro;</span>
                         </p>
@@ -270,7 +270,7 @@ export default function MasajesPage() {
             <ScrollReveal variant="slide-left">
               <div className="relative aspect-square overflow-hidden rounded-[1.75rem] border border-white/10">
                 <Image
-                  src="/media/instagram/CmJ86qCNkAa.jpg"
+                  src="/media/bitanbat/massage-gift.jpg"
                   alt="Opari Txartela - Tarjeta regalo"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"

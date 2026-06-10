@@ -20,25 +20,37 @@ export default function Footer() {
   const tNav = useTranslations("Nav");
   const locale = useLocale();
 
+  const labels = locale === "eu" ? {
+    ready: "Hasteko prest?",
+    joinFamily: "Batu BitanBat familiara",
+    contact: "Kontaktatu",
+    tagline: "Dantza eta fitness zentroa Hernanin. Zure gorputza eta gogoa eraldatzeko lekua.",
+    navigate: "Nabigatu",
+  } : {
+    ready: "¿Lista para empezar?",
+    joinFamily: "Únete a la familia BitanBat",
+    contact: "Contactar",
+    tagline: "Centro de danza y fitness en Hernani. Tu espacio para transformar cuerpo y mente.",
+    navigate: "Navegar",
+  };
+
   return (
     <footer className="bg-primary text-white">
       {/* Pre-footer CTA */}
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 text-center">
           <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-4">
-            {locale === "eu" ? "Hasteko prest?" : "¿Lista para empezar?"}
+            {labels.ready}
           </p>
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-8">
-            {locale === "eu"
-              ? "Batu BitanBat familiara"
-              : "Únete a la familia BitanBat"}
+            {labels.joinFamily}
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/contacto"
               className="w-full sm:w-auto text-center px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
             >
-              {locale === "eu" ? "Kontaktatu" : "Contactar"}
+              {labels.contact}
             </Link>
             <a
               href={SITE_CONFIG.whatsapp}
@@ -71,9 +83,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm">
-              {locale === "eu"
-                ? "Dantza eta fitness zentroa Hernanin. Zure gorputza eta gogoa eraldatzeko lekua."
-                : "Centro de danza y fitness en Hernani. Tu espacio para transformar cuerpo y mente."}
+              {labels.tagline}
             </p>
             <div className="space-y-3 text-white/60 text-sm">
               <p className="flex items-center gap-3">
@@ -90,7 +100,7 @@ export default function Footer() {
           {/* Nav links */}
           <div className="md:col-span-3">
             <h4 className="font-heading font-semibold text-sm tracking-[0.15em] uppercase text-white/40 mb-6">
-              {locale === "eu" ? "Nabigatu" : "Navegar"}
+              {labels.navigate}
             </h4>
             <nav className="space-y-3">
               {footerLinks.map((item) => (

@@ -59,7 +59,18 @@ export default function GalleryContent({
     [allMedia]
   );
 
-  const visibleMedia = filteredMedia.slice(0, visibleCount);
+  const visibleMedia = useMemo(
+    () => filteredMedia.slice(0, visibleCount),
+    [filteredMedia, visibleCount]
+  );
+  const visibleItems = useMemo(
+    () =>
+      visibleMedia.map((media) => ({
+        media,
+        caption: getLocalizedField(media, "caption", locale) || "",
+      })),
+    [locale, visibleMedia]
+  );
   const hasMore = visibleCount < filteredMedia.length;
 
   useEffect(() => {
@@ -73,7 +84,9 @@ export default function GalleryContent({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisibleCount((prev) => prev + ITEMS_PER_PAGE);
+          setVisibleCount((prev) =>
+            Math.min(prev + ITEMS_PER_PAGE, filteredMedia.length)
+          );
         }
       },
       { rootMargin: "200px" }
@@ -81,10 +94,12 @@ export default function GalleryContent({
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [hasMore]);
+  }, [filteredMedia.length, hasMore]);
 
-  const getCaption = (media: GalleryMedia) =>
-    getLocalizedField(media, "caption", locale) || "";
+  const getCaption = useCallback(
+    (media: GalleryMedia) => getLocalizedField(media, "caption", locale) || "",
+    [locale]
+  );
 
   const closeLightbox = useCallback(() => setSelectedMedia(null), []);
 
@@ -100,6 +115,8 @@ export default function GalleryContent({
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedMedia, closeLightbox]);
+
+  const selectedCaption = selectedMedia ? getCaption(selectedMedia) : "";
 
   return (
     <>
@@ -181,7 +198,7 @@ export default function GalleryContent({
           ) : (
             <div className="border-t border-white/10 pt-6">
               <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
-                {visibleMedia.map((media) => (
+                {visibleItems.map(({ media, caption }) => (
                   <div
                     key={media.id}
                     className="group mb-4 cursor-pointer break-inside-avoid"
@@ -190,12 +207,13 @@ export default function GalleryContent({
                     <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/50 shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
                       {media.type === "video" ? (
                         <>
-                          <video
-                            src={media.url}
-                            poster={media.poster}
-                            muted
-                            playsInline
-                            preload="none"
+                          <Image
+                            src={media.poster || media.url}
+                            alt={caption || `BitanBat ${media.id}`}
+                            width={600}
+                            height={800}
+                            loading="lazy"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                           />
                           <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10">
@@ -210,17 +228,18 @@ export default function GalleryContent({
                       ) : (
                         <Image
                           src={media.url}
-                          alt={getCaption(media) || `BitanBat ${media.id}`}
+                          alt={caption || `BitanBat ${media.id}`}
                           width={600}
                           height={400}
                           loading="lazy"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                       )}
 
                       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-4 pt-12">
                         <p className="line-clamp-2 text-sm text-white/88">
-                          {getCaption(media) ||
+                          {caption ||
                             (locale === "eu" ? "Pieza ireki" : "Abrir pieza")}
                         </p>
                       </div>
@@ -255,14 +274,14 @@ export default function GalleryContent({
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={getCaption(selectedMedia) || "Galeria"}
+          aria-label={selectedCaption || (locale === "eu" ? "Galeria" : "Galería")}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/92 p-4 backdrop-blur-sm animate-fade-in"
           onClick={closeLightbox}
         >
           <button
             className="absolute right-4 top-4 z-10 rounded-full border border-white/10 bg-white/5 p-2 text-white/70 hover:text-white"
             onClick={closeLightbox}
-            aria-label="Cerrar"
+            aria-label={locale === "eu" ? "Itxi" : "Cerrar"}
             autoFocus
           >
             <X size={32} />
@@ -277,22 +296,23 @@ export default function GalleryContent({
                 poster={selectedMedia.poster}
                 controls
                 autoPlay
+                muted
                 playsInline
                 className="mx-auto max-h-[80vh] max-w-full rounded-[1.5rem]"
               />
             ) : (
               <Image
                 src={selectedMedia.url}
-                alt={getCaption(selectedMedia) || `BitanBat ${selectedMedia.id}`}
+                alt={selectedCaption || `BitanBat ${selectedMedia.id}`}
                 width={1200}
                 height={800}
                 className="mx-auto max-h-[80vh] w-auto rounded-[1.5rem] object-contain"
               />
             )}
-            {getCaption(selectedMedia) && (
+            {selectedCaption && (
               <div className="mt-4 text-center">
                 <p className="text-sm text-white/90 md:text-base">
-                  {getCaption(selectedMedia)}
+                  {selectedCaption}
                 </p>
                 {selectedMedia.instagramUrl && (
                   <a
@@ -302,7 +322,7 @@ export default function GalleryContent({
                     className="mt-2 inline-flex items-center gap-1.5 text-sm text-accent/80 transition-colors hover:text-accent"
                   >
                     <Instagram size={14} />
-                    Ver en Instagram
+                    {locale === "eu" ? "Instagramen ikusi" : "Ver en Instagram"}
                   </a>
                 )}
               </div>

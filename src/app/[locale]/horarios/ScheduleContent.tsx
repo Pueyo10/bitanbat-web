@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import WeeklyCalendar from "@/components/schedule/WeeklyCalendar";
 import LocationTabs from "@/components/schedule/LocationTabs";
 import type { Schedule } from "@/types/database";
@@ -15,7 +14,10 @@ export default function ScheduleContent({
 }) {
   const [activeLocation, setActiveLocation] = useState(LOCAL_1_ID);
 
-  const filtered = schedules.filter((s) => s.location_id === activeLocation);
+  const filtered = useMemo(
+    () => schedules.filter((s) => s.location_id === activeLocation),
+    [activeLocation, schedules]
+  );
 
   return (
     <>
@@ -26,15 +28,12 @@ export default function ScheduleContent({
         />
       </div>
 
-      <motion.div
+      <div
         key={activeLocation}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="bg-white rounded-lg shadow-sm border border-border p-4 md:p-6"
+        className="animate-fade-in bg-white rounded-lg shadow-sm border border-border p-4 md:p-6"
       >
         <WeeklyCalendar schedules={filtered} />
-      </motion.div>
+      </div>
     </>
   );
 }

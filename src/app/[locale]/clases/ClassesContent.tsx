@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { BadgeCheck, ChevronRight, Crown, Sparkles } from "lucide-react";
 import type { ClassType, ClassCategory } from "@/types/database";
@@ -10,24 +9,42 @@ import { getLocalizedField } from "@/lib/utils";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const classImages: Record<string, string> = {
-  "entrenamiento-funcional": "/media/instagram/DPyvmA2DMOz.jpg",
-  pilates: "/media/instagram/Ch-babUsd9k.jpg",
-  barrefit: "/media/instagram/DKtuhk7tJls.jpg",
-  boxeo: "/media/instagram/CoX5o7xrQiU.jpg",
-  "boxeo-txiki": "/media/instagram/CoX5o7xrQiU.jpg",
-  yoga: "/media/instagram/DUiBayBDNcI.jpg",
-  bungee: "/media/instagram/DQaCTUNjPo9.jpg",
-  bachata: "/media/instagram/DB65K-0tLqq.jpg",
-  salsa: "/media/instagram/DB65K-0tLqq.jpg",
-  sevillanas: "/media/instagram/DRkhijgjMzh.jpg",
-  urbano: "/media/instagram/DOI7CdOjLRg.jpg",
-  zumba: "/media/instagram/DGu3i1DNSVW.jpg",
-  jumping: "/media/instagram/DQaCTUNjPo9.jpg",
-  masajes: "/media/instagram/DUDUHlZjPlW.jpg",
-  fitgipsy: "/media/instagram/C1rjE4Ttcmt.jpg",
-  predantza: "/media/instagram/CysgTyXN9bz.jpg",
-  "hatha-vinyasa": "/media/instagram/DU5Riz4DLBU.jpg",
+  "e-funcional-txikiak": "/media/bitanbat/functional-kids-young.jpg",
+  "e-funcional-txiki": "/media/bitanbat/functional-kids-older.jpg",
+  "entrenamiento-funcional": "/media/bitanbat/functional-training.jpg",
+  pilates: "/media/bitanbat/pilates-class.jpg",
+  barrefit: "/media/bitanbat/barrefit-class.jpg",
+  boxeo: "/media/bitanbat/boxing-class.jpg",
+  "boxeo-txiki": "/media/bitanbat/boxing-kids.jpg",
+  yoga: "/media/bitanbat/yoga-class.jpg",
+  bungee: "/media/bitanbat/bungee-class.jpg",
+  bachata: "/media/bitanbat/bachata-couple.jpg",
+  salsa: "/media/bitanbat/salsa-dance-couple.jpg",
+  sevillanas: "/media/bitanbat/sevillanas-class.jpg",
+  urbano: "/media/bitanbat/urban-dance.jpg",
+  zumba: "/media/bitanbat/zumba-class.jpg",
+  fitgipsy: "/media/bitanbat/fitgipsy-class.jpg",
+  predantza: "/media/bitanbat/predantza-class.jpg",
 };
+
+const scheduledClassSlugs = new Set([
+  "bachata",
+  "barrefit",
+  "boxeo",
+  "boxeo-txiki",
+  "bungee",
+  "e-funcional-txikiak",
+  "e-funcional-txiki",
+  "entrenamiento-funcional",
+  "fitgipsy",
+  "pilates",
+  "predantza",
+  "salsa",
+  "sevillanas",
+  "urbano",
+  "yoga",
+  "zumba",
+]);
 
 const filters: { key: string; value: ClassCategory | "all" | "kids" }[] = [
   { key: "filterAll", value: "all" },
@@ -55,14 +72,11 @@ export default function ClassesContent({
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const filtered = useMemo(() => {
-    const visible = classes.filter((c) => c.slug !== "e-funcional-txikiak");
+    const visible = classes.filter((c) => scheduledClassSlugs.has(c.slug));
     if (activeFilter === "all") return visible;
     if (activeFilter === "kids") return visible.filter((c) => c.min_age !== null);
     return visible.filter((c) => c.category === activeFilter);
   }, [activeFilter, classes]);
-
-  const activeFilterLabel =
-    filters.find((filter) => filter.value === activeFilter)?.key ?? "filterAll";
 
   return (
     <>
@@ -86,10 +100,16 @@ export default function ClassesContent({
         </div>
       </div>
 
-      <motion.div
-        layout
-        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8"
-      >
+      {filtered.length === 0 ? (
+        <div className="py-20 text-center">
+          <p className="text-muted-foreground text-base md:text-lg">
+            {locale === "eu"
+              ? "Ez dago klaserik kategoria honetan"
+              : "No hay clases en esta categoría"}
+          </p>
+        </div>
+      ) : (
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
         {filtered.map((cls, i) => {
           const img = classImages[cls.slug] || cls.image_url;
           const categoryLabel = categoryLabels[cls.category ?? ""] ?? {
@@ -147,20 +167,16 @@ export default function ClassesContent({
                       </p>
                     </div>
 
-                    <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-4">
+                    <div className="mt-4 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
                       <div>
                         <p className="mb-2 text-[0.65rem] uppercase tracking-[0.24em] text-white/45">
                           {locale === "eu" ? "Informazioa" : "Información"}
                         </p>
-                        <p className="font-heading text-3xl font-bold text-accent">
-                          {cls.min_age
-                            ? `${cls.min_age}${cls.max_age ? `-${cls.max_age}` : "+"}`
-                            : locale === "eu"
-                              ? "Maila guztietarako"
-                              : "Todos los niveles"}
+                        <p className="font-heading text-xl font-bold text-accent sm:text-3xl">
+                          {locale === "eu" ? "Maila guztietarako" : "Todos los niveles"}
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-xs font-medium text-white/85 backdrop-blur-sm">
+                      <div className="hidden items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-xs font-medium text-white/85 backdrop-blur-sm sm:flex">
                         <BadgeCheck size={14} className="text-accent" />
                         {locale === "eu" ? "Aukera sendoa" : "Opción sólida"}
                         <ChevronRight size={13} />
@@ -172,7 +188,8 @@ export default function ClassesContent({
             </ScrollReveal>
           );
         })}
-      </motion.div>
+      </div>
+      )}
     </>
   );
 }

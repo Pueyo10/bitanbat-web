@@ -10,7 +10,7 @@ export default function PageHero({
   return (
     <section className="relative overflow-hidden bg-primary pt-28 pb-12 md:pt-40 md:pb-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,169,110,0.18),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent_36%)]" />
-      <div className="absolute left-1/2 top-8 h-48 w-[32rem] -translate-x-1/2 rounded-full bg-accent/12 blur-3xl" />
+      <div className="absolute left-1/2 top-8 h-48 w-[min(32rem,110vw)] -translate-x-1/2 rounded-full bg-accent/12 blur-3xl" />
       <div className="absolute left-6 top-16 hidden h-28 w-28 rounded-full border border-white/6 md:block" />
       <div className="absolute bottom-12 right-10 hidden h-36 w-36 rounded-full border border-accent/10 md:block" />
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />

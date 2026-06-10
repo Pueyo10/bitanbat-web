@@ -205,9 +205,13 @@ export default async function BlogPage({
                     </div>
 
                     <div className="flex flex-1 flex-col gap-4 p-6">
-                      <div className="flex items-center justify-between text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-accent/80">
-                        <span>{isBasque ? "Edizioa" : "Edición"}</span>
-                        <span className="text-muted-foreground">{isBasque ? "Irakurri" : "Leer"}</span>
+                      <div className="flex items-center gap-3 text-[0.68rem] font-semibold uppercase tracking-[0.28em] text-accent/80">
+                        <span>
+                          {new Date(post.created_at).toLocaleDateString(
+                            locale === "eu" ? "eu-ES" : "es-ES",
+                            { year: "numeric", month: "long", day: "numeric" }
+                          )}
+                        </span>
                       </div>
 
                       <h3 className="font-heading text-2xl font-bold leading-tight text-foreground transition-colors group-hover:text-accent">

@@ -92,19 +92,19 @@ html {
 }
 
 /* Schedule calendar colors */
-.schedule-entrenamiento-funcional { background-color: #FFEB3B; color: #0A0A0A; }
+.schedule-entrenamiento-funcional { background-color: #F5C800; color: #0A0A0A; }
 .schedule-sevillanas { background-color: #E91E63; color: #FFFFFF; }
 .schedule-fitgipsy { background-color: #9C27B0; color: #FFFFFF; }
-.schedule-predantza { background-color: #FF9800; color: #0A0A0A; }
+.schedule-predantza { background-color: #E67E00; color: #0A0A0A; }
 .schedule-boxeo { background-color: #F44336; color: #FFFFFF; }
-.schedule-zumba { background-color: #FFEB3B; color: #0A0A0A; }
-.schedule-bungee { background-color: #00BCD4; color: #FFFFFF; }
+.schedule-zumba { background-color: #F5C800; color: #0A0A0A; }
+.schedule-bungee { background-color: #0097A7; color: #FFFFFF; }
 .schedule-urbano { background-color: #9C27B0; color: #FFFFFF; }
 .schedule-bachata { background-color: #E91E63; color: #FFFFFF; }
 .schedule-salsa { background-color: #FF5722; color: #FFFFFF; }
 .schedule-pilates { background-color: #4CAF50; color: #FFFFFF; }
 .schedule-barrefit { background-color: #4CAF50; color: #FFFFFF; }
-.schedule-jumping { background-color: #00BCD4; color: #FFFFFF; }
+.schedule-jumping { background-color: #0097A7; color: #FFFFFF; }
 
 /* Hero mosaic Ken Burns animation */
 @keyframes ken-burns {
@@ -128,6 +128,21 @@ html {
 
 .animate-fade-in {
   animation: fade-in 0.25s ease-out;
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.22s ease-out;
 }
 
 /* Scroll reveal - CSS only */

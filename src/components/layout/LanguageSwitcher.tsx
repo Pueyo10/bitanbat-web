@@ -21,7 +21,7 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => switchLocale("es")}
         aria-pressed={locale === "es"}
-        className={`min-w-[2.5rem] rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-all ${
+        className={`min-h-9 min-w-[2.5rem] rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-all ${
           locale === "es"
             ? "bg-accent text-primary shadow-[0_10px_25px_rgba(201,169,110,0.28)]"
             : "text-white/72 hover:bg-white/[0.05] hover:text-white"
@@ -32,7 +32,7 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => switchLocale("eu")}
         aria-pressed={locale === "eu"}
-        className={`min-w-[2.5rem] rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-all ${
+        className={`min-h-9 min-w-[2.5rem] rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] transition-all ${
           locale === "eu"
             ? "bg-accent text-primary shadow-[0_10px_25px_rgba(201,169,110,0.28)]"
             : "text-white/72 hover:bg-white/[0.05] hover:text-white"

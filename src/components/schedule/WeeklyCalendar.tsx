@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "next-intl";
+import { useMemo } from "react";
 import type { Schedule } from "@/types/database";
 import { DAYS_ES, DAYS_EU } from "@/lib/constants";
 
@@ -10,22 +11,48 @@ interface WeeklyCalendarProps {
 
 function getTimeSlots(schedules: Schedule[]): string[] {
   const times = new Set<string>();
-  schedules.forEach((s) => {
+  for (const s of schedules) {
     times.add(s.start_time.slice(0, 5));
-  });
+  }
   return Array.from(times).sort();
 }
 
 export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
   const locale = useLocale();
   const days = locale === "eu" ? DAYS_EU : DAYS_ES;
-  const timeSlots = getTimeSlots(schedules);
+  const { timeSlots, schedulesByCell, schedulesByDay } = useMemo(() => {
+    const byCell = new Map<string, Schedule[]>();
+    const byDay = new Map<number, Schedule[]>();
+
+    for (const schedule of schedules) {
+      const time = schedule.start_time.slice(0, 5);
+      const cellKey = `${schedule.day_of_week}-${time}`;
+      const cell = byCell.get(cellKey);
+      if (cell) cell.push(schedule);
+      else byCell.set(cellKey, [schedule]);
+
+      const day = byDay.get(schedule.day_of_week);
+      if (day) day.push(schedule);
+      else byDay.set(schedule.day_of_week, [schedule]);
+    }
+
+    for (const daySchedules of byDay.values()) {
+      daySchedules.sort((a, b) => a.start_time.localeCompare(b.start_time));
+    }
+
+    return {
+      timeSlots: getTimeSlots(schedules),
+      schedulesByCell: byCell,
+      schedulesByDay: byDay,
+    };
+  }, [schedules]);
+  const todayIdx = (new Date().getDay() + 6) % 7;
 
   return (
     <div className="overflow-x-auto">
       {/* Desktop view */}
-      <table className="hidden md:table w-full border-collapse">
-        <thead>
+      <table className="hidden lg:table w-full border-collapse">
+        <thead className="sticky top-0 z-10 bg-primary">
           <tr>
             <th className="p-3 text-left text-sm font-semibold text-muted-foreground border-b border-border w-20">
 
@@ -33,7 +60,9 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
             {days.map((day, i) => (
               <th
                 key={i}
-                className="p-3 text-center text-sm font-semibold text-foreground border-b border-border"
+                className={`p-3 text-center text-sm font-semibold text-foreground border-b border-border ${
+                  i === todayIdx ? "ring-2 ring-accent/40 rounded-t-lg" : ""
+                }`}
               >
                 {day}
               </th>
@@ -47,13 +76,15 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
                 {time}
               </td>
               {[0, 1, 2, 3, 4].map((dayIndex) => {
-                const cellSchedules = schedules.filter(
-                  (s) =>
-                    s.day_of_week === dayIndex &&
-                    s.start_time.slice(0, 5) === time
-                );
+                const cellSchedules =
+                  schedulesByCell.get(`${dayIndex}-${time}`) ?? [];
                 return (
-                  <td key={dayIndex} className="p-1 align-top">
+                  <td
+                    key={dayIndex}
+                    className={`p-1.5 align-top ${
+                      dayIndex === todayIdx ? "ring-2 ring-accent/40" : ""
+                    }`}
+                  >
                     {cellSchedules.map((s) => (
                       <div
                         key={s.id}
@@ -84,17 +115,35 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
       </table>
 
       {/* Mobile view - day by day */}
-      <div className="md:hidden space-y-6">
+      <div className="lg:hidden space-y-6">
         {days.map((day, dayIndex) => {
-          const daySchedules = schedules
-            .filter((s) => s.day_of_week === dayIndex)
-            .sort((a, b) => a.start_time.localeCompare(b.start_time));
+          const daySchedules = schedulesByDay.get(dayIndex) ?? [];
+          const isToday = dayIndex === todayIdx;
 
-          if (daySchedules.length === 0) return null;
+          if (daySchedules.length === 0) {
+            return (
+              <div key={dayIndex}>
+                <h3
+                  className={`text-lg font-semibold text-foreground mb-3 border-b border-border pb-2 ${
+                    isToday ? "ring-2 ring-accent/40 rounded-md px-2" : ""
+                  }`}
+                >
+                  {day}
+                </h3>
+                <p className="text-sm text-muted-foreground italic">
+                  {locale === "eu" ? "Klaserik ez" : "Sin clases"}
+                </p>
+              </div>
+            );
+          }
 
           return (
             <div key={dayIndex}>
-              <h3 className="text-lg font-semibold text-foreground mb-3 border-b border-border pb-2">
+              <h3
+                className={`text-lg font-semibold text-foreground mb-3 border-b border-border pb-2 ${
+                  isToday ? "ring-2 ring-accent/40 rounded-md px-2" : ""
+                }`}
+              >
                 {day}
               </h3>
               <div className="space-y-2">
@@ -113,7 +162,7 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
                       {s.start_time.slice(0, 5)}
                     </div>
                     <div>
-                      <div className="font-semibold text-sm">
+                      <div className="font-semibold text-sm truncate">
                         {s.class?.name}
                       </div>
                       {s.notes && (
@@ -127,15 +176,23 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
           );
         })}
       </div>
+
+      <p className="text-xs text-muted-foreground text-center mt-4">
+        {locale === "eu"
+          ? "Koloreak diziplina bakoitzari dagozkie"
+          : "Los colores corresponden a cada disciplina"}
+      </p>
     </div>
   );
 }
 
 function isLightColor(hex: string): boolean {
   const c = hex.replace("#", "");
+  if (c.length !== 6) return false;
   const r = parseInt(c.substring(0, 2), 16);
   const g = parseInt(c.substring(2, 4), 16);
   const b = parseInt(c.substring(4, 6), 16);
+  if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return false;
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return luminance > 0.6;
 }

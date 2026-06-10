@@ -9,48 +9,44 @@ const classHighlights = [
   {
     nameEs: "Entrenamiento Funcional",
     nameEu: "Entrenamendu Funtzionala",
-    descEs:
-      "Fuerza, resistencia y resultados. Adaptado a todos los niveles.",
-    descEu:
-      "Indarra, erresistentzia eta emaitzak. Maila guztietara egokitua.",
-    image: "/media/instagram/DPyvmA2DMOz.jpg",
+    descEs: "Fuerza, resistencia y resultados. Adaptado a todos los niveles.",
+    descEu: "Indarra, erresistentzia eta emaitzak. Maila guztietara egokitua.",
+    image: "/media/bitanbat/functional-training.jpg",
   },
   {
-    nameEs: "Danza",
-    nameEu: "Dantza",
-    descEs:
-      "Sevillanas, bachata, salsa, urbano, zumba... encuentra tu ritmo.",
-    descEu:
-      "Sevillanoak, bachata, salsa, urbanoa, zumba... aurkitu zure erritmoa.",
-    image: "/media/instagram/DRkhijgjMzh.jpg",
+    nameEs: "Bachata",
+    nameEu: "Bachata",
+    descEs: "Clases desde iniciacion hasta nivel intermedio/avanzado.",
+    descEu: "Hasieratik maila ertain/aurreratura arteko klaseak.",
+    image: "/media/bitanbat/bachata-couple.jpg",
   },
   {
-    nameEs: "Bungee & Jumping",
-    nameEu: "Bungee & Jumping",
-    descEs: "Diversión en el aire. Una experiencia única con resultados reales.",
-    descEu: "Dibertigarria airean. Esperientzia bakarra emaitza errealekin.",
-    image: "/media/instagram/DQaCTUNjPo9.jpg",
+    nameEs: "Bungee",
+    nameEu: "Bungee",
+    descEs: "Fitness con arnes de bungee. Una experiencia unica de entrenamiento.",
+    descEu: "Bungee arnesarekin fitnessa. Entrenamendu esperientzia berezia.",
+    image: "/media/bitanbat/bungee-class.jpg",
   },
   {
-    nameEs: "Pilates & Barrefit",
-    nameEu: "Pilates & Barrefit",
-    descEs: "Flexibilidad, equilibrio y core. Tu cuerpo te lo agradecerá.",
-    descEu: "Malgutasuna, oreka eta core-a. Zure gorputzak eskertu egingo dizu.",
-    image: "/media/instagram/DOeahntDL-l.jpg",
+    nameEs: "Barrefit",
+    nameEu: "Barrefit",
+    descEs: "Combina ballet, pilates y fitness para un cuerpo tonificado.",
+    descEu: "Baleta, pilatesa eta fitnessa uztartzen dituen klasea.",
+    image: "/media/bitanbat/barrefit-class.jpg",
   },
   {
     nameEs: "Boxeo",
     nameEu: "Boxeoa",
-    descEs: "Potencia, técnica y descarga. El mejor entrenamiento de cuerpo completo.",
+    descEs: "Potencia, tecnica y descarga. Entrenamiento de cuerpo completo.",
     descEu: "Potentzia, teknika eta deskarga. Gorputz osoko entrenamendua.",
-    image: "/media/instagram/CoX5o7xrQiU.jpg",
+    image: "/media/bitanbat/boxing-class.jpg",
   },
   {
-    nameEs: "Infantil",
-    nameEu: "Haurrak",
-    descEs: "Predantza, funcional y urbano para los más pequeños.",
-    descEu: "Predantza, funtzional eta urbano txikienentzat.",
-    image: "/media/instagram/DQr2HDKjIGL.jpg",
+    nameEs: "Predantza",
+    nameEu: "Predantza",
+    descEs: "Iniciacion a la danza para los mas pequenos.",
+    descEu: "Txikienentzako dantzarako hastapena.",
+    image: "/media/bitanbat/predantza-class.jpg",
   },
 ];
 
@@ -73,7 +69,7 @@ export default function FeaturedClasses() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {classHighlights.map((item, i) => (
             <ScrollReveal key={item.nameEs} delay={i * 0.08}>
-              <div className="group relative h-72 md:h-80 overflow-hidden rounded-lg cursor-pointer">
+              <div className="group relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer sm:aspect-[3/4] lg:aspect-[4/5]">
                 <Image
                   src={item.image}
                   alt={locale === "eu" ? item.nameEu : item.nameEs}
@@ -82,8 +78,8 @@ export default function FeaturedClasses() {
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                  <h3 className="font-heading text-2xl md:text-3xl font-bold text-white mb-2">
+                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
+                  <h3 className="font-heading text-xl md:text-3xl font-bold text-white mb-2">
                     {locale === "eu" ? item.nameEu : item.nameEs}
                   </h3>
                   <p className="text-white/70 text-sm md:text-base max-w-md">
@@ -98,7 +94,7 @@ export default function FeaturedClasses() {
         <ScrollReveal className="text-center mt-16">
           <Link
             href="/clases"
-            className="inline-block px-10 py-4 bg-primary text-primary-foreground font-heading font-semibold text-lg rounded-full hover:bg-secondary hover:scale-105 transition-all duration-300"
+            className="inline-block px-10 py-4 bg-primary text-primary-foreground font-heading font-semibold text-lg rounded-full hover:bg-white/90 hover:shadow-xl transition-all duration-300"
           >
             {locale === "eu" ? "Klase guztiak ikusi" : "Ver todas las clases"}
           </Link>

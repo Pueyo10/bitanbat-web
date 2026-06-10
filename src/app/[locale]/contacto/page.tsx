@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { motion } from "framer-motion";
 import { MapPin, Phone, Instagram, Send } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
@@ -18,9 +17,11 @@ export default function ContactoPage() {
     message: "",
   });
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitting, setSubmitting] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSubmitting(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -35,6 +36,8 @@ export default function ContactoPage() {
       }
     } catch {
       setStatus("error");
+    } finally {
+      setSubmitting(false);
     }
   }
 
@@ -78,9 +81,6 @@ export default function ContactoPage() {
                       <h3 className="font-heading text-lg font-semibold text-foreground">
                         {SITE_CONFIG.location}
                       </h3>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        {locale === "eu" ? "2 lokal Hernanin" : "2 locales en Hernani"}
-                      </p>
                     </div>
                   </div>
 
@@ -126,7 +126,7 @@ export default function ContactoPage() {
             </ScrollReveal>
 
             <ScrollReveal variant="slide-right">
-              <motion.form onSubmit={handleSubmit} className="relative space-y-6 md:pl-10">
+              <form onSubmit={handleSubmit} className="relative space-y-6 md:pl-10">
                 <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-px bg-gradient-to-b from-transparent via-accent/35 to-transparent md:block" />
                 <div className="relative">
                   <p className="mb-4 text-accent text-sm font-medium uppercase tracking-[0.2em]">
@@ -158,7 +158,7 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, name: e.target.value }))
                     }
-                    className="w-full border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
+                    className="w-full border-0 border-b-2 border-primary/30 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
@@ -178,7 +178,7 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, email: e.target.value }))
                     }
-                    className="w-full border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
+                    className="w-full border-0 border-b-2 border-primary/30 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
@@ -196,7 +196,7 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, phone: e.target.value }))
                     }
-                    className="w-full border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
+                    className="w-full border-0 border-b-2 border-primary/30 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
@@ -216,7 +216,7 @@ export default function ContactoPage() {
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, message: e.target.value }))
                     }
-                    className="w-full resize-none border-0 border-b-2 border-primary/20 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
+                    className="w-full resize-none border-0 border-b-2 border-primary/30 bg-transparent px-0 py-3.5 text-lg text-foreground outline-none transition-all focus:border-accent focus:bg-accent/[0.02] focus:ring-0"
                   />
                 </div>
 
@@ -231,14 +231,17 @@ export default function ContactoPage() {
                   </p>
                 )}
 
-                <button
-                  type="submit"
-                  className="w-full sm:w-auto relative z-10 flex items-center justify-center gap-2 rounded-full bg-primary px-10 py-4 font-heading text-lg font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-secondary"
-                >
-                  <Send size={18} />
-                  {t("send")}
-                </button>
-              </motion.form>
+                <div className={status === "error" ? "rounded-xl border border-red-400/50 p-1" : ""}>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className={`w-full sm:w-auto relative z-10 flex items-center justify-center gap-2 rounded-full bg-primary px-10 py-4 font-heading text-lg font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-secondary${submitting ? " opacity-60 cursor-not-allowed" : ""}`}
+                  >
+                    <Send size={18} />
+                    {submitting ? (locale === "eu" ? "Bidaltzen..." : "Enviando...") : t("send")}
+                  </button>
+                </div>
+              </form>
             </ScrollReveal>
           </div>
         </div>

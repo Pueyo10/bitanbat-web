@@ -33,7 +33,7 @@ export default function SobreNosotrosPage() {
                 <div className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-muted shadow-[0_24px_80px_rgba(0,0,0,0.12)]">
                   <div className="relative aspect-square">
                     <Image
-                      src="/media/instagram/DJJhZLJtVmm.jpg"
+                      src="/media/bitanbat/team-room.jpg"
                       alt="BitanBat Dantza & Fitness - Fundadoras"
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"

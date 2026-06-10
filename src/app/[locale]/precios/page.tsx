@@ -180,18 +180,18 @@ export default async function PreciosPage({
             </p>
           </ScrollReveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {fitnessPrices.map((item, i) => (
               <ScrollReveal key={item.sessions} delay={i * 0.06}>
                 {item.popular ? (
                   /* ── Popular card: animated gradient border + glow ── */
                   <div className="relative z-10 h-full">
                     {/* Outer glow pulse */}
-                    <div className="absolute -inset-3 bg-accent/15 rounded-3xl blur-xl animate-glow-pulse" />
+                    <div className="absolute -inset-3 bg-accent/15 rounded-3xl blur-xl motion-safe:animate-glow-pulse" />
 
                     {/* Badge above border container */}
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-                      <span className="bg-accent text-primary text-[10px] font-bold px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap shadow-lg">
+                      <span className="bg-accent text-primary text-[11px] font-bold px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap shadow-lg">
                         <Star size={10} fill="currentColor" />
                         {t("featured")}
                       </span>
@@ -199,18 +199,18 @@ export default async function PreciosPage({
 
                     {/* Animated border container */}
                     <div className="relative rounded-2xl p-[1.5px] overflow-hidden h-full">
-                      <div className="absolute inset-[-200%] animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
+                      <div className="absolute inset-[-200%] motion-safe:animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
                       <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 pt-6 text-center h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
                         <p className="text-xs mb-1 text-white/50">
                           {item.sessions} {t("sessions")}
                         </p>
                         <div>
-                          <span className="font-heading text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                          <span className="font-heading text-3xl sm:text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
                             {item.price}
                           </span>
                           <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                         </div>
-                        <p className="text-[10px] mt-2 text-white/30">
+                        <p className="text-[11px] mt-2 text-white/30">
                           {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
                         </p>
                       </div>
@@ -224,12 +224,12 @@ export default async function PreciosPage({
                         {item.sessions} {t("sessions")}
                       </p>
                       <div>
-                        <span className="font-heading text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                        <span className="font-heading text-3xl sm:text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
                           {item.price}
                         </span>
                         <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                       </div>
-                      <p className="text-[10px] mt-2 text-white/30">
+                      <p className="text-[11px] mt-2 text-white/30">
                         {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
                       </p>
                     </div>
@@ -273,7 +273,7 @@ export default async function PreciosPage({
                           </span>
                           <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                         </div>
-                        <p className="text-[10px] text-white/30 mt-2">
+                        <p className="text-[11px] text-white/30 mt-2">
                           {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
                         </p>
                       </div>
@@ -306,7 +306,7 @@ export default async function PreciosPage({
                             {item.price}
                           </span>
                           <span className="text-accent/50 text-sm font-heading">€</span>
-                          <p className="text-[10px] text-white/30 mt-0.5">
+                          <p className="text-[11px] text-white/30 mt-0.5">
                             {t("yogaStudents")}:{" "}
                             <span className="text-white/60 font-semibold">
                               {item.studentPrice}€
@@ -366,13 +366,13 @@ export default async function PreciosPage({
             <ScrollReveal delay={masajeTreatments.length * 0.04}>
               <div className="relative">
                 {/* Outer glow pulse */}
-                <div className="absolute -inset-2 bg-accent/10 rounded-3xl blur-xl animate-glow-pulse" />
+                <div className="absolute -inset-2 bg-accent/10 rounded-3xl blur-xl motion-safe:animate-glow-pulse" />
 
                 {/* Animated border container */}
                 <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
-                  <div className="absolute inset-[-200%] animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
+                  <div className="absolute inset-[-200%] motion-safe:animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
                   <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                    <div className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[10px] font-bold px-3 py-1 rounded-full mb-3 border border-accent/20">
+                    <div className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[11px] font-bold px-3 py-1 rounded-full mb-3 border border-accent/20">
                       <Crown size={10} />
                       PREMIUM
                     </div>
@@ -391,7 +391,7 @@ export default async function PreciosPage({
                       {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
                       <span className="font-bold text-accent/80">60€</span>
                     </p>
-                    <p className="text-[10px] text-white/25 mt-1">90 min</p>
+                    <p className="text-[11px] text-white/25 mt-1">90 min</p>
                   </div>
                 </div>
               </div>

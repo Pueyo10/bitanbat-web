@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
@@ -24,13 +24,35 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const scrolledRef = useRef(false);
 
   useEffect(() => {
+    let frameId = 0;
     function onScroll() {
-      setScrolled(window.scrollY > 50);
+      if (frameId) return;
+      frameId = requestAnimationFrame(() => {
+        frameId = 0;
+        const nextScrolled = window.scrollY > 50;
+        if (nextScrolled !== scrolledRef.current) {
+          scrolledRef.current = nextScrolled;
+          setScrolled(nextScrolled);
+        }
+      });
     }
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  const toggleMobile = useCallback(() => {
+    setMobileOpen((open) => !open);
+  }, []);
+
+  const closeMobile = useCallback(() => {
+    setMobileOpen(false);
   }, []);
 
   return (
@@ -54,6 +76,7 @@ export default function Header() {
               alt="BitanBat"
               width={46}
               height={46}
+              priority
               className="rounded-full ring-1 ring-white/10"
             />
             <span className="hidden font-heading text-base font-bold tracking-[0.16em] text-white sm:block">
@@ -62,7 +85,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden items-center gap-5 lg:flex xl:gap-6">
+          <nav className="hidden items-center gap-5 xl:flex xl:gap-6">
             {navItems.map((item) => {
               const isActive =
                 pathname === item.href ||
@@ -72,7 +95,7 @@ export default function Header() {
                   key={item.href}
                   href={item.href as "/"}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group relative py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors ${
+                  className={`group relative flex min-h-11 items-center py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors ${
                     isActive ? "text-white" : "text-white/68 hover:text-white"
                   }`}
                 >
@@ -91,8 +114,8 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="rounded-full border border-white/10 bg-white/[0.04] p-2.5 text-white lg:hidden"
+              onClick={toggleMobile}
+              className="rounded-full border border-white/10 bg-white/[0.04] p-2.5 text-white xl:hidden"
               aria-label="Menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
@@ -107,7 +130,7 @@ export default function Header() {
       <MobileNav
         id="mobile-nav"
         isOpen={mobileOpen}
-        onClose={() => setMobileOpen(false)}
+        onClose={closeMobile}
         items={navItems}
       />
     </header>
