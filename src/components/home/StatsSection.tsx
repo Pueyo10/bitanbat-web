@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useRef, useEffect, useState } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
@@ -61,14 +61,14 @@ function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string
 }
 
 const stats = [
-  { valueEs: "200+", valueEu: "200+", number: 200, suffix: "+", labelEs: "alumnos", labelEu: "ikasle" },
-  { valueEs: "15+", valueEu: "15+", number: 15, suffix: "+", labelEs: "disciplinas", labelEu: "diziplina" },
-  { valueEs: "2", valueEu: "2", number: 2, suffix: "", labelEs: "locales", labelEu: "lokal" },
-  { valueEs: "5", valueEu: "5", number: 5, suffix: "", labelEs: "días a la semana", labelEu: "egun astean" },
-];
+  { number: 200, suffix: "+", labelKey: "statsStudents" },
+  { number: 15, suffix: "+", labelKey: "statsClasses" },
+  { number: 2, suffix: "", labelKey: "statsLocations" },
+  { number: 5, suffix: "", labelKey: "statsDays" },
+] as const;
 
 export default function StatsSection() {
-  const locale = useLocale();
+  const t = useTranslations("Home");
 
   return (
     <section className="py-24 md:py-32 bg-primary">
@@ -76,7 +76,7 @@ export default function StatsSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat, i) => (
             <ScrollReveal
-              key={stat.labelEs}
+              key={stat.labelKey}
               delay={i * 0.08}
               className="text-center"
             >
@@ -84,7 +84,7 @@ export default function StatsSection() {
                 <AnimatedNumber value={stat.number} suffix={stat.suffix} />
               </p>
               <p className="text-white/60 text-sm md:text-base tracking-wide uppercase">
-                {locale === "eu" ? stat.labelEu : stat.labelEs}
+                {t(stat.labelKey)}
               </p>
             </ScrollReveal>
           ))}

@@ -4,10 +4,16 @@ import { Phone, Gift, Users, Star, Crown } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import Button from "@/components/ui/Button";
 
 export const revalidate = 3600;
 
 /* ── Data ─────────────────────────────────────────────── */
+
+const PLAN_COLORS = {
+  boxeo: { glow: "from-red-500/10", bar: "bg-red-500" },
+  yoga: { glow: "from-purple-500/10", bar: "bg-purple-500" },
+} as const;
 
 const dantzaDisciplines = [
   {
@@ -93,6 +99,8 @@ export default async function PreciosPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Prices");
+  const tCommon = await getTranslations("Common");
+  const tMassage = await getTranslations("Massage");
 
   return (
     <>
@@ -145,7 +153,7 @@ export default async function PreciosPage({
                               {opt.price}
                             </span>
                             <span className="text-accent/50 text-sm font-heading">€</span>
-                            <span className="text-white/30 text-xs ml-1">{t("perMonth")}</span>
+                            <span className="text-white/60 text-xs ml-1">{t("perMonth")}</span>
                           </div>
                         </div>
                       ))}
@@ -175,7 +183,7 @@ export default async function PreciosPage({
                 {t("fitness")}
               </h2>
             </div>
-            <p className="text-center text-xs text-white/40 mb-12 max-w-lg mx-auto">
+            <p className="text-center text-xs text-white/60 mb-12 max-w-lg mx-auto">
               {t("fitnessClasses")}
             </p>
           </ScrollReveal>
@@ -210,7 +218,7 @@ export default async function PreciosPage({
                           </span>
                           <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                         </div>
-                        <p className="text-[11px] mt-2 text-white/30">
+                        <p className="text-[11px] mt-2 text-white/60">
                           {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
                         </p>
                       </div>
@@ -220,7 +228,7 @@ export default async function PreciosPage({
                   /* ── Regular fitness card ── */
                   <div className="group relative h-full">
                     <div className="relative text-center p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                      <p className="text-xs mb-1 text-white/40">
+                      <p className="text-xs mb-1 text-white/60">
                         {item.sessions} {t("sessions")}
                       </p>
                       <div>
@@ -229,7 +237,7 @@ export default async function PreciosPage({
                         </span>
                         <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                       </div>
-                      <p className="text-[11px] mt-2 text-white/30">
+                      <p className="text-[11px] mt-2 text-white/60">
                         {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
                       </p>
                     </div>
@@ -252,9 +260,9 @@ export default async function PreciosPage({
             {/* Boxeo */}
             <ScrollReveal>
               <div className="group relative h-full">
-                <div className="absolute -inset-0.5 bg-gradient-to-b from-red-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
+                <div className={`absolute -inset-0.5 bg-gradient-to-b ${PLAN_COLORS.boxeo.glow} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
                 <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                  <div className="absolute top-0 left-8 right-8 h-[2px] bg-red-500 rounded-full opacity-60" />
+                  <div className={`absolute top-0 left-8 right-8 h-[2px] ${PLAN_COLORS.boxeo.bar} rounded-full opacity-60`} />
                   <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
                     {t("boxeo")}
                   </h2>
@@ -264,7 +272,7 @@ export default async function PreciosPage({
                         key={item.sessions}
                         className="text-center p-5 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors"
                       >
-                        <p className="text-xs text-white/40 mb-2">
+                        <p className="text-xs text-white/60 mb-2">
                           {item.sessions} {t("sessions")}
                         </p>
                         <div>
@@ -273,7 +281,7 @@ export default async function PreciosPage({
                           </span>
                           <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                         </div>
-                        <p className="text-[11px] text-white/30 mt-2">
+                        <p className="text-[11px] text-white/60 mt-2">
                           {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
                         </p>
                       </div>
@@ -286,9 +294,9 @@ export default async function PreciosPage({
             {/* Yoga */}
             <ScrollReveal delay={0.1}>
               <div className="group relative h-full">
-                <div className="absolute -inset-0.5 bg-gradient-to-b from-purple-500/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
+                <div className={`absolute -inset-0.5 bg-gradient-to-b ${PLAN_COLORS.yoga.glow} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
                 <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                  <div className="absolute top-0 left-8 right-8 h-[2px] bg-purple-500 rounded-full opacity-60" />
+                  <div className={`absolute top-0 left-8 right-8 h-[2px] ${PLAN_COLORS.yoga.bar} rounded-full opacity-60`} />
                   <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
                     {t("yoga")}
                   </h2>
@@ -298,7 +306,7 @@ export default async function PreciosPage({
                         key={item.sessions}
                         className="flex items-center justify-between p-4 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors"
                       >
-                        <span className="text-sm text-white/40">
+                        <span className="text-sm text-white/60">
                           {item.sessions} {t("sessions")}
                         </span>
                         <div className="text-right">
@@ -306,7 +314,7 @@ export default async function PreciosPage({
                             {item.price}
                           </span>
                           <span className="text-accent/50 text-sm font-heading">€</span>
-                          <p className="text-[11px] text-white/30 mt-0.5">
+                          <p className="text-[11px] text-white/60 mt-0.5">
                             {t("yogaStudents")}:{" "}
                             <span className="text-white/60 font-semibold">
                               {item.studentPrice}€
@@ -353,7 +361,7 @@ export default async function PreciosPage({
                     <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                   </div>
                   <div className="w-8 h-[1px] bg-white/[0.08] mx-auto my-2.5" />
-                  <p className="text-xs text-white/40">
+                  <p className="text-xs text-white/60">
                     <Users size={10} className="inline mr-1" />
                     {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
                     <span className="font-bold text-accent/80">35€</span>
@@ -372,12 +380,12 @@ export default async function PreciosPage({
                 <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
                   <div className="absolute inset-[-200%] motion-safe:animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
                   <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                    <div className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[11px] font-bold px-3 py-1 rounded-full mb-3 border border-accent/20">
+                    <div className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[11px] font-bold uppercase px-3 py-1 rounded-full mb-3 border border-accent/20">
                       <Crown size={10} />
-                      PREMIUM
+                      {tCommon("premium")}
                     </div>
                     <p className="font-medium text-white text-sm mb-3">
-                      Masaje BitanBat
+                      {tMassage("bitanbatName")}
                     </p>
                     <div>
                       <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
@@ -386,12 +394,12 @@ export default async function PreciosPage({
                       <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                     </div>
                     <div className="w-8 h-[1px] bg-white/[0.08] mx-auto my-2.5" />
-                    <p className="text-xs text-white/40">
+                    <p className="text-xs text-white/60">
                       <Users size={10} className="inline mr-1" />
                       {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
                       <span className="font-bold text-accent/80">60€</span>
                     </p>
-                    <p className="text-[11px] text-white/25 mt-1">90 min</p>
+                    <p className="text-[11px] text-white/60 mt-1">90 min</p>
                   </div>
                 </div>
               </div>
@@ -439,7 +447,7 @@ export default async function PreciosPage({
                   </div>
                   <div>
                     <p className="text-white font-semibold">{t("familyDiscount")}</p>
-                    <p className="text-white/40 text-xs mt-1">
+                    <p className="text-white/60 text-xs mt-1">
                       {locale === "eu" ? "Familia guztientzat" : "Para toda la familia"}
                     </p>
                   </div>
@@ -456,7 +464,7 @@ export default async function PreciosPage({
                   </div>
                   <div>
                     <p className="text-white font-semibold">{t("singleClass")}</p>
-                    <p className="text-white/40 text-xs mt-1">
+                    <p className="text-white/60 text-xs mt-1">
                       {locale === "eu" ? "Konpromisorik gabe" : "Sin compromiso"}
                     </p>
                   </div>
@@ -478,12 +486,14 @@ export default async function PreciosPage({
                 <Phone size={18} className="relative text-primary" />
                 <span className="relative text-primary">{SITE_CONFIG.phoneFormatted}</span>
               </a>
-              <Link
+              <Button
                 href="/contacto"
-                className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-white/20 text-white font-heading font-semibold rounded-full hover:bg-white/5 hover:border-white/30 transition-all duration-300"
+                variant="secondary"
+                size="md"
+                className="w-full sm:w-auto"
               >
                 {locale === "eu" ? "Kontaktatu" : "Contactar"}
-              </Link>
+              </Button>
             </div>
           </ScrollReveal>
         </div>

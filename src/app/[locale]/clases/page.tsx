@@ -19,7 +19,13 @@ export default async function ClasesPage({
   const t = await getTranslations("Classes");
 
   const supabase = await createClient();
-  const { data } = await supabase.from("classes").select("*").order("name");
+  const { data, error } = await supabase
+    .from("classes")
+    .select("*")
+    .order("name");
+  if (error) {
+    console.error("Error fetching classes:", error);
+  }
   const classes = (data || []) as ClassType[];
 
   return (

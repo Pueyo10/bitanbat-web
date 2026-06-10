@@ -51,20 +51,31 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
   return (
     <div className="overflow-x-auto">
       {/* Desktop view */}
-      <table className="hidden lg:table w-full border-collapse">
+      <table
+        aria-label={
+          locale === "eu"
+            ? "Asteko klaseen ordutegia"
+            : "Horario semanal de clases"
+        }
+        className="hidden lg:table w-full border-collapse"
+      >
         <thead className="sticky top-0 z-10 bg-primary">
           <tr>
-            <th className="p-3 text-left text-sm font-semibold text-muted-foreground border-b border-border w-20">
+            <th className="p-3 text-left text-sm font-semibold text-white/60 border-b border-border w-20">
 
             </th>
             {days.map((day, i) => (
               <th
                 key={i}
-                className={`p-3 text-center text-sm font-semibold text-foreground border-b border-border ${
-                  i === todayIdx ? "ring-2 ring-accent/40 rounded-t-lg" : ""
-                }`}
+                className="p-3 text-center text-sm font-semibold text-white border-b border-border"
               >
-                {day}
+                {i === todayIdx ? (
+                  <span className="inline-block rounded-full bg-accent px-4 py-1 text-primary">
+                    {day}
+                  </span>
+                ) : (
+                  day
+                )}
               </th>
             ))}
           </tr>
@@ -82,7 +93,7 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
                   <td
                     key={dayIndex}
                     className={`p-1.5 align-top ${
-                      dayIndex === todayIdx ? "ring-2 ring-accent/40" : ""
+                      dayIndex === todayIdx ? "bg-accent/[0.07]" : ""
                     }`}
                   >
                     {cellSchedules.map((s) => (
@@ -90,8 +101,8 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
                         key={s.id}
                         className="rounded-lg px-2 py-1.5 mb-1 text-xs font-medium shadow-sm"
                         style={{
-                          backgroundColor: s.class?.color || "#CCCCCC",
-                          color: isLightColor(s.class?.color || "#CCCCCC")
+                          backgroundColor: s.class?.color || "#9CA3AF",
+                          color: isLightColor(s.class?.color || "#9CA3AF")
                             ? "#0A0A0A"
                             : "#FFFFFF",
                         }}
@@ -120,16 +131,25 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
           const daySchedules = schedulesByDay.get(dayIndex) ?? [];
           const isToday = dayIndex === todayIdx;
 
+          const dayHeading = (
+            <h3
+              className={`flex items-center gap-2 text-lg font-semibold text-foreground mb-3 border-b pb-2 ${
+                isToday ? "border-accent" : "border-border"
+              }`}
+            >
+              {day}
+              {isToday && (
+                <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary">
+                  {locale === "eu" ? "Gaur" : "Hoy"}
+                </span>
+              )}
+            </h3>
+          );
+
           if (daySchedules.length === 0) {
             return (
               <div key={dayIndex}>
-                <h3
-                  className={`text-lg font-semibold text-foreground mb-3 border-b border-border pb-2 ${
-                    isToday ? "ring-2 ring-accent/40 rounded-md px-2" : ""
-                  }`}
-                >
-                  {day}
-                </h3>
+                {dayHeading}
                 <p className="text-sm text-muted-foreground italic">
                   {locale === "eu" ? "Klaserik ez" : "Sin clases"}
                 </p>
@@ -139,21 +159,15 @@ export default function WeeklyCalendar({ schedules }: WeeklyCalendarProps) {
 
           return (
             <div key={dayIndex}>
-              <h3
-                className={`text-lg font-semibold text-foreground mb-3 border-b border-border pb-2 ${
-                  isToday ? "ring-2 ring-accent/40 rounded-md px-2" : ""
-                }`}
-              >
-                {day}
-              </h3>
+              {dayHeading}
               <div className="space-y-2">
                 {daySchedules.map((s) => (
                   <div
                     key={s.id}
                     className="flex items-center gap-3 rounded-xl px-4 py-3 shadow-sm"
                     style={{
-                      backgroundColor: s.class?.color || "#CCCCCC",
-                      color: isLightColor(s.class?.color || "#CCCCCC")
+                      backgroundColor: s.class?.color || "#9CA3AF",
+                      color: isLightColor(s.class?.color || "#9CA3AF")
                         ? "#0A0A0A"
                         : "#FFFFFF",
                     }}

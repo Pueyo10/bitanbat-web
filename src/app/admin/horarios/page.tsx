@@ -261,6 +261,9 @@ export default function AdminHorariosPage() {
                 </td>
                 <td className="px-4 py-3">
                   <button
+                    role="switch"
+                    aria-checked={s.is_active}
+                    aria-label={`Clase activa: ${s.class?.name ?? ""}`}
                     onClick={() => handleToggle(s.id, s.is_active)}
                     className={`w-8 h-5 rounded-full transition-colors ${
                       s.is_active ? "bg-green-500" : "bg-gray-300"

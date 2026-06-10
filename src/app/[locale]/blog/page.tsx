@@ -18,6 +18,7 @@ export default async function BlogPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Blog");
+  const tCommon = await getTranslations("Common");
   const isBasque = locale === "eu";
 
   const supabase = await createClient();
@@ -89,7 +90,7 @@ export default async function BlogPage({
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(201,169,110,0.10),_transparent_40%),radial-gradient(circle_at_bottom_right,_rgba(10,10,10,0.06),_transparent_28%)]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+          <div className="mb-10 flex items-center gap-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
             <Sparkles size={14} />
             {isBasque ? "Artxibo editoriala" : "Archivo editorial"}
           </div>
@@ -197,7 +198,7 @@ export default async function BlogPage({
                       ) : (
                         <div className="flex h-full w-full items-end bg-[linear-gradient(145deg,rgba(201,169,110,0.26),rgba(10,10,10,0.04))] p-6">
                           <div className="rounded-full border border-white/20 bg-black/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-foreground/80">
-                            {isBasque ? "Artikulua" : "Artículo"}
+                            {tCommon("article")}
                           </div>
                         </div>
                       )}

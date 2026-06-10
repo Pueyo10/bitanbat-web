@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import Image from "next/image";
 import { Menu } from "lucide-react";
+import { isPathActive } from "@/lib/utils";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileNav from "./MobileNav";
 
@@ -87,9 +88,7 @@ export default function Header() {
           {/* Desktop Nav */}
           <nav className="hidden items-center gap-5 xl:flex xl:gap-6">
             {navItems.map((item) => {
-              const isActive =
-                pathname === item.href ||
-                (item.href !== "/" && pathname.startsWith(item.href));
+              const isActive = isPathActive(pathname, item.href);
               return (
                 <Link
                   key={item.href}

@@ -2,13 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { MapPin, Phone, Instagram, Send } from "lucide-react";
+import { MapPin, Phone, Instagram, Send, Loader2, AlertCircle, CheckCircle } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function ContactoPage() {
   const t = useTranslations("Contact");
+  const tCommon = useTranslations("Common");
   const locale = useLocale();
   const [formState, setFormState] = useState({
     name: "",
@@ -192,6 +193,8 @@ export default function ContactoPage() {
                   <input
                     id="contact-phone"
                     type="tel"
+                    pattern="[0-9+\s()-]{7,15}"
+                    maxLength={20}
                     value={formState.phone}
                     onChange={(e) =>
                       setFormState((s) => ({ ...s, phone: e.target.value }))
@@ -221,26 +224,41 @@ export default function ContactoPage() {
                 </div>
 
                 {status === "success" && (
-                  <p role="status" aria-live="polite" className="text-sm font-medium text-accent">
+                  <p role="status" aria-live="polite" className="flex items-center gap-2 text-sm font-medium text-accent">
+                    <CheckCircle size={16} className="shrink-0" />
                     {t("success")}
                   </p>
                 )}
                 {status === "error" && (
-                  <p role="alert" aria-live="assertive" className="text-sm font-medium text-red-600">
+                  <div
+                    id="contact-error"
+                    role="alert"
+                    aria-live="assertive"
+                    className="flex items-start gap-2.5 rounded-xl border border-red-400/50 bg-red-500/10 p-4 text-sm font-medium text-red-600"
+                  >
+                    <AlertCircle size={16} className="mt-0.5 shrink-0" />
                     {t("error")}
-                  </p>
+                  </div>
                 )}
 
-                <div className={status === "error" ? "rounded-xl border border-red-400/50 p-1" : ""}>
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className={`w-full sm:w-auto relative z-10 flex items-center justify-center gap-2 rounded-full bg-primary px-10 py-4 font-heading text-lg font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-secondary${submitting ? " opacity-60 cursor-not-allowed" : ""}`}
-                  >
-                    <Send size={18} />
-                    {submitting ? (locale === "eu" ? "Bidaltzen..." : "Enviando...") : t("send")}
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  aria-describedby={status === "error" ? "contact-error" : undefined}
+                  className={`w-full sm:w-auto relative z-10 flex items-center justify-center gap-2 rounded-full bg-primary px-10 py-4 font-heading text-lg font-semibold text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-secondary${submitting ? " opacity-60 cursor-not-allowed" : ""}`}
+                >
+                  {submitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      {tCommon("sending")}
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      {t("send")}
+                    </>
+                  )}
+                </button>
               </form>
             </ScrollReveal>
           </div>

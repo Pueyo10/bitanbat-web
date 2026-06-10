@@ -13,6 +13,11 @@ export function getLocalizedField(
   return record[`${field}_${locale}`] ?? record[`${field}_es`] ?? "";
 }
 
+export function isPathActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function formatTime(time: string): string {
   return time.slice(0, 5);
 }

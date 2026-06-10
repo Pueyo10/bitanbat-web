@@ -29,10 +29,12 @@
     "ctaTitle": "Hasteko prest?",
     "ctaSubtitle": "Batu BitanBat familiara eta eraldatu zure gorputza eta gogoa",
     "ctaButton": "Kontaktatu",
-    "statsStudents": "200+ ikasle",
-    "statsClasses": "15+ diziplina",
-    "statsYears": "Hernanin",
-    "statsLocations": "2 lokal"
+    "ctaEyebrow": "Batu gure familiara",
+    "ctaSecondaryButton": "Klaseak ikusi",
+    "statsStudents": "ikasle",
+    "statsClasses": "diziplina",
+    "statsLocations": "lokal",
+    "statsDays": "egun astean"
   },
   "About": {
     "title": "Guri buruz",
@@ -145,12 +147,21 @@
     "rights": "Eskubide guztiak erreserbatuak",
     "followUs": "Jarraitu gaitzazu",
     "address": "Hernani, Gipuzkoa",
-    "phone": "747 436 503"
+    "phone": "747 436 503",
+    "ready": "Hasteko prest?",
+    "joinFamily": "Batu BitanBat familiara",
+    "contactCta": "Kontaktatu",
+    "tagline": "Dantza eta fitness zentroa Hernanin. Zure gorputza eta gogoa eraldatzeko lekua.",
+    "navigate": "Nabigatu"
   },
   "Common": {
     "learnMore": "Gehiago jakin",
     "back": "Itzuli",
     "loading": "Kargatzen...",
-    "noResults": "Ez dago emaitzarik"
+    "noResults": "Ez dago emaitzarik",
+    "premium": "Premium",
+    "video": "Bideoa",
+    "article": "Artikulua",
+    "sending": "Bidaltzen..."
   }
 }

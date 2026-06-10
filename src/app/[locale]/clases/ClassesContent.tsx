@@ -87,7 +87,7 @@ export default function ClassesContent({
               key={f.value}
               onClick={() => setActiveFilter(f.value)}
               aria-pressed={activeFilter === f.value}
-              className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
+              className={`inline-flex min-h-11 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
                 activeFilter === f.value
                   ? "bg-primary text-primary-foreground shadow-md"
                   : "bg-transparent text-muted-foreground border border-transparent hover:border-border hover:bg-background hover:text-foreground"

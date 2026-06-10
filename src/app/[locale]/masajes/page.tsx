@@ -64,6 +64,7 @@ const treatments = [
 
 export default function MasajesPage() {
   const t = useTranslations("Massage");
+  const tCommon = useTranslations("Common");
   const locale = useLocale();
   const experiencePoints = [
     {
@@ -93,7 +94,7 @@ export default function MasajesPage() {
       />
 
       {/* Intro section */}
-      <section className="lux-section-light py-20 md:py-28">
+      <section className="lux-section-light py-16 md:py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
             <ScrollReveal variant="slide-left">
@@ -155,7 +156,7 @@ export default function MasajesPage() {
       </section>
 
       {/* Treatments grid */}
-      <section className="lux-section-dark py-20 md:py-28 text-white">
+      <section className="lux-section-dark py-16 md:py-24 text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScrollReveal className="text-center mb-16">
             <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-4">
@@ -188,14 +189,14 @@ export default function MasajesPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/15 to-transparent" />
                     {treatment.featured && (
-                      <div className="absolute top-3 left-3 rounded-full bg-accent px-3 py-1 text-xs font-bold text-primary">
-                        PREMIUM
+                      <div className="absolute top-3 left-3 rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase text-primary">
+                        {tCommon("premium")}
                       </div>
                     )}
                   </div>
                   <div className="p-5">
                     <div className="mb-3 flex items-center justify-between gap-4">
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/42">
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/60">
                         {locale === "eu" ? "Ongizatea" : "Bienestar"}
                       </p>
                       {treatment.duration && (
@@ -264,7 +265,7 @@ export default function MasajesPage() {
       </section>
 
       {/* Gift card + CTA */}
-      <section className="py-20 md:py-28 bg-primary">
+      <section className="py-16 md:py-24 bg-primary">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <ScrollReveal variant="slide-left">

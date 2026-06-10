@@ -1,9 +1,8 @@
-"use client";
-
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Instagram, Phone, MapPin } from "lucide-react";
+import Button from "@/components/ui/Button";
 import { SITE_CONFIG } from "@/lib/constants";
 
 const footerLinks = [
@@ -18,21 +17,6 @@ const footerLinks = [
 export default function Footer() {
   const t = useTranslations("Footer");
   const tNav = useTranslations("Nav");
-  const locale = useLocale();
-
-  const labels = locale === "eu" ? {
-    ready: "Hasteko prest?",
-    joinFamily: "Batu BitanBat familiara",
-    contact: "Kontaktatu",
-    tagline: "Dantza eta fitness zentroa Hernanin. Zure gorputza eta gogoa eraldatzeko lekua.",
-    navigate: "Nabigatu",
-  } : {
-    ready: "¿Lista para empezar?",
-    joinFamily: "Únete a la familia BitanBat",
-    contact: "Contactar",
-    tagline: "Centro de danza y fitness en Hernani. Tu espacio para transformar cuerpo y mente.",
-    navigate: "Navegar",
-  };
 
   return (
     <footer className="bg-primary text-white">
@@ -40,27 +24,24 @@ export default function Footer() {
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 text-center">
           <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-4">
-            {labels.ready}
+            {t("ready")}
           </p>
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-8">
-            {labels.joinFamily}
+            {t("joinFamily")}
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contacto"
-              className="w-full sm:w-auto text-center px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
-            >
-              {labels.contact}
-            </Link>
-            <a
+            <Button href="/contacto" className="w-full sm:w-auto">
+              {t("contactCta")}
+            </Button>
+            <Button
               href={SITE_CONFIG.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto justify-center px-10 py-4 border border-white/30 text-white font-heading font-medium text-lg rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
+              external
+              variant="secondary"
+              className="w-full sm:w-auto"
             >
               <Phone size={18} />
               {SITE_CONFIG.phoneFormatted}
-            </a>
+            </Button>
           </div>
         </div>
       </div>
@@ -83,7 +64,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm">
-              {labels.tagline}
+              {t("tagline")}
             </p>
             <div className="space-y-3 text-white/60 text-sm">
               <p className="flex items-center gap-3">
@@ -100,7 +81,7 @@ export default function Footer() {
           {/* Nav links */}
           <div className="md:col-span-3">
             <h4 className="font-heading font-semibold text-sm tracking-[0.15em] uppercase text-white/40 mb-6">
-              {labels.navigate}
+              {t("navigate")}
             </h4>
             <nav className="space-y-3">
               {footerLinks.map((item) => (
@@ -126,8 +107,8 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 text-white/60 hover:text-white transition-colors group"
             >
-              <span className="p-2 border border-white/20 rounded-full group-hover:border-accent group-hover:text-accent transition-colors">
-                <Instagram size={18} />
+              <span className="p-3 border border-white/20 rounded-full group-hover:border-accent group-hover:text-accent transition-colors">
+                <Instagram size={20} />
               </span>
               {SITE_CONFIG.instagramHandle}
             </a>

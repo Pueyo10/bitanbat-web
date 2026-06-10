@@ -42,6 +42,14 @@ export default function GalleryContent({
   const [activeFilter, setActiveFilter] = useState("all");
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const handleFilterChange = (value: string) => {
+    setActiveFilter(value);
+    if (gridRef.current && gridRef.current.getBoundingClientRect().top < 0) {
+      gridRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   const filteredMedia = useMemo(
     () =>
@@ -170,9 +178,9 @@ export default function GalleryContent({
               {categoryFilters.map((filter) => (
                 <button
                   key={filter.value}
-                  onClick={() => setActiveFilter(filter.value)}
+                  onClick={() => handleFilterChange(filter.value)}
                   aria-pressed={activeFilter === filter.value}
-                  className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
+                  className={`min-h-11 rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
                     activeFilter === filter.value
                       ? "bg-accent text-primary shadow-[0_14px_30px_rgba(201,169,110,0.22)]"
                       : "border border-white/10 bg-white/[0.02] text-white/72 hover:border-white/18 hover:bg-white/[0.05] hover:text-white"
@@ -196,7 +204,7 @@ export default function GalleryContent({
               </p>
             </div>
           ) : (
-            <div className="border-t border-white/10 pt-6">
+            <div ref={gridRef} className="border-t border-white/10 pt-6">
               <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
                 {visibleItems.map(({ media, caption }) => (
                   <div
@@ -222,7 +230,7 @@ export default function GalleryContent({
                             </span>
                           </div>
                           <div className="absolute left-3 top-3 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/76">
-                            Video
+                            {locale === "eu" ? "Bideoa" : "Vídeo"}
                           </div>
                         </>
                       ) : (

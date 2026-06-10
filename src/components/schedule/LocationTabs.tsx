@@ -19,12 +19,14 @@ export default function LocationTabs({
   ];
 
   return (
-    <div className="flex gap-2 mb-8">
+    <div role="tablist" className="flex gap-2 mb-8">
       {tabs.map((tab) => (
         <button
           key={tab.id}
+          role="tab"
+          aria-selected={activeTab === tab.id}
           onClick={() => onTabChange(tab.id)}
-          className={`px-6 py-2.5 rounded-full font-medium text-sm transition-all ${
+          className={`min-h-11 px-6 py-2.5 rounded-full font-medium text-sm transition-all ${
             activeTab === tab.id
               ? "bg-primary text-primary-foreground shadow-md"
               : "bg-muted text-muted-foreground hover:bg-border"

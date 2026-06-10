@@ -1,10 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
+import Button from "@/components/ui/Button";
 
 type MosaicItem =
   | { type: "image"; src: string }
@@ -127,18 +127,16 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href="/horarios"
-            className="w-full sm:w-auto text-center px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-accent/90 hover:scale-105 transition-all duration-300 shadow-lg"
-          >
+          <Button href="/horarios" className="w-full sm:w-auto shadow-lg">
             {t("cta")}
-          </Link>
-          <Link
+          </Button>
+          <Button
             href="/sobre-nosotros"
-            className="w-full sm:w-auto text-center px-10 py-4 border border-white/30 text-white font-medium text-lg rounded-full hover:bg-white/10 hover:border-white/50 transition-all duration-300"
+            variant="secondary"
+            className="w-full sm:w-auto"
           >
             {t("ctaSecondary")}
-          </Link>
+          </Button>
         </div>
       </div>
 

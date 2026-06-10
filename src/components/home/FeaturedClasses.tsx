@@ -69,7 +69,10 @@ export default function FeaturedClasses() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {classHighlights.map((item, i) => (
             <ScrollReveal key={item.nameEs} delay={i * 0.08}>
-              <div className="group relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer sm:aspect-[3/4] lg:aspect-[4/5]">
+              <Link
+                href="/clases"
+                className="group relative block aspect-[4/3] overflow-hidden rounded-lg cursor-pointer sm:aspect-[3/4] lg:aspect-[4/5]"
+              >
                 <Image
                   src={item.image}
                   alt={locale === "eu" ? item.nameEu : item.nameEs}
@@ -86,7 +89,7 @@ export default function FeaturedClasses() {
                     {locale === "eu" ? item.descEu : item.descEs}
                   </p>
                 </div>
-              </div>
+              </Link>
             </ScrollReveal>
           ))}
         </div>

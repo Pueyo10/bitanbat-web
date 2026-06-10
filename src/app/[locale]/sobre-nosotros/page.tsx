@@ -7,9 +7,11 @@ import { SITE_CONFIG } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import VideoPlayer from "@/components/ui/VideoPlayer";
+import Button from "@/components/ui/Button";
 
 export default function SobreNosotrosPage() {
   const t = useTranslations("About");
+  const tHome = useTranslations("Home");
   const locale = useLocale();
 
   return (
@@ -20,7 +22,7 @@ export default function SobreNosotrosPage() {
         subtitle={t("subtitle")}
       />
 
-      <section className="relative overflow-hidden py-20 md:py-28 bg-background">
+      <section className="relative overflow-hidden py-16 md:py-24 bg-background">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(201,169,110,0.08),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(10,10,10,0.06),transparent_30%)]" />
         <div className="pointer-events-none absolute left-0 top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute right-0 bottom-40 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
@@ -33,7 +35,7 @@ export default function SobreNosotrosPage() {
                 <div className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-muted shadow-[0_24px_80px_rgba(0,0,0,0.12)]">
                   <div className="relative aspect-square">
                     <Image
-                      src="/media/bitanbat/team-room.jpg"
+                      src="/media/instagram/DJJhZLJtVmm.jpg"
                       alt="BitanBat Dantza & Fitness - Fundadoras"
                       fill
                       sizes="(max-width: 768px) 100vw, 50vw"
@@ -177,6 +179,9 @@ export default function SobreNosotrosPage() {
                   ? "Helarazi zure ideia eta guk erantzun, antolatu eta gidatuko zaitugu."
                   : "Cuéntanos tu idea y nosotros te responderemos, organizaremos y te guiaremos."}
               </p>
+              <div className="mt-8 flex justify-center">
+                <Button href="/contacto">{tHome("ctaButton")}</Button>
+              </div>
             </div>
           </div>
         </div>

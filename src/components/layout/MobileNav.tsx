@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { X } from "lucide-react";
+import { isPathActive } from "@/lib/utils";
 import { SITE_CONFIG } from "@/lib/constants";
 
 interface NavItem {
@@ -70,9 +71,7 @@ export default function MobileNav({ id, isOpen, onClose, items }: MobileNavProps
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-4">
           {items.map((item) => {
-            const isActive =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
+            const isActive = isPathActive(pathname, item.href);
             return (
               <Link
                 key={item.href}

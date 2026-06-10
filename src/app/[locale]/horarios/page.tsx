@@ -16,12 +16,16 @@ export default async function HorariosPage({
   const t = await getTranslations("Schedule");
 
   const supabase = await createClient();
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("schedules")
     .select("*, class:classes(*)")
     .eq("is_active", true)
     .order("day_of_week")
     .order("start_time");
+
+  if (error) {
+    console.error("Error fetching schedules:", error);
+  }
 
   const schedules = (data || []) as Schedule[];
 
@@ -33,7 +37,7 @@ export default async function HorariosPage({
         subtitle={t("subtitle")}
       />
 
-      <section className="py-12 md:py-20 bg-background">
+      <section className="py-16 md:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ScheduleContent schedules={schedules} />
         </div>

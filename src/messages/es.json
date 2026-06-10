@@ -29,10 +29,12 @@
     "ctaTitle": "¿Lista para empezar?",
     "ctaSubtitle": "Únete a la familia BitanBat y transforma tu cuerpo y mente",
     "ctaButton": "Contactar",
-    "statsStudents": "200+ alumnos",
-    "statsClasses": "15+ disciplinas",
-    "statsYears": "En Hernani",
-    "statsLocations": "2 locales"
+    "ctaEyebrow": "Únete a nuestra familia",
+    "ctaSecondaryButton": "Ver clases",
+    "statsStudents": "alumnos",
+    "statsClasses": "disciplinas",
+    "statsLocations": "locales",
+    "statsDays": "días a la semana"
   },
   "About": {
     "title": "Sobre nosotros",
@@ -145,12 +147,21 @@
     "rights": "Todos los derechos reservados",
     "followUs": "Síguenos",
     "address": "Hernani, Gipuzkoa",
-    "phone": "747 436 503"
+    "phone": "747 436 503",
+    "ready": "¿Lista para empezar?",
+    "joinFamily": "Únete a la familia BitanBat",
+    "contactCta": "Contactar",
+    "tagline": "Centro de danza y fitness en Hernani. Tu espacio para transformar cuerpo y mente.",
+    "navigate": "Navegar"
   },
   "Common": {
     "learnMore": "Saber más",
     "back": "Volver",
     "loading": "Cargando...",
-    "noResults": "No hay resultados"
+    "noResults": "No hay resultados",
+    "premium": "Premium",
+    "video": "Vídeo",
+    "article": "Artículo",
+    "sending": "Enviando..."
   }
 }

@@ -1,13 +1,12 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import Button from "@/components/ui/Button";
 
 export default function CTASection() {
   const t = useTranslations("Home");
-  const locale = useLocale();
 
   return (
     <section className="relative overflow-hidden bg-primary py-24 md:py-32">
@@ -20,7 +19,7 @@ export default function CTASection() {
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <ScrollReveal>
           <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-6">
-            {locale === "eu" ? "Batu gure familiara" : "Únete a nuestra familia"}
+            {t("ctaEyebrow")}
           </p>
         </ScrollReveal>
 
@@ -40,22 +39,16 @@ export default function CTASection() {
           delay={0.24}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link
-            href="/contacto"
-            className="group inline-flex items-center gap-3 px-10 py-4 bg-accent text-primary font-heading font-semibold text-lg rounded-full hover:bg-white hover:scale-105 transition-all duration-300"
-          >
+          <Button href="/contacto" className="group">
             {t("ctaButton")}
             <ArrowRight
               size={18}
               className="transition-transform group-hover:translate-x-1"
             />
-          </Link>
-          <Link
-            href="/clases"
-            className="inline-flex items-center gap-2 px-8 py-4 border border-white/20 text-white font-heading font-medium rounded-full hover:bg-white/5 hover:border-white/30 transition-all duration-300"
-          >
-            {locale === "eu" ? "Klaseak ikusi" : "Ver clases"}
-          </Link>
+          </Button>
+          <Button href="/clases" variant="secondary">
+            {t("ctaSecondaryButton")}
+          </Button>
         </ScrollReveal>
       </div>
     </section>

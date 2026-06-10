@@ -21,8 +21,17 @@ export default function VideoPlayer({ src, poster }: { src: string; poster: stri
 
   return (
     <div
-      className="group relative cursor-pointer overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/70 shadow-[0_24px_60px_rgba(0,0,0,0.25)]"
+      role="button"
+      tabIndex={0}
+      aria-label={playing ? "Pausar vídeo" : "Reproducir vídeo"}
+      className="group relative cursor-pointer overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/70 shadow-[0_24px_60px_rgba(0,0,0,0.25)] focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
       onClick={toggle}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggle();
+        }
+      }}
     >
       <video
         ref={ref}
