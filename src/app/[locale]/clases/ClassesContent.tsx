@@ -3,7 +3,8 @@
 import { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { BadgeCheck, ChevronRight, Crown, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import type { ClassType, ClassCategory } from "@/types/database";
 import { getLocalizedField } from "@/lib/utils";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -61,6 +62,17 @@ const categoryLabels: Record<string, { es: string; eu: string }> = {
   kids: { es: "Infantil", eu: "Haurrak" },
 };
 
+// Editorial rhythm after the full-width opener: wide / tall pairs with offsets
+const CARD_LAYOUT = [
+  { span: "md:col-span-7", aspect: "aspect-[4/3] md:aspect-[16/10]" },
+  { span: "md:col-span-5 md:mt-20", aspect: "aspect-[4/3] md:aspect-[4/5]" },
+  { span: "md:col-span-5", aspect: "aspect-[4/3] md:aspect-[4/5]" },
+  { span: "md:col-span-7 md:mt-16", aspect: "aspect-[4/3] md:aspect-[16/10]" },
+] as const;
+
+const imageHoverClass =
+  "object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]";
+
 export default function ClassesContent({
   classes,
   locale,
@@ -80,115 +92,193 @@ export default function ClassesContent({
 
   return (
     <>
-      <div className="mb-10">
-        <div className="flex flex-wrap justify-center gap-2 rounded-3xl border border-border bg-white/80 backdrop-blur-xl p-2 shadow-[0_18px_60px_rgba(10,10,10,0.06)]">
-          {filters.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => setActiveFilter(f.value)}
-              aria-pressed={activeFilter === f.value}
-              className={`inline-flex min-h-11 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 ${
-                activeFilter === f.value
-                  ? "bg-primary text-primary-foreground shadow-md"
-                  : "bg-transparent text-muted-foreground border border-transparent hover:border-border hover:bg-background hover:text-foreground"
-              }`}
-            >
-              {activeFilter === f.value && <Sparkles size={14} />}
-              {t(f.key)}
-            </button>
-          ))}
+      {/* Filters — minimalist tabs with animated gold underline */}
+      <ScrollReveal>
+        <div className="mb-14 flex flex-wrap items-center justify-between gap-x-10 gap-y-2 border-b border-border md:mb-20">
+          <div className="flex flex-wrap gap-x-6 md:gap-x-10">
+            {filters.map((f) => {
+              const isActive = activeFilter === f.value;
+              return (
+                <button
+                  key={f.value}
+                  onClick={() => setActiveFilter(f.value)}
+                  aria-pressed={isActive}
+                  className={`group relative inline-flex min-h-11 items-center text-xs font-medium uppercase tracking-[0.22em] transition-colors duration-300 md:text-sm ${
+                    isActive
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {t(f.key)}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute bottom-0 left-0 h-[2px] w-full origin-left bg-accent transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
+                      isActive
+                        ? "scale-x-100 opacity-100"
+                        : "scale-x-0 opacity-40 group-hover:scale-x-100"
+                    }`}
+                  />
+                </button>
+              );
+            })}
+          </div>
+          <p className="hidden min-h-11 items-center font-heading text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground sm:flex">
+            <span className="mr-2 text-accent">
+              {String(filtered.length).padStart(2, "0")}
+            </span>
+            {locale === "eu" ? "klase" : "clases"}
+          </p>
         </div>
-      </div>
+      </ScrollReveal>
 
       {filtered.length === 0 ? (
-        <div className="py-20 text-center">
-          <p className="text-muted-foreground text-base md:text-lg">
+        <div className="py-24 md:ml-[8vw] md:py-32">
+          <p className="font-serif-display text-4xl lowercase italic text-accent md:text-5xl">
+            {locale === "eu" ? "laster gehiago" : "próximamente"}
+          </p>
+          <p className="mt-5 max-w-md text-base text-muted-foreground md:text-lg">
             {locale === "eu"
               ? "Ez dago klaserik kategoria honetan"
               : "No hay clases en esta categoría"}
           </p>
         </div>
       ) : (
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-        {filtered.map((cls, i) => {
-          const img = classImages[cls.slug] || cls.image_url;
-          const categoryLabel = categoryLabels[cls.category ?? ""] ?? {
-            es: "Clase",
-            eu: "Klase",
-          };
+        <div className="grid grid-cols-1 items-start gap-y-14 md:grid-cols-12 md:gap-x-6 md:gap-y-24">
+          {filtered.map((cls, i) => {
+            const img = classImages[cls.slug] || cls.image_url;
+            const categoryLabel = categoryLabels[cls.category ?? ""] ?? {
+              es: "Clase",
+              eu: "Klase",
+            };
+            const category = locale === "eu" ? categoryLabel.eu : categoryLabel.es;
+            const number = String(i + 1).padStart(2, "0");
+            const ageLabel = cls.min_age
+              ? `${cls.min_age}${cls.max_age ? `-${cls.max_age}` : "+"} ${
+                  locale === "eu" ? "urte" : "años"
+                }`
+              : null;
+            const description = getLocalizedField(cls, "description", locale);
 
-          return (
-            <ScrollReveal key={cls.id} delay={i * 0.05}>
-              <article className="group relative overflow-hidden rounded-3xl border border-border bg-white shadow-[0_18px_50px_rgba(10,10,10,0.08)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(10,10,10,0.14)]">
-                <div className="relative aspect-[4/5] overflow-hidden">
-                  {img ? (
-                    <Image
-                      src={img}
-                      alt={cls.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div
-                      className="absolute inset-0"
-                      style={{ backgroundColor: cls.color }}
-                    />
-                  )}
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/25 to-transparent" />
-
-                  <div className="absolute left-4 right-4 top-4 flex flex-wrap items-center gap-2">
-                    <span className="inline-flex items-center rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary shadow-sm">
-                      {locale === "eu" ? categoryLabel.eu : categoryLabel.es}
-                    </span>
-                    {cls.min_age && (
-                      <span className="inline-flex items-center rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-                        {locale === "eu"
-                          ? `${cls.min_age}${cls.max_age ? `-${cls.max_age}` : "+"} urte`
-                          : `${cls.min_age}${cls.max_age ? `-${cls.max_age}` : "+"} años`}
+            // Full-width editorial opener
+            if (i === 0) {
+              return (
+                <ScrollReveal key={cls.id} className="md:col-span-12">
+                  <Link
+                    href="/horarios"
+                    className="group grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end md:gap-8"
+                  >
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl md:col-span-8 md:aspect-[16/9]">
+                      {img ? (
+                        <Image
+                          src={img}
+                          alt={cls.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 66vw"
+                          className={imageHoverClass}
+                        />
+                      ) : (
+                        <div
+                          className="absolute inset-0"
+                          style={{ backgroundColor: cls.color }}
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                      <span className="absolute right-5 top-5 font-heading text-sm font-semibold tracking-[0.2em] text-white/50">
+                        {number}
                       </span>
-                    )}
-                    {cls.slug === "bungee" && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-primary shadow-sm">
-                        <Crown size={12} />
-                        PREMIUM
-                      </span>
-                    )}
-                  </div>
+                    </div>
 
-                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                    <div className="space-y-2">
-                      <h3 className="font-heading text-2xl md:text-[1.75rem] font-bold text-white leading-tight">
+                    <div className="md:col-span-4 md:pb-1">
+                      <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs font-medium uppercase tracking-[0.28em] text-accent">
+                        {category}
+                        {ageLabel && (
+                          <span className="text-muted-foreground">{ageLabel}</span>
+                        )}
+                        {cls.slug === "bungee" && (
+                          <span className="font-serif-display text-lg font-normal lowercase italic tracking-normal">
+                            premium
+                          </span>
+                        )}
+                      </p>
+                      <h3 className="mt-3 flex items-start gap-3 font-heading text-3xl font-bold uppercase leading-[0.95] text-foreground md:text-5xl">
                         {cls.name}
+                        <ArrowUpRight
+                          size={28}
+                          className="mt-1 shrink-0 text-accent opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+                        />
                       </h3>
-                      <p className="text-white/72 text-sm md:text-[0.95rem] leading-relaxed line-clamp-3 max-w-md">
-                        {getLocalizedField(cls, "description", locale)}
+                      <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground line-clamp-4 md:text-base">
+                        {description}
+                      </p>
+                      <p className="mt-6 border-t border-accent/40 pt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                        {locale === "eu" ? "Maila guztietarako" : "Todos los niveles"}
                       </p>
                     </div>
+                  </Link>
+                </ScrollReveal>
+              );
+            }
 
-                    <div className="mt-4 flex flex-col gap-3 border-t border-white/10 pt-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-                      <div>
-                        <p className="mb-2 text-[0.65rem] uppercase tracking-[0.24em] text-white/45">
-                          {locale === "eu" ? "Informazioa" : "Información"}
-                        </p>
-                        <p className="font-heading text-xl font-bold text-accent sm:text-3xl">
-                          {locale === "eu" ? "Maila guztietarako" : "Todos los niveles"}
-                        </p>
-                      </div>
-                      <div className="hidden items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-xs font-medium text-white/85 backdrop-blur-sm sm:flex">
-                        <BadgeCheck size={14} className="text-accent" />
-                        {locale === "eu" ? "Aukera sendoa" : "Opción sólida"}
-                        <ChevronRight size={13} />
-                      </div>
-                    </div>
+            const layout = CARD_LAYOUT[(i - 1) % CARD_LAYOUT.length];
+            return (
+              <ScrollReveal
+                key={cls.id}
+                delay={(i % 2) * 0.12}
+                className={layout.span}
+              >
+                <Link href="/horarios" className="group block">
+                  <div
+                    className={`relative overflow-hidden rounded-2xl ${layout.aspect}`}
+                  >
+                    {img ? (
+                      <Image
+                        src={img}
+                        alt={cls.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className={imageHoverClass}
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0"
+                        style={{ backgroundColor: cls.color }}
+                      />
+                    )}
+                    <span className="absolute right-5 top-5 font-heading text-sm font-semibold tracking-[0.2em] text-white/50">
+                      {number}
+                    </span>
                   </div>
-                </div>
-              </article>
-            </ScrollReveal>
-          );
-        })}
-      </div>
+
+                  <div className="mt-5 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs font-medium uppercase tracking-[0.28em] text-accent">
+                        {category}
+                        {ageLabel && (
+                          <span className="text-muted-foreground">{ageLabel}</span>
+                        )}
+                        {cls.slug === "bungee" && (
+                          <span className="font-serif-display text-base font-normal lowercase italic tracking-normal">
+                            premium
+                          </span>
+                        )}
+                      </p>
+                      <h3 className="mt-2 font-heading text-2xl font-bold uppercase text-foreground md:text-3xl">
+                        {cls.name}
+                      </h3>
+                      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground line-clamp-2 md:text-base">
+                        {description}
+                      </p>
+                    </div>
+                    <ArrowUpRight
+                      size={22}
+                      className="mt-2 shrink-0 text-accent opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+                    />
+                  </div>
+                </Link>
+              </ScrollReveal>
+            );
+          })}
+        </div>
       )}
     </>
   );

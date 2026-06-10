@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "top-design": {
+      "source": "wondelai/skills",
+      "sourceType": "github",
+      "skillPath": "top-design/SKILL.md",
+      "computedHash": "ab2840f92dc511e9eb40969be979bbe83fa78aa518158454a9df4620aa78c9df"
+    }
+  }
+}

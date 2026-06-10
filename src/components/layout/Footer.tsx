@@ -22,11 +22,11 @@ export default function Footer() {
     <footer className="bg-primary text-white">
       {/* Pre-footer CTA */}
       <div className="border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 text-center">
-          <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center">
+          <p className="text-accent text-sm tracking-[0.32em] uppercase font-medium mb-6">
             {t("ready")}
           </p>
-          <h2 className="font-heading text-3xl md:text-5xl font-bold text-white mb-8">
+          <h2 className="font-serif-display italic font-normal text-white mb-10 text-display-md">
             {t("joinFamily")}
           </h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

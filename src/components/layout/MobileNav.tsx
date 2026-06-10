@@ -3,9 +3,10 @@
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { X } from "lucide-react";
+import { X, ArrowUpRight } from "lucide-react";
 import { isPathActive } from "@/lib/utils";
 import { SITE_CONFIG } from "@/lib/constants";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface NavItem {
   readonly href: string;
@@ -42,74 +43,107 @@ export default function MobileNav({ id, isOpen, onClose, items }: MobileNavProps
   if (!isOpen) return null;
 
   return (
-    <>
-      <button
-        type="button"
-        aria-label="Cerrar menu"
-        onClick={onClose}
-        className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm animate-fade-in xl:hidden"
-      />
-
+    <div
+      id={id}
+      role="navigation"
+      aria-label="Menu movil"
+      className="fixed inset-0 z-50 flex flex-col bg-primary animate-fade-in xl:hidden"
+    >
+      {/* Atmosphere */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,169,110,0.14),transparent_42%)]" />
       <div
-        id={id}
-        role="navigation"
-        aria-label="Menu movil"
-        className="fixed inset-y-0 right-0 z-50 flex w-[85%] max-w-sm flex-col border-l border-white/10 bg-primary shadow-2xl animate-slide-in-right xl:hidden"
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-4 -right-2 select-none font-heading font-bold uppercase text-display-xl text-outline opacity-30"
       >
-        <div className="flex items-center justify-between border-b border-white/10 px-6 pb-4 pt-6">
-          <span className="font-heading text-lg font-bold text-white">
-            BITAN<span className="text-accent">BAT</span>
-          </span>
-          <button
-            onClick={onClose}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white"
-            aria-label="Cerrar menu"
-          >
-            <X size={20} />
-          </button>
-        </div>
+        Bitan
+      </div>
 
-        <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-4">
-          {items.map((item) => {
+      {/* Top bar */}
+      <div className="relative flex items-center justify-between border-b border-white/10 px-5 pb-4 pt-5 sm:px-6">
+        <span className="font-heading text-lg font-bold tracking-[0.16em] text-white">
+          BITAN<span className="text-accent">BAT</span>
+        </span>
+        <button
+          onClick={onClose}
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-accent/60 hover:text-accent"
+          aria-label="Cerrar menu"
+        >
+          <X size={20} />
+        </button>
+      </div>
+
+      {/* Links — monumental, staggered */}
+      <nav className="relative flex flex-1 flex-col overflow-y-auto px-5 py-8 sm:px-6">
+        <div className="my-auto w-full">
+          {items.map((item, i) => {
             const isActive = isPathActive(pathname, item.href);
             return (
-              <Link
-                key={item.href}
-                href={item.href as "/"}
-                onClick={onClose}
-                aria-current={isActive ? "page" : undefined}
-                className={`flex items-center gap-3 rounded-xl px-4 py-3.5 text-[15px] font-semibold tracking-wide transition-all ${
-                  isActive
-                    ? "border-l-2 border-accent bg-accent/10 text-accent"
-                    : "text-white/70 hover:bg-white/[0.05] hover:text-white"
-                }`}
-              >
-                {t(item.labelKey)}
-              </Link>
+              <div key={item.href} className="hero-line">
+                <span
+                  style={
+                    { "--line-delay": `${0.08 + i * 0.055}s` } as React.CSSProperties
+                  }
+                >
+                  <Link
+                    href={item.href as "/"}
+                    onClick={onClose}
+                    aria-current={isActive ? "page" : undefined}
+                    className="group flex items-baseline gap-4 py-1.5 sm:gap-6"
+                  >
+                    <span className="w-8 shrink-0 text-xs font-medium tracking-[0.2em] text-accent">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={`font-heading font-bold uppercase leading-none text-display-md transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-2 ${
+                        isActive
+                          ? "text-accent"
+                          : "text-white/85 group-hover:text-white"
+                      }`}
+                    >
+                      {t(item.labelKey)}
+                    </span>
+                  </Link>
+                </span>
+              </div>
             );
           })}
-        </nav>
+        </div>
+      </nav>
 
-        <div className="space-y-3 border-t border-white/10 px-6 py-6">
-          <a
-            href={SITE_CONFIG.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={onClose}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3.5 text-sm font-semibold text-white transition-all hover:scale-105"
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-5 w-5"
+      {/* Bottom — language & social */}
+      <div className="relative border-t border-white/10 px-5 py-5 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <LanguageSwitcher />
+          <div className="flex items-center gap-6">
+            <a
+              href={SITE_CONFIG.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className="group inline-flex min-h-11 items-center gap-1.5 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-accent"
             >
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            WhatsApp
-          </a>
+              Instagram
+              <ArrowUpRight
+                size={14}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+            <a
+              href={SITE_CONFIG.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className="group inline-flex min-h-11 items-center gap-1.5 font-heading text-xs font-semibold uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-accent"
+            >
+              WhatsApp
+              <ArrowUpRight
+                size={14}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

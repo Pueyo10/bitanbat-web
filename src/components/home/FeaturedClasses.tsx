@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const classHighlights = [
@@ -50,42 +51,80 @@ const classHighlights = [
   },
 ];
 
+// Editorial rhythm: wide / tall pairs, offset on alternating rows
+const CARD_LAYOUT = [
+  "md:col-span-7 aspect-[4/3]",
+  "md:col-span-5 aspect-[4/3] md:aspect-[3/4] md:mt-20",
+  "md:col-span-5 aspect-[4/3] md:aspect-[3/4]",
+  "md:col-span-7 aspect-[4/3] md:mt-20",
+  "md:col-span-7 aspect-[4/3]",
+  "md:col-span-5 aspect-[4/3] md:aspect-[3/4] md:mt-20",
+] as const;
+
 export default function FeaturedClasses() {
   const t = useTranslations("Home");
   const locale = useLocale();
 
   return (
-    <section className="py-24 md:py-32 bg-background">
+    <section className="bg-primary py-24 md:py-36 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal className="mb-16 md:mb-20">
-          <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-4">
-            {locale === "eu" ? "Diziplinak" : "Disciplinas"}
-          </p>
-          <h2 className="font-heading text-4xl md:text-6xl font-bold text-foreground">
-            {t("featuredTitle")}
-          </h2>
-        </ScrollReveal>
+        <div className="mb-16 flex flex-col gap-8 md:mb-24 md:flex-row md:items-end md:justify-between">
+          <ScrollReveal>
+            <p className="text-accent text-sm tracking-[0.32em] uppercase font-medium mb-5">
+              {locale === "eu" ? "Diziplinak" : "Disciplinas"}
+            </p>
+            <h2 className="font-heading font-bold text-white text-display-md">
+              {t("featuredTitle")}
+            </h2>
+          </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <ScrollReveal delay={0.15}>
+            <Link
+              href="/clases"
+              className="group inline-flex items-center gap-2 border-b border-accent/50 pb-1 font-heading text-sm uppercase tracking-[0.2em] text-white/70 transition-colors duration-300 hover:text-accent"
+            >
+              {locale === "eu" ? "Klase guztiak" : "Ver todas las clases"}
+              <ArrowUpRight
+                size={16}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
+          </ScrollReveal>
+        </div>
+
+        <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-12 md:gap-6">
           {classHighlights.map((item, i) => (
-            <ScrollReveal key={item.nameEs} delay={i * 0.08}>
+            <ScrollReveal
+              key={item.nameEs}
+              delay={(i % 2) * 0.12}
+              className={CARD_LAYOUT[i]}
+            >
               <Link
                 href="/clases"
-                className="group relative block aspect-[4/3] overflow-hidden rounded-lg cursor-pointer sm:aspect-[3/4] lg:aspect-[4/5]"
+                className="group relative block h-full w-full overflow-hidden rounded-2xl"
               >
                 <Image
                   src={item.image}
                   alt={locale === "eu" ? item.nameEu : item.nameEs}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-8">
-                  <h3 className="font-heading text-xl md:text-3xl font-bold text-white mb-2">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent transition-opacity duration-500" />
+
+                <span className="absolute right-5 top-5 font-heading text-sm font-semibold tracking-[0.2em] text-white/40">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                  <h3 className="mb-2 flex items-center gap-3 font-heading text-2xl font-bold text-white md:text-3xl">
                     {locale === "eu" ? item.nameEu : item.nameEs}
+                    <ArrowUpRight
+                      size={22}
+                      className="text-accent opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+                    />
                   </h3>
-                  <p className="text-white/70 text-sm md:text-base max-w-md">
+                  <p className="max-w-md text-sm text-white/65 md:text-base">
                     {locale === "eu" ? item.descEu : item.descEs}
                   </p>
                 </div>
@@ -93,15 +132,6 @@ export default function FeaturedClasses() {
             </ScrollReveal>
           ))}
         </div>
-
-        <ScrollReveal className="text-center mt-16">
-          <Link
-            href="/clases"
-            className="inline-block px-10 py-4 bg-primary text-primary-foreground font-heading font-semibold text-lg rounded-full hover:bg-white/90 hover:shadow-xl transition-all duration-300"
-          >
-            {locale === "eu" ? "Klase guztiak ikusi" : "Ver todas las clases"}
-          </Link>
-        </ScrollReveal>
       </div>
     </section>
   );

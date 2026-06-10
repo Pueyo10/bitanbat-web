@@ -4,10 +4,11 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { hasLocale } from "next-intl";
-import { Geist, Space_Grotesk } from "next/font/google";
+import { Geist, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import SmoothScroll from "@/components/ui/SmoothScroll";
 import { SITE_CONFIG } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -20,6 +21,14 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -120,8 +129,9 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${geistSans.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable} antialiased`}
       >
+        <SmoothScroll />
         <NextIntlClientProvider messages={messages}>
           <a
             href="#main-content"

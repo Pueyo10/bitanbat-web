@@ -58,16 +58,17 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
+      {/* Hairline editorial bar — thin, full-width, gold rule on scroll */}
       <div
-        className={`mx-auto max-w-7xl px-4 transition-all duration-300 sm:px-6 lg:px-8 ${
-          scrolled || mobileOpen ? "pt-3" : "pt-5"
+        className={`border-b transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
+          scrolled || mobileOpen
+            ? "border-accent/25 bg-primary/85 shadow-[0_18px_50px_rgba(0,0,0,0.25)] backdrop-blur-xl"
+            : "border-transparent bg-gradient-to-b from-primary/55 to-transparent"
         }`}
       >
         <div
-          className={`flex items-center justify-between gap-4 transition-all duration-300 ${
-            scrolled || mobileOpen
-              ? "rounded-[1.5rem] border border-white/10 bg-primary/86 px-4 py-3 shadow-[0_24px_60px_rgba(0,0,0,0.22)] backdrop-blur-xl md:px-6"
-              : "px-1 py-2"
+          className={`mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 transition-all duration-500 sm:px-6 lg:px-8 ${
+            scrolled || mobileOpen ? "py-2.5" : "py-4"
           }`}
         >
           {/* Logo */}
@@ -86,7 +87,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden items-center gap-5 xl:flex xl:gap-6">
+          <nav className="hidden items-center gap-6 xl:flex xl:gap-7">
             {navItems.map((item) => {
               const isActive = isPathActive(pathname, item.href);
               return (
@@ -94,13 +95,14 @@ export default function Header() {
                   key={item.href}
                   href={item.href as "/"}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group relative flex min-h-11 items-center py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors ${
-                    isActive ? "text-white" : "text-white/68 hover:text-white"
+                  className={`group relative flex min-h-11 items-center py-2 text-[10px] font-semibold uppercase tracking-[0.28em] transition-colors duration-300 ${
+                    isActive ? "text-accent" : "text-white/60 hover:text-white"
                   }`}
                 >
                   {t(item.labelKey)}
                   <span
-                    className={`absolute bottom-0 left-0 right-0 h-px origin-left bg-accent transition-transform duration-300 ${
+                    aria-hidden="true"
+                    className={`absolute bottom-1.5 left-0 right-0 h-px origin-left bg-accent transition-transform duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
                       isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                     }`}
                   />
@@ -110,15 +112,18 @@ export default function Header() {
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <button
               onClick={toggleMobile}
-              className="rounded-full border border-white/10 bg-white/[0.04] p-2.5 text-white xl:hidden"
+              className="group flex min-h-11 items-center gap-2.5 text-white transition-colors hover:text-accent xl:hidden"
               aria-label="Menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav"
             >
+              <span className="hidden font-heading text-[10px] font-semibold uppercase tracking-[0.28em] sm:block">
+                Menu
+              </span>
               <Menu size={24} />
             </button>
           </div>

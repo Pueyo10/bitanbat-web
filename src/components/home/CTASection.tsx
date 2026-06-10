@@ -24,7 +24,7 @@ export default function CTASection() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.08}>
-          <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
+          <h2 className="font-heading font-bold text-white mb-6 text-display-lg">
             {t("ctaTitle")}
           </h2>
         </ScrollReveal>

@@ -71,19 +71,19 @@ export default function StatsSection() {
   const t = useTranslations("Home");
 
   return (
-    <section className="py-24 md:py-32 bg-primary">
+    <section className="py-24 md:py-36 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
           {stats.map((stat, i) => (
             <ScrollReveal
               key={stat.labelKey}
               delay={i * 0.08}
-              className="text-center"
+              className={`text-center md:text-left ${i % 2 === 1 ? "md:mt-12" : ""}`}
             >
-              <p className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-accent mb-3">
+              <p className="font-heading font-bold text-foreground mb-3 text-display-md">
                 <AnimatedNumber value={stat.number} suffix={stat.suffix} />
               </p>
-              <p className="text-white/60 text-sm md:text-base tracking-wide uppercase">
+              <p className="text-muted-foreground text-sm md:text-base tracking-[0.2em] uppercase border-t border-accent/40 pt-3 inline-block">
                 {t(stat.labelKey)}
               </p>
             </ScrollReveal>
