@@ -3,9 +3,8 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { ArrowUpRight, ExternalLink, Instagram, Play, X } from "lucide-react";
+import { Play, X, Instagram, ExternalLink } from "lucide-react";
 import { getLocalizedField } from "@/lib/utils";
-import ScrollReveal from "@/components/ui/ScrollReveal";
 
 type GalleryMedia = {
   id: string;
@@ -30,9 +29,6 @@ const categoryFilters = [
 ];
 
 const ITEMS_PER_PAGE = 12;
-
-const imageHoverClass =
-  "h-auto w-full object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06]";
 
 export default function GalleryContent({
   allMedia,
@@ -130,126 +126,93 @@ export default function GalleryContent({
 
   const selectedCaption = selectedMedia ? getCaption(selectedMedia) : "";
 
-  const stats = [
-    {
-      value: allMedia.length,
-      label: locale === "eu" ? "pieza ikusgai" : "piezas visibles",
-    },
-    {
-      value: videoCount,
-      label: locale === "eu" ? "bideo" : "vídeos",
-    },
-    {
-      value: categoryCount,
-      label: locale === "eu" ? "kategoria" : "categorías",
-    },
-  ];
-
   return (
     <>
-      {/* Chapter — light: editorial intro + display stats */}
-      <section className="bg-background py-20 md:py-28">
+      <section className="lux-section-dark py-16 text-white md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:items-end">
-            <div className="md:col-span-7">
-              <ScrollReveal>
-                <p className="text-xs font-medium uppercase tracking-[0.32em] text-accent md:text-sm">
+          <div className="mb-12">
+            <div className="grid gap-8 xl:grid-cols-[1.35fr_0.9fr] xl:items-end">
+              <div>
+                <p className="text-accent text-sm font-medium uppercase tracking-[0.2em]">
                   {locale === "eu" ? "Komunitatea" : "Comunidad"}
                 </p>
-                <h2 className="mt-4 font-heading font-bold uppercase text-foreground text-display-md">
-                  {locale === "eu" ? "BitanBat" : "Instantes"}{" "}
-                  <span className="font-serif-display lowercase italic font-normal text-accent">
-                    {locale === "eu" ? "uneak" : "de bitanbat"}
-                  </span>
+                <h2 className="mt-3 font-heading text-3xl font-bold text-white md:text-5xl">
+                  {locale === "eu" ? "BitanBat uneak" : "Instantes de BitanBat"}
                 </h2>
-                <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground md:ml-[8vw] md:text-lg">
+                <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/64 md:text-lg">
                   {locale === "eu"
                     ? "Klaseak, ongizatea eta eguneroko giroa bilduta: mugimendua, energia eta komunitatea leku berean."
                     : "Una mezcla de clases, bienestar y vida diaria del centro para que la galeria se sienta como una extension de la marca, no solo como un volcado de contenido."}
                 </p>
-              </ScrollReveal>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-3">
+                <div className="border-t border-accent/25 pt-4">
+                  <p className="font-heading text-2xl font-bold text-gradient-gold">
+                    {allMedia.length}
+                  </p>
+                  <p className="mt-1 text-sm text-white/58">
+                    {locale === "eu" ? "Pieza ikusgai" : "Piezas visibles"}
+                  </p>
+                </div>
+                <div className="border-t border-accent/25 pt-4">
+                  <p className="font-heading text-2xl font-bold text-gradient-gold">
+                    {videoCount}
+                  </p>
+                  <p className="mt-1 text-sm text-white/58">
+                    {locale === "eu" ? "Bideo" : "Videos"}
+                  </p>
+                </div>
+                <div className="border-t border-accent/25 pt-4">
+                  <p className="font-heading text-2xl font-bold text-gradient-gold">
+                    {categoryCount}
+                  </p>
+                  <p className="mt-1 text-sm text-white/58">
+                    {locale === "eu" ? "Kategoriak" : "Categorias"}
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="md:col-span-5">
-              <ScrollReveal delay={0.15}>
-                <div className="grid grid-cols-3 gap-5 md:gap-6">
-                  {stats.map((stat) => (
-                    <div key={stat.label} className="border-t border-accent/40 pt-5">
-                      <p className="font-heading text-4xl font-bold text-foreground md:text-6xl">
-                        {String(stat.value).padStart(2, "0")}
-                      </p>
-                      <p className="mt-2 font-serif-display text-base lowercase italic text-accent md:text-lg">
-                        {stat.label}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </ScrollReveal>
+            <div className="mt-8 flex flex-wrap justify-center gap-2 border-t border-white/10 pt-6 xl:justify-start">
+              {categoryFilters.map((filter) => (
+                <button
+                  key={filter.value}
+                  onClick={() => handleFilterChange(filter.value)}
+                  aria-pressed={activeFilter === filter.value}
+                  className={`min-h-11 rounded-full px-6 py-2.5 text-sm font-semibold transition-all ${
+                    activeFilter === filter.value
+                      ? "bg-accent text-primary shadow-[0_14px_30px_rgba(201,169,110,0.22)]"
+                      : "border border-white/10 bg-white/[0.02] text-white/72 hover:border-white/18 hover:bg-white/[0.05] hover:text-white"
+                  }`}
+                >
+                  {t(filter.key)}
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Chapter — dark: filters + editorial masonry */}
-      <section className="lux-section-dark py-20 text-white md:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ScrollReveal>
-            <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-2 border-b border-white/10">
-              <div className="flex flex-wrap gap-x-6 md:gap-x-9">
-                {categoryFilters.map((filter) => {
-                  const isActive = activeFilter === filter.value;
-                  return (
-                    <button
-                      key={filter.value}
-                      onClick={() => handleFilterChange(filter.value)}
-                      aria-pressed={isActive}
-                      className={`group relative inline-flex min-h-11 items-center text-xs font-medium uppercase tracking-[0.22em] transition-colors duration-300 md:text-sm ${
-                        isActive ? "text-white" : "text-white/45 hover:text-white"
-                      }`}
-                    >
-                      {t(filter.key)}
-                      <span
-                        aria-hidden="true"
-                        className={`absolute bottom-0 left-0 h-[2px] w-full origin-left bg-accent transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
-                          isActive
-                            ? "scale-x-100 opacity-100"
-                            : "scale-x-0 opacity-40 group-hover:scale-x-100"
-                        }`}
-                      />
-                    </button>
-                  );
-                })}
-              </div>
-              <p className="hidden min-h-11 items-center font-heading text-xs font-semibold uppercase tracking-[0.24em] text-white/40 sm:flex">
-                <span className="mr-2 text-accent">
-                  {String(filteredMedia.length).padStart(2, "0")}
-                </span>
-                {locale === "eu" ? "pieza" : "piezas"}
-              </p>
-            </div>
-          </ScrollReveal>
 
           {filteredMedia.length === 0 ? (
-            <div className="py-24 md:ml-[8vw] md:py-32">
-              <p className="font-serif-display text-3xl lowercase italic text-accent md:text-4xl">
-                {locale === "eu" ? "laster gehiago" : "próximamente más"}
+            <div className="border-t border-white/10 px-6 py-20 text-center text-white/64">
+              <p className="font-heading text-2xl text-white">
+                {locale === "eu" ? "Laster gehiago" : "Proximamente mas"}
               </p>
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/58 md:text-base">
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-white/58 md:text-base">
                 {locale === "eu"
                   ? "Une honetan ez dago elementurik iragazki honetan, baina material gehiago prestatzen ari gara."
                   : "Ahora mismo no hay piezas para este filtro, pero el espacio queda listo para crecer sin sentirse vacio."}
               </p>
             </div>
           ) : (
-            <div ref={gridRef} className="scroll-mt-28 pt-10 md:pt-14">
-              <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
-                {visibleItems.map(({ media, caption }, index) => (
+            <div ref={gridRef} className="border-t border-white/10 pt-6">
+              <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
+                {visibleItems.map(({ media, caption }) => (
                   <div
                     key={media.id}
-                    className="group mb-5 cursor-pointer break-inside-avoid"
+                    className="group mb-4 cursor-pointer break-inside-avoid"
                     onClick={() => setSelectedMedia(media)}
                   >
-                    <div className="relative overflow-hidden rounded-2xl bg-black/40">
+                    <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/50 shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
                       {media.type === "video" ? (
                         <>
                           <Image
@@ -259,12 +222,15 @@ export default function GalleryContent({
                             height={800}
                             loading="lazy"
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className={imageHoverClass}
+                            className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                           />
-                          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur-sm">
-                              <Play size={18} fill="currentColor" />
+                          <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10">
+                            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/88 text-primary shadow-lg">
+                              <Play size={20} fill="currentColor" />
                             </span>
+                          </div>
+                          <div className="absolute left-3 top-3 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/76">
+                            {locale === "eu" ? "Bideoa" : "Vídeo"}
                           </div>
                         </>
                       ) : (
@@ -275,31 +241,15 @@ export default function GalleryContent({
                           height={400}
                           loading="lazy"
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className={imageHoverClass}
+                          className="h-auto w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                       )}
 
-                      {/* Editorial numbering + video badge */}
-                      <div className="absolute left-4 top-4 flex flex-col items-start gap-2">
-                        <span className="font-heading text-xs font-semibold tracking-[0.24em] text-white/55">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        {media.type === "video" && (
-                          <span className="rounded-full border border-white/15 bg-black/45 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur-sm">
-                            {locale === "eu" ? "Bideoa" : "Vídeo"}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Caption rises on hover */}
-                      <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent p-5 pt-14 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                        <div className="flex translate-y-3 items-end justify-between gap-3 transition-transform duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0">
-                          <p className="line-clamp-2 text-sm text-white/90">
-                            {caption ||
-                              (locale === "eu" ? "Pieza ireki" : "Abrir pieza")}
-                          </p>
-                          <ArrowUpRight size={18} className="shrink-0 text-accent" />
-                        </div>
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-4 pt-12">
+                        <p className="line-clamp-2 text-sm text-white/88">
+                          {caption ||
+                            (locale === "eu" ? "Pieza ireki" : "Abrir pieza")}
+                        </p>
                       </div>
 
                       {media.instagramUrl && (
@@ -307,7 +257,7 @@ export default function GalleryContent({
                           href={media.instagramUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="absolute right-4 top-4 rounded-full border border-white/15 bg-black/45 p-1.5 text-white/70 transition-colors duration-300 hover:text-accent"
+                          className="absolute right-3 top-3 rounded-full border border-white/10 bg-black/45 p-1.5 text-white/70 opacity-100 transition-all hover:bg-black/60 hover:text-white"
                           onClick={(event) => event.stopPropagation()}
                         >
                           <ExternalLink size={14} />
@@ -319,7 +269,7 @@ export default function GalleryContent({
               </div>
 
               {hasMore && (
-                <div ref={loadMoreRef} className="flex justify-center py-10">
+                <div ref={loadMoreRef} className="flex justify-center py-8">
                   <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
                 </div>
               )}
@@ -333,19 +283,19 @@ export default function GalleryContent({
           role="dialog"
           aria-modal="true"
           aria-label={selectedCaption || (locale === "eu" ? "Galeria" : "Galería")}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/92 p-4 backdrop-blur-sm animate-fade-in"
           onClick={closeLightbox}
         >
           <button
-            className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors duration-300 hover:border-accent hover:text-accent"
+            className="absolute right-4 top-4 z-10 rounded-full border border-white/10 bg-white/5 p-2 text-white/70 hover:text-white"
             onClick={closeLightbox}
             aria-label={locale === "eu" ? "Itxi" : "Cerrar"}
             autoFocus
           >
-            <X size={22} />
+            <X size={32} />
           </button>
           <div
-            className="w-full max-w-5xl"
+            className="w-full max-w-4xl rounded-[2rem] border border-white/10 bg-black/40 p-4 shadow-[0_30px_80px_rgba(0,0,0,0.3)] md:p-6"
             onClick={(event) => event.stopPropagation()}
           >
             {selectedMedia.type === "video" ? (
@@ -356,7 +306,7 @@ export default function GalleryContent({
                 autoPlay
                 muted
                 playsInline
-                className="mx-auto max-h-[78vh] max-w-full rounded-2xl"
+                className="mx-auto max-h-[80vh] max-w-full rounded-[1.5rem]"
               />
             ) : (
               <Image
@@ -364,12 +314,12 @@ export default function GalleryContent({
                 alt={selectedCaption || `BitanBat ${selectedMedia.id}`}
                 width={1200}
                 height={800}
-                className="mx-auto max-h-[78vh] w-auto rounded-2xl object-contain"
+                className="mx-auto max-h-[80vh] w-auto rounded-[1.5rem] object-contain"
               />
             )}
             {selectedCaption && (
-              <div className="mx-auto mt-6 flex max-w-3xl flex-col items-start gap-3 border-t border-accent/40 pt-4 sm:flex-row sm:items-baseline sm:justify-between">
-                <p className="text-sm leading-relaxed text-white/85 md:text-base">
+              <div className="mt-4 text-center">
+                <p className="text-sm text-white/90 md:text-base">
                   {selectedCaption}
                 </p>
                 {selectedMedia.instagramUrl && (
@@ -377,7 +327,7 @@ export default function GalleryContent({
                     href={selectedMedia.instagramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex shrink-0 items-center gap-2 font-heading text-xs font-medium uppercase tracking-[0.2em] text-accent/80 transition-colors duration-300 hover:text-accent"
+                    className="mt-2 inline-flex items-center gap-1.5 text-sm text-accent/80 transition-colors hover:text-accent"
                   >
                     <Instagram size={14} />
                     {locale === "eu" ? "Instagramen ikusi" : "Ver en Instagram"}

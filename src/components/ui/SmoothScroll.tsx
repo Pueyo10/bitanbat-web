@@ -13,6 +13,9 @@ export default function SmoothScroll() {
       smoothWheel: true,
     });
 
+    // Expose instance so other components (e.g. scroll-to-top) can drive it
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     let frameId = 0;
     function raf(time: number) {
       lenis.raf(time);
@@ -23,6 +26,7 @@ export default function SmoothScroll() {
     return () => {
       cancelAnimationFrame(frameId);
       lenis.destroy();
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

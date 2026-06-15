@@ -11,6 +11,7 @@ const footerLinks = [
   { href: "/horarios", labelKey: "schedule" },
   { href: "/precios", labelKey: "prices" },
   { href: "/galeria", labelKey: "gallery" },
+  { href: "/tienda", labelKey: "shop" },
   { href: "/contacto", labelKey: "contact" },
 ] as const;
 

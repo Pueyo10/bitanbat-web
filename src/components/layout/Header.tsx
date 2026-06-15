@@ -18,6 +18,7 @@ const navItems = [
   { href: "/sobre-nosotros", labelKey: "about" },
   { href: "/contacto", labelKey: "contact" },
   { href: "/galeria", labelKey: "gallery" },
+  { href: "/tienda", labelKey: "shop" },
 ] as const;
 
 export default function Header() {
@@ -25,27 +26,32 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const scrolledRef = useRef(false);
+  const [hidden, setHidden] = useState(false);
+  const lastYRef = useRef(0);
+  const tickingRef = useRef(false);
 
   useEffect(() => {
-    let frameId = 0;
-    function onScroll() {
-      if (frameId) return;
-      frameId = requestAnimationFrame(() => {
-        frameId = 0;
-        const nextScrolled = window.scrollY > 50;
-        if (nextScrolled !== scrolledRef.current) {
-          scrolledRef.current = nextScrolled;
-          setScrolled(nextScrolled);
-        }
-      });
+    function update() {
+      tickingRef.current = false;
+      const y = window.scrollY;
+      const last = lastYRef.current;
+      setScrolled(y > 50);
+      if (y < 80) {
+        setHidden(false); // siempre visible arriba del todo
+      } else if (Math.abs(y - last) > 6) {
+        setHidden(y > last); // baja -> ocultar, sube -> mostrar
+      }
+      lastYRef.current = y;
     }
-    onScroll();
+    function onScroll() {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(update);
+    }
+    lastYRef.current = window.scrollY;
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      if (frameId) cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const toggleMobile = useCallback(() => {
@@ -58,11 +64,13 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* Hairline editorial bar — thin, full-width, gold rule on scroll */}
+      {/* Hairline editorial bar — auto-hide on scroll down, reveal on scroll up */}
       <div
         className={`border-b transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] ${
+          hidden && !mobileOpen ? "-translate-y-full" : "translate-y-0"
+        } ${
           scrolled || mobileOpen
-            ? "border-accent/25 bg-primary/85 shadow-[0_18px_50px_rgba(0,0,0,0.25)] backdrop-blur-xl"
+            ? "border-accent/25 bg-primary/65 shadow-[0_18px_50px_rgba(0,0,0,0.25)] backdrop-blur-2xl backdrop-saturate-150"
             : "border-transparent bg-gradient-to-b from-primary/55 to-transparent"
         }`}
       >

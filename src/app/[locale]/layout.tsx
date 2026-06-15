@@ -8,6 +8,7 @@ import { Geist, Space_Grotesk, Instrument_Serif } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import { SITE_CONFIG } from "@/lib/constants";
 
@@ -144,6 +145,7 @@ export default async function LocaleLayout({
             {children}
           </main>
           <Footer />
+          <ScrollToTop />
           <WhatsAppButton />
         </NextIntlClientProvider>
         <LocalBusinessSchema />

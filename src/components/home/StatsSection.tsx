@@ -73,17 +73,21 @@ export default function StatsSection() {
   return (
     <section className="py-24 md:py-36 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8">
           {stats.map((stat, i) => (
             <ScrollReveal
               key={stat.labelKey}
-              delay={i * 0.08}
-              className={`text-center md:text-left ${i % 2 === 1 ? "md:mt-12" : ""}`}
+              delay={i * 0.1}
+              className="flex flex-col items-center text-center"
             >
-              <p className="font-heading font-bold text-foreground mb-3 text-display-md">
+              <p className="font-heading font-bold leading-none text-foreground text-display-md">
                 <AnimatedNumber value={stat.number} suffix={stat.suffix} />
               </p>
-              <p className="text-muted-foreground text-sm md:text-base tracking-[0.2em] uppercase border-t border-accent/40 pt-3 inline-block">
+              <span
+                aria-hidden="true"
+                className="stat-underline my-4 h-px w-12 origin-center bg-accent/70"
+              />
+              <p className="text-muted-foreground text-xs md:text-sm tracking-[0.22em] uppercase">
                 {t(stat.labelKey)}
               </p>
             </ScrollReveal>

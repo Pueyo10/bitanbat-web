@@ -1,7 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { ArrowUpRight, Phone } from "lucide-react";
+import { Phone, Gift, Users, Star, Crown } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
+import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Button from "@/components/ui/Button";
 
@@ -9,13 +10,22 @@ export const revalidate = 3600;
 
 /* ── Data ─────────────────────────────────────────────── */
 
+const PLAN_COLORS = {
+  boxeo: { glow: "from-accent/15", bar: "bg-accent" },
+  yoga: { glow: "from-accent/15", bar: "bg-accent" },
+} as const;
+
 const dantzaDisciplines = [
   {
     name: "Predantza",
+    color: "from-accent/20 to-accent/5",
+    accent: "bg-accent",
     options: [{ hours: "1H", price: 30 }],
   },
   {
     name: "Urbano",
+    color: "from-accent/20 to-accent/5",
+    accent: "bg-accent",
     options: [
       { hours: "1H", price: 35 },
       { hours: "1H 15min", price: 38 },
@@ -23,6 +33,8 @@ const dantzaDisciplines = [
   },
   {
     name: "Sevillanas / FitGipsy",
+    color: "from-accent/20 to-accent/5",
+    accent: "bg-accent",
     options: [
       { hours: "1H", price: 38 },
       { hours: "1.5H", price: 45 },
@@ -32,10 +44,14 @@ const dantzaDisciplines = [
   },
   {
     name: "Salsa",
+    color: "from-accent/20 to-accent/5",
+    accent: "bg-accent",
     options: [{ hours: "1H", price: 38 }],
   },
   {
     name: "Bachata",
+    color: "from-accent/20 to-accent/5",
+    accent: "bg-accent",
     options: [
       { hours: "1H", price: 38 },
       { hours: "2H", price: 70 },
@@ -73,43 +89,6 @@ const masajeTreatments = [
   "Cráneo facial",
 ];
 
-/* Staggered editorial offsets for the fitness grid */
-const FITNESS_OFFSETS = ["", "md:mt-14", "md:mt-28"] as const;
-
-/* ── Local pieces ─────────────────────────────────────── */
-
-function ChapterHeader({
-  number,
-  eyebrow,
-  title,
-  dark,
-}: {
-  number: string;
-  eyebrow: string;
-  title: string;
-  dark?: boolean;
-}) {
-  return (
-    <div>
-      <div className="flex items-baseline gap-5">
-        <span className="font-heading text-sm font-semibold tracking-[0.2em] text-accent">
-          {number}
-        </span>
-        <p className="text-sm uppercase tracking-[0.32em] text-accent font-medium">
-          {eyebrow}
-        </p>
-      </div>
-      <h2
-        className={`mt-5 font-heading font-bold uppercase text-display-md ${
-          dark ? "text-white" : "text-foreground"
-        }`}
-      >
-        {title}
-      </h2>
-    </div>
-  );
-}
-
 /* ── Page ─────────────────────────────────────────────── */
 
 export default async function PreciosPage({
@@ -123,205 +102,145 @@ export default async function PreciosPage({
   const tCommon = await getTranslations("Common");
   const tMassage = await getTranslations("Massage");
 
-  const chapterIndex = [
-    t("dantza"),
-    t("fitness"),
-    t("boxeo"),
-    t("yoga"),
-    t("masajes"),
-    t("discounts"),
-  ];
-
   return (
     <>
-      {/* ── HERO ───────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-primary pt-32 pb-16 md:pt-44 md:pb-24">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,169,110,0.14),transparent_38%)]" />
-        <p
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute -bottom-6 right-[-2vw] whitespace-nowrap font-heading font-bold uppercase text-display-xl text-outline opacity-50"
-        >
-          {locale === "eu" ? "Prezioak" : "Precios"}
-        </p>
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
+      <PageHero
+        label={locale === "eu" ? "Planak" : "Planes"}
+        title={t("title")}
+        subtitle={t("subtitle")}
+      />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="hero-line mb-6 text-xs font-medium uppercase tracking-[0.32em] text-accent md:text-sm">
-            <span style={{ "--line-delay": "0.1s" } as React.CSSProperties}>
-              {locale === "eu" ? "Planak" : "Planes"}
-            </span>
-          </p>
+      {/* ── DANTZA ─────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[#0a0a0a] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(200,170,110,0.03)_0%,transparent_70%)]" />
 
-          <h1 className="font-heading font-bold text-white">
-            <span className="hero-line">
-              <span
-                className="block uppercase text-display-lg"
-                style={{ "--line-delay": "0.25s" } as React.CSSProperties}
-              >
-                {t("title")}
-              </span>
-            </span>
-            <span className="hero-line md:ml-[8vw]">
-              <span
-                className="block font-serif-display italic font-normal lowercase text-accent text-display-md"
-                style={{ "--line-delay": "0.4s" } as React.CSSProperties}
-              >
-                {t("subtitle")}
-              </span>
-            </span>
-          </h1>
-
-          {/* Editorial chapter index */}
-          <div className="hero-line mt-14 md:mt-20">
-            <span
-              className="flex flex-wrap gap-x-10 gap-y-3 border-t border-accent/40 pt-6"
-              style={{ "--line-delay": "0.6s" } as React.CSSProperties}
-            >
-              {chapterIndex.map((label, i) => (
-                <span
-                  key={label}
-                  className="flex items-baseline gap-2.5 font-heading text-xs uppercase tracking-[0.2em] text-white/50 md:text-sm"
-                >
-                  <span className="text-accent/70">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {label}
-                </span>
-              ))}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 01 DANTZA ──────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-background py-20 md:py-32">
-        <p
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute -top-4 right-[-3vw] whitespace-nowrap font-heading font-bold uppercase text-display-xl text-outline-dark opacity-40"
-        >
-          {t("dantza")}
-        </p>
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <ScrollReveal>
-            <div className="mb-14 md:mb-20">
-              <ChapterHeader
-                number="01"
-                eyebrow={t("dantzaDesc")}
-                title={t("dantza")}
-              />
+            <div className="text-center mb-12">
+              <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-3">
+                {t("dantzaDesc")}
+              </p>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
+                {t("dantza")}
+              </h2>
             </div>
           </ScrollReveal>
 
-          <div className="md:ml-[8vw]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {dantzaDisciplines.map((discipline, i) => (
-              <ScrollReveal key={discipline.name} delay={i * 0.05}>
-                <div className="group border-t border-primary/10 py-7 transition-colors duration-500 hover:border-accent/70 md:grid md:grid-cols-12 md:gap-x-8 md:py-9">
-                  <h3 className="font-heading text-2xl font-bold uppercase text-foreground transition-colors duration-500 group-hover:text-accent md:col-span-5 md:text-3xl">
-                    {discipline.name}
-                  </h3>
-                  <div className="mt-4 space-y-3 md:col-span-7 md:mt-0">
-                    {discipline.options.map((opt) => (
-                      <div key={opt.hours} className="flex items-baseline gap-4">
-                        <span className="shrink-0 text-xs uppercase tracking-[0.18em] text-muted-foreground md:text-sm">
-                          {opt.hours} / {locale === "eu" ? "astean" : "sem"}
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className="flex-1 border-b border-dotted border-primary/20 transition-colors duration-500 group-hover:border-accent/50"
-                        />
-                        <span className="shrink-0 whitespace-nowrap leading-none">
-                          <span className="font-heading text-3xl font-bold text-foreground transition-colors duration-500 group-hover:text-accent md:text-4xl">
-                            {opt.price}
+              <ScrollReveal key={discipline.name} delay={i * 0.06}>
+                <div className="group relative h-full">
+                  <div className={`absolute -inset-0.5 bg-gradient-to-b ${discipline.color} rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
+
+                  <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-6 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                    <div className={`absolute top-0 left-6 right-6 h-[2px] ${discipline.accent} rounded-full opacity-60`} />
+
+                    <h3 className="font-heading text-xl font-bold text-white mb-4 mt-1 text-center">
+                      {discipline.name}
+                    </h3>
+
+                    <div className="space-y-2.5">
+                      {discipline.options.map((opt) => (
+                        <div
+                          key={opt.hours}
+                          className="flex items-center justify-between py-2.5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.06] transition-colors"
+                        >
+                          <span className="text-sm text-white/50">
+                            {opt.hours} / {locale === "eu" ? "astean" : "sem"}
                           </span>
-                          <span className="ml-1 font-serif-display italic text-xl text-accent md:text-2xl">
-                            €{t("perMonth")}
-                          </span>
-                        </span>
-                      </div>
-                    ))}
+                          <div className="text-right">
+                            <span className="font-heading text-2xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                              {opt.price}
+                            </span>
+                            <span className="text-accent/50 text-sm font-heading">€</span>
+                            <span className="text-white/60 text-xs ml-1">{t("perMonth")}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
             ))}
-            <div className="border-t border-primary/10" />
           </div>
         </div>
       </section>
 
-      {/* ── 02 FITNESS ─────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-primary py-20 md:py-32">
-        <p
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute -top-4 left-[-3vw] whitespace-nowrap font-heading font-bold uppercase text-display-xl text-outline opacity-40"
-        >
-          {t("fitness")}
-        </p>
+      {/* Section divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 grid grid-cols-12 gap-y-10 md:mb-24">
-            <div className="col-span-12 md:col-span-7">
-              <ScrollReveal>
-                <ChapterHeader
-                  dark
-                  number="02"
-                  eyebrow={t("fitnessDesc")}
-                  title={t("fitness")}
-                />
-              </ScrollReveal>
-            </div>
-            <div className="col-span-12 md:col-span-4 md:col-start-9 md:self-end">
-              <ScrollReveal delay={0.15}>
-                <p className="border-l-2 border-accent pl-6 text-base leading-relaxed text-white/60 md:text-lg">
-                  {t("fitnessClasses")}
-                </p>
-              </ScrollReveal>
-            </div>
-          </div>
+      {/* ── FITNESS ────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[#070707] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(200,170,110,0.04)_0%,transparent_50%)]" />
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 md:gap-x-10 md:gap-y-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <ScrollReveal>
+            <div className="text-center mb-4">
+              <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-3">
+                {t("fitnessDesc")}
+              </p>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
+                {t("fitness")}
+              </h2>
+            </div>
+            <p className="text-center text-xs text-white/60 mb-12 max-w-lg mx-auto">
+              {t("fitnessClasses")}
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {fitnessPrices.map((item, i) => (
-              <ScrollReveal
-                key={item.sessions}
-                delay={(i % 3) * 0.08}
-                className={FITNESS_OFFSETS[i % 3]}
-              >
+              <ScrollReveal key={item.sessions} delay={i * 0.06}>
                 {item.popular ? (
-                  <div className="rounded-2xl bg-accent p-6 shadow-[0_24px_70px_rgba(201,169,110,0.22)] md:p-8">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-primary/70">
-                      {t("featured")}
-                    </p>
-                    <p className="mt-4 flex items-baseline gap-3">
-                      <span className="font-heading font-bold leading-none text-primary text-display-md">
-                        {item.sessions}
+                  /* ── Popular card: animated gradient border + glow ── */
+                  <div className="relative z-10 h-full">
+                    {/* Outer glow pulse */}
+                    <div className="absolute -inset-3 bg-accent/15 rounded-3xl blur-xl motion-safe:animate-glow-pulse" />
+
+                    {/* Badge above border container */}
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
+                      <span className="bg-accent text-primary text-[11px] font-bold px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap shadow-lg">
+                        <Star size={10} fill="currentColor" />
+                        {t("featured")}
                       </span>
-                      <span className="text-xs uppercase tracking-[0.24em] text-primary/60">
-                        {t("sessions")}
-                      </span>
-                    </p>
-                    <p className="mt-6 font-serif-display italic text-4xl leading-none text-primary md:text-5xl">
-                      {item.price}€
-                    </p>
-                    <p className="mt-3 text-xs text-primary/60">
-                      {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
-                    </p>
+                    </div>
+
+                    {/* Animated border container */}
+                    <div className="relative rounded-2xl p-[1.5px] overflow-hidden h-full">
+                      <div className="absolute inset-[-200%] motion-safe:animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
+                      <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 pt-6 text-center h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                        <p className="text-xs mb-1 text-white/50">
+                          {item.sessions} {t("sessions")}
+                        </p>
+                        <div>
+                          <span className="font-heading text-3xl sm:text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                            {item.price}
+                          </span>
+                          <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                        </div>
+                        <p className="text-[11px] mt-2 text-white/60">
+                          {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ) : (
-                  <div className="group border-t border-white/15 pt-6 transition-colors duration-500 hover:border-accent/70">
-                    <p className="flex items-baseline gap-3">
-                      <span className="font-heading font-bold leading-none text-white transition-colors duration-500 group-hover:text-accent text-display-md">
-                        {item.sessions}
-                      </span>
-                      <span className="text-xs uppercase tracking-[0.24em] text-white/45">
-                        {t("sessions")}
-                      </span>
-                    </p>
-                    <p className="mt-6 font-serif-display italic text-4xl leading-none text-accent md:text-5xl">
-                      {item.price}€
-                    </p>
-                    <p className="mt-3 text-xs text-white/45">
-                      {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
-                    </p>
+                  /* ── Regular fitness card ── */
+                  <div className="group relative h-full">
+                    <div className="relative text-center p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                      <p className="text-xs mb-1 text-white/60">
+                        {item.sessions} {t("sessions")}
+                      </p>
+                      <div>
+                        <span className="font-heading text-3xl sm:text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                          {item.price}
+                        </span>
+                        <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                      </div>
+                      <p className="text-[11px] mt-2 text-white/60">
+                        {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
+                      </p>
+                    </div>
                   </div>
                 )}
               </ScrollReveal>
@@ -330,238 +249,243 @@ export default async function PreciosPage({
         </div>
       </section>
 
-      {/* ── 03 BOXEO · 04 YOGA ─────────────────────────── */}
-      <section className="relative overflow-hidden bg-background py-20 md:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-16 md:grid-cols-2 md:gap-12">
-            {/* Boxeo */}
-            <div>
-              <ScrollReveal>
-                <div className="mb-10 md:mb-14">
-                  <ChapterHeader
-                    number="03"
-                    eyebrow={locale === "eu" ? "Bonoak" : "Bonos"}
-                    title={t("boxeo")}
-                  />
-                </div>
-              </ScrollReveal>
-              {boxeoPrices.map((item, i) => (
-                <ScrollReveal key={item.sessions} delay={i * 0.06}>
-                  <div className="group border-t border-primary/10 py-6 transition-colors duration-500 hover:border-accent/70 md:py-7">
-                    <div className="flex items-baseline gap-4">
-                      <span className="shrink-0 text-xs uppercase tracking-[0.18em] text-muted-foreground md:text-sm">
-                        {item.sessions} {t("sessions")}
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="flex-1 border-b border-dotted border-primary/20 transition-colors duration-500 group-hover:border-accent/50"
-                      />
-                      <span className="shrink-0 whitespace-nowrap leading-none">
-                        <span className="font-heading text-3xl font-bold text-foreground transition-colors duration-500 group-hover:text-accent md:text-4xl">
-                          {item.price}
-                        </span>
-                        <span className="ml-1 font-serif-display italic text-xl text-accent md:text-2xl">
-                          €
-                        </span>
-                      </span>
-                    </div>
-                    <p className="mt-2 text-right text-xs text-muted-foreground">
-                      {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
-              <div className="border-t border-primary/10" />
-            </div>
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
-            {/* Yoga — offset for editorial asymmetry */}
-            <div className="md:mt-20">
-              <ScrollReveal delay={0.1}>
-                <div className="mb-10 md:mb-14">
-                  <ChapterHeader
-                    number="04"
-                    eyebrow={locale === "eu" ? "Bonoak" : "Bonos"}
-                    title={t("yoga")}
-                  />
-                </div>
-              </ScrollReveal>
-              {yogaPrices.map((item, i) => (
-                <ScrollReveal key={item.sessions} delay={0.1 + i * 0.06}>
-                  <div className="group border-t border-primary/10 py-6 transition-colors duration-500 hover:border-accent/70 md:py-7">
-                    <div className="flex items-baseline gap-4">
-                      <span className="shrink-0 text-xs uppercase tracking-[0.18em] text-muted-foreground md:text-sm">
-                        {item.sessions} {t("sessions")}
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="flex-1 border-b border-dotted border-primary/20 transition-colors duration-500 group-hover:border-accent/50"
-                      />
-                      <span className="shrink-0 whitespace-nowrap leading-none">
-                        <span className="font-heading text-3xl font-bold text-foreground transition-colors duration-500 group-hover:text-accent md:text-4xl">
-                          {item.price}
-                        </span>
-                        <span className="ml-1 font-serif-display italic text-xl text-accent md:text-2xl">
-                          €
-                        </span>
-                      </span>
-                    </div>
-                    <p className="mt-2 text-right text-xs text-muted-foreground">
-                      {t("yogaStudents")}:{" "}
-                      <span className="font-semibold text-accent">
-                        {item.studentPrice}€
-                      </span>
-                    </p>
+      {/* ── BOXEO + YOGA ──────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[#0a0a0a] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(244,67,54,0.04)_0%,transparent_50%),radial-gradient(circle_at_70%_30%,rgba(156,39,176,0.04)_0%,transparent_50%)]" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Boxeo */}
+            <ScrollReveal>
+              <div className="group relative h-full">
+                <div className={`absolute -inset-0.5 bg-gradient-to-b ${PLAN_COLORS.boxeo.glow} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
+                <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                  <div className={`absolute top-0 left-8 right-8 h-[2px] ${PLAN_COLORS.boxeo.bar} rounded-full opacity-60`} />
+                  <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
+                    {t("boxeo")}
+                  </h2>
+                  <div className="grid grid-cols-2 gap-4">
+                    {boxeoPrices.map((item) => (
+                      <div
+                        key={item.sessions}
+                        className="text-center p-5 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors"
+                      >
+                        <p className="text-xs text-white/60 mb-2">
+                          {item.sessions} {t("sessions")}
+                        </p>
+                        <div>
+                          <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                            {item.price}
+                          </span>
+                          <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                        </div>
+                        <p className="text-[11px] text-white/60 mt-2">
+                          {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                </ScrollReveal>
-              ))}
-              <div className="border-t border-primary/10" />
-            </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Yoga */}
+            <ScrollReveal delay={0.1}>
+              <div className="group relative h-full">
+                <div className={`absolute -inset-0.5 bg-gradient-to-b ${PLAN_COLORS.yoga.glow} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
+                <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                  <div className={`absolute top-0 left-8 right-8 h-[2px] ${PLAN_COLORS.yoga.bar} rounded-full opacity-60`} />
+                  <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
+                    {t("yoga")}
+                  </h2>
+                  <div className="space-y-3">
+                    {yogaPrices.map((item) => (
+                      <div
+                        key={item.sessions}
+                        className="flex items-center justify-between p-4 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors"
+                      >
+                        <span className="text-sm text-white/60">
+                          {item.sessions} {t("sessions")}
+                        </span>
+                        <div className="text-right">
+                          <span className="font-heading text-2xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                            {item.price}
+                          </span>
+                          <span className="text-accent/50 text-sm font-heading">€</span>
+                          <p className="text-[11px] text-white/60 mt-0.5">
+                            {t("yogaStudents")}:{" "}
+                            <span className="text-white/60 font-semibold">
+                              {item.studentPrice}€
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* ── 05 MASAJES ─────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-primary py-20 md:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-14 flex flex-col gap-8 md:mb-20 md:flex-row md:items-end md:justify-between">
-            <ScrollReveal>
-              <ChapterHeader
-                dark
-                number="05"
-                eyebrow={t("masajesDesc")}
-                title={t("masajes")}
-              />
-            </ScrollReveal>
-            <ScrollReveal delay={0.15}>
-              <Link
-                href="/masajes"
-                className="group inline-flex items-center gap-2 border-b border-accent/50 pb-1 font-heading text-sm uppercase tracking-[0.2em] text-white/70 transition-colors duration-300 hover:text-accent"
-              >
-                {locale === "eu"
-                  ? "Tratamendu guztiak ikusi"
-                  : "Ver todos los tratamientos"}
-                <ArrowUpRight
-                  size={16}
-                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                />
-              </Link>
-            </ScrollReveal>
-          </div>
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
-          <div className="md:ml-[8vw]">
+      {/* ── MASAJES ────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[#070707] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(200,170,110,0.04)_0%,transparent_60%)]" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-3">
+                {t("masajesDesc")}
+              </p>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
+                {t("masajes")}
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {masajeTreatments.map((name, i) => (
               <ScrollReveal key={name} delay={i * 0.04}>
-                <div className="group flex items-baseline gap-4 border-t border-white/10 py-5 transition-colors duration-500 hover:border-accent/60 md:py-6">
-                  <span className="font-heading text-lg font-bold uppercase text-white transition-colors duration-500 group-hover:text-accent md:text-2xl">
-                    {name}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="flex-1 border-b border-dotted border-white/15 transition-colors duration-500 group-hover:border-accent/40"
-                  />
-                  <span className="shrink-0 whitespace-nowrap text-right leading-none">
-                    <span className="font-heading text-3xl font-bold text-white transition-colors duration-500 group-hover:text-accent md:text-4xl">
+                <div className="group text-center p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                  <p className="font-medium text-white text-sm mb-3">{name}</p>
+                  <div>
+                    <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
                       40
                     </span>
-                    <span className="ml-1 font-serif-display italic text-xl text-accent md:text-2xl">
-                      €
-                    </span>
-                    <span className="mt-2 block text-xs text-white/50">
-                      {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
-                      <span className="font-semibold text-accent">35€</span>
-                    </span>
-                  </span>
+                    <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                  </div>
+                  <div className="w-8 h-[1px] bg-white/[0.08] mx-auto my-2.5" />
+                  <p className="text-xs text-white/60">
+                    <Users size={10} className="inline mr-1" />
+                    {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
+                    <span className="font-bold text-accent/80">35€</span>
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
 
-            {/* Premium BitanBat — gold-framed feature */}
+            {/* Premium BitanBat - animated gradient border */}
             <ScrollReveal delay={masajeTreatments.length * 0.04}>
-              <div className="mt-10 rounded-2xl border border-accent/60 bg-accent/[0.07] p-6 md:p-10">
-                <div className="flex flex-wrap items-center gap-4">
-                  <span className="inline-flex items-center rounded-full border border-accent/50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.28em] text-accent">
-                    {tCommon("premium")}
-                  </span>
-                  <span className="font-serif-display italic text-xl lowercase text-accent">
-                    90 min
-                  </span>
-                </div>
-                <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-                  <h3 className="font-heading text-3xl font-bold uppercase text-white md:text-5xl">
-                    {tMassage("bitanbatName")}
-                  </h3>
-                  <div className="shrink-0 md:text-right">
-                    <p className="leading-none">
-                      <span className="font-heading text-5xl font-bold text-white md:text-6xl">
+              <div className="relative">
+                {/* Outer glow pulse */}
+                <div className="absolute -inset-2 bg-accent/10 rounded-3xl blur-xl motion-safe:animate-glow-pulse" />
+
+                {/* Animated border container */}
+                <div className="relative rounded-2xl p-[1.5px] overflow-hidden">
+                  <div className="absolute inset-[-200%] motion-safe:animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
+                  <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                    <div className="inline-flex items-center gap-1 bg-accent/10 text-accent text-[11px] font-bold uppercase px-3 py-1 rounded-full mb-3 border border-accent/20">
+                      <Crown size={10} />
+                      {tCommon("premium")}
+                    </div>
+                    <p className="font-medium text-white text-sm mb-3">
+                      {tMassage("bitanbatName")}
+                    </p>
+                    <div>
+                      <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
                         65
                       </span>
-                      <span className="ml-1 font-serif-display italic text-3xl text-accent">
-                        €
-                      </span>
-                    </p>
-                    <p className="mt-3 text-xs text-white/50">
+                      <span className="text-accent/50 text-lg font-heading font-bold">€</span>
+                    </div>
+                    <div className="w-8 h-[1px] bg-white/[0.08] mx-auto my-2.5" />
+                    <p className="text-xs text-white/60">
+                      <Users size={10} className="inline mr-1" />
                       {locale === "eu" ? "Erabiltzaileak" : "Usuarios"}:{" "}
-                      <span className="font-semibold text-accent">60€</span>
+                      <span className="font-bold text-accent/80">60€</span>
+                    </p>
+                    <p className="text-[11px] text-white/60 mt-1">90 min</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal>
+            <div className="text-center mt-8">
+              <Link
+                href="/masajes"
+                className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-accent border border-accent/30 rounded-full hover:bg-accent/5 hover:border-accent/50 transition-all duration-300"
+              >
+                {locale === "eu" ? "Tratamendu guztiak ikusi" : "Ver todos los tratamientos"} →
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+
+      {/* ── DESCUENTOS ─────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[#0a0a0a] relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(200,170,110,0.06)_0%,transparent_50%)]" />
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-accent/10 border border-accent/20 mb-5">
+                <Gift size={24} className="text-accent" />
+              </div>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
+                {t("discounts")}
+              </h2>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <ScrollReveal>
+              <div className="group relative">
+                <div className="absolute -inset-0.5 bg-gradient-to-b from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
+                <div className="relative flex items-center gap-5 p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-accent/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/10 flex items-center justify-center shrink-0">
+                    <Users size={22} className="text-accent" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">{t("familyDiscount")}</p>
+                    <p className="text-white/60 text-xs mt-1">
+                      {locale === "eu" ? "Familia guztientzat" : "Para toda la familia"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.1}>
+              <div className="group relative">
+                <div className="absolute -inset-0.5 bg-gradient-to-b from-accent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500" />
+                <div className="relative flex items-center gap-5 p-6 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-accent/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/10 flex items-center justify-center shrink-0">
+                    <span className="text-accent font-heading font-bold text-xl">10€</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">{t("singleClass")}</p>
+                    <p className="text-white/60 text-xs mt-1">
+                      {locale === "eu" ? "Konpromisorik gabe" : "Sin compromiso"}
                     </p>
                   </div>
                 </div>
               </div>
             </ScrollReveal>
           </div>
-        </div>
-      </section>
 
-      {/* ── 06 DESCUENTOS — final band ─────────────────── */}
-      <section className="relative overflow-hidden border-t border-accent/30 bg-[#14100A] py-20 md:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(201,169,110,0.16),transparent_45%)]" />
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <ScrollReveal>
-            <div className="mb-12 flex items-baseline gap-5 md:mb-16">
-              <span className="font-heading text-sm font-semibold tracking-[0.2em] text-accent">
-                06
-              </span>
-              <p className="text-sm uppercase tracking-[0.32em] text-accent font-medium">
-                {t("discounts")}
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div>
-            <ScrollReveal>
-              <div className="group items-baseline border-t border-accent/25 py-8 transition-colors duration-500 hover:border-accent/70 md:grid md:grid-cols-12 md:gap-x-8 md:py-10">
-                <p className="font-serif-display italic text-3xl lowercase leading-tight text-white md:col-span-8 md:text-5xl">
-                  {t("familyDiscount")}
-                </p>
-                <p className="mt-3 text-xs uppercase tracking-[0.2em] text-white/45 md:col-span-4 md:mt-0 md:text-right md:text-sm">
-                  {locale === "eu" ? "Familia guztientzat" : "Para toda la familia"}
-                </p>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={0.1}>
-              <div className="group items-baseline border-t border-accent/25 py-8 transition-colors duration-500 hover:border-accent/70 md:grid md:grid-cols-12 md:gap-x-8 md:py-10">
-                <p className="font-serif-display italic text-3xl lowercase leading-tight text-white md:col-span-8 md:text-5xl">
-                  {t("singleClass")}
-                </p>
-                <p className="mt-3 text-xs uppercase tracking-[0.2em] text-white/45 md:col-span-4 md:mt-0 md:text-right md:text-sm">
-                  {locale === "eu" ? "Konpromisorik gabe" : "Sin compromiso"}
-                </p>
-              </div>
-            </ScrollReveal>
-            <div className="border-t border-accent/25" />
-          </div>
-
-          <ScrollReveal delay={0.15}>
-            <div className="mt-14 flex flex-col gap-4 sm:flex-row md:ml-[8vw] md:mt-20">
-              <Button
+            <div className="mt-14 flex flex-wrap justify-center gap-4">
+              <a
                 href={SITE_CONFIG.whatsapp}
-                external
-                size="md"
-                className="w-full sm:w-auto"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto text-center group relative inline-flex items-center justify-center gap-2 px-8 py-3.5 font-heading font-semibold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-accent/20"
               >
-                <Phone size={18} />
-                {SITE_CONFIG.phoneFormatted}
-              </Button>
+                <div className="absolute inset-0 bg-accent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-accent to-yellow-500/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Phone size={18} className="relative text-primary" />
+                <span className="relative text-primary">{SITE_CONFIG.phoneFormatted}</span>
+              </a>
               <Button
                 href="/contacto"
                 variant="secondary"

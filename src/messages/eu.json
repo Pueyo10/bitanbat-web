@@ -12,7 +12,8 @@
     "prices": "Prezioak",
     "massage": "Masajeak",
     "contact": "Kontaktua",
-    "blog": "Bloga"
+    "blog": "Bloga",
+    "shop": "Denda"
   },
   "Hero": {
     "tagline": "DANTZA & FITNESS",
@@ -167,5 +168,29 @@
     "video": "Bideoa",
     "article": "Artikulua",
     "sending": "Bidaltzen..."
+  },
+  "Shop": {
+    "title": "Denda",
+    "subtitle": "BitanBat arropa eta oinarrizkoak, entrenatzeko zein egunerokorako",
+    "eyebrow": "Merch ofiziala",
+    "size": "Neurria",
+    "oneSize": "Neurri bakarra",
+    "orderWhatsApp": "WhatsApp bidez eskatu",
+    "orderMessage": "Kaixo! Hau eskatu nahi dut: ",
+    "pickupNote": "Zentroan jasotzekoa. Eskatu WhatsApp bidez eta prest izango dugu.",
+    "photosSoon": "Produktuen argazkiak laster",
+    "addToOrder": "Eskaerara gehitu",
+    "added": "Gehituta",
+    "yourOrder": "Zure eskaera",
+    "total": "Guztira",
+    "empty": "Oraindik ez duzu ezer gehitu",
+    "remove": "Kendu",
+    "sendOrder": "Eskaera bidali",
+    "orWhatsApp": "edo WhatsApp bidez eskatu",
+    "orderSuccess": "Eskaera bidalita. Baieztatzeko harremanetan jarriko gara.",
+    "orderError": "Errorea eskaera bidaltzean. Saiatu berriro edo erabili WhatsApp.",
+    "noteLabel": "Oharra (aukerakoa)",
+    "payAtPickup": "Ordainketa zentroan jasotzean",
+    "viewOrder": "Eskaera ikusi"
   }
 }

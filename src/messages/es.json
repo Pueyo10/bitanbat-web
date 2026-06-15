@@ -12,7 +12,8 @@
     "prices": "Precios",
     "massage": "Masajes",
     "contact": "Contacto",
-    "blog": "Blog"
+    "blog": "Blog",
+    "shop": "Tienda"
   },
   "Hero": {
     "tagline": "DANTZA & FITNESS",
@@ -167,5 +168,29 @@
     "video": "Vídeo",
     "article": "Artículo",
     "sending": "Enviando..."
+  },
+  "Shop": {
+    "title": "Tienda",
+    "subtitle": "Ropa y básicos BitanBat para entrenar y para el día a día",
+    "eyebrow": "Merch oficial",
+    "size": "Talla",
+    "oneSize": "Talla única",
+    "orderWhatsApp": "Pedir por WhatsApp",
+    "orderMessage": "Hola! Quiero pedir: ",
+    "pickupNote": "Recogida en el centro. Pídelo por WhatsApp y te lo preparamos.",
+    "photosSoon": "Fotos de producto próximamente",
+    "addToOrder": "Añadir al pedido",
+    "added": "Añadido",
+    "yourOrder": "Tu pedido",
+    "total": "Total",
+    "empty": "Aún no has añadido nada",
+    "remove": "Quitar",
+    "sendOrder": "Enviar pedido",
+    "orWhatsApp": "o pedir por WhatsApp",
+    "orderSuccess": "Pedido enviado. Te contactaremos para confirmarlo.",
+    "orderError": "Error al enviar el pedido. Inténtalo de nuevo o usa WhatsApp.",
+    "noteLabel": "Nota (opcional)",
+    "payAtPickup": "Pago al recoger en el centro",
+    "viewOrder": "Ver pedido"
   }
 }

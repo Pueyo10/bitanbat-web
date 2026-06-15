@@ -232,6 +232,15 @@ html {
   animation-delay: var(--line-delay, 0.2s);
 }
 
+/* Stats — underline grows in when the number reveals */
+.scroll-reveal .stat-underline {
+  transform: scaleX(0);
+  transition: transform 0.8s var(--ease-expo) 0.25s;
+}
+.scroll-reveal.is-visible .stat-underline {
+  transform: scaleX(1);
+}
+
 /* Marquee — continuous disciplines ticker */
 @keyframes marquee {
   from { transform: translateX(0); }

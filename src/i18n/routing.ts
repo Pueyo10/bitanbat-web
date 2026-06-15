@@ -34,6 +34,10 @@ export const routing = defineRouting({
       es: "/masajes",
       eu: "/masajeak",
     },
+    "/tienda": {
+      es: "/tienda",
+      eu: "/denda",
+    },
     "/blog": "/blog",
     "/blog/[slug]": "/blog/[slug]",
   },
