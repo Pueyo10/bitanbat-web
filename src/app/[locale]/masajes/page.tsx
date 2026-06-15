@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
@@ -18,43 +18,43 @@ const treatments = [
   },
   {
     id: "drenajelinfatico",
-    image: "/media/masajes/tratamiento-ventosas-v2.png",
+    image: "/media/masajes/tratamiento-drenaje-linfatico-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "reflexologia",
-    image: "/media/masajes/tratamiento-ventosas-v2.png",
+    image: "/media/masajes/tratamiento-reflexologia-podal-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "descontracturante",
-    image: "/media/masajes/tratamiento-ventosas-v2.png",
+    image: "/media/masajes/tratamiento-descontracturante-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "relajante",
-    image: "/media/masajes/tratamiento-ventosas-v2.png",
+    image: "/media/masajes/tratamiento-relajante-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "maderoterapia",
-    image: "/media/masajes/tratamiento-ventosas-v2.png",
+    image: "/media/masajes/tratamiento-maderoterapia-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "craneo",
-    image: "/media/masajes/tratamiento-ventosas-v2.png",
+    image: "/media/masajes/tratamiento-craneo-facial-cuello-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "bitanbat",
-    image: "/media/masajes/tratamiento-ventosas-v2.png",
+    image: "/media/masajes/tratamiento-bitanbat-premium-v2.png",
     price: "65",
     memberPrice: "60",
     duration: "90 min",
