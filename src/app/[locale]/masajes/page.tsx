@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
@@ -12,49 +12,49 @@ import Button from "@/components/ui/Button";
 const treatments = [
   {
     id: "ventosas",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "drenajelinfatico",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "reflexologia",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "descontracturante",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "relajante",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "maderoterapia",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "craneo",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "40",
     memberPrice: "35",
   },
   {
     id: "bitanbat",
-    image: "/media/bitanbat/massage-treatment.jpg",
+    image: "/media/masajes/tratamiento-ventosas-v2.png",
     price: "65",
     memberPrice: "60",
     duration: "90 min",
