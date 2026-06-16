@@ -72,12 +72,12 @@ export default function MasajesPage() {
       label: locale === "eu" ? "Saioa zure beharretara" : "Sesion adaptada a tu cuerpo",
     },
     {
-      value: "35EUR",
+      value: "35€",
       label: locale === "eu" ? "Erabiltzaile prezioa" : "Precio para socios",
     },
     {
-      value: "60-90",
-      label: locale === "eu" ? "Minutuko saioak" : "Min por sesion",
+      value: "55",
+      label: locale === "eu" ? "Minutuko saioak" : "Min por sesión",
     },
   ];
   const spaceNote =
