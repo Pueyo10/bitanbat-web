@@ -23,7 +23,7 @@ const classImages: Record<string, string> = {
   sevillanas: "/media/bitanbat/sevillanas-class.jpg",
   urbano: "/media/bitanbat/urbano-adultos.jpg",
   zumba: "/media/bitanbat/zumba.jpg",
-  fitgipsy: "/media/bitanbat/fitgipsy-class.jpg",
+  fitgipsy: "/media/bitanbat/fitgypsy.jpg",
   jumping: "/media/bitanbat/jumping.jpg",
   predantza: "/media/bitanbat/predantza.jpg",
 };

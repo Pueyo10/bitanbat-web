@@ -23,7 +23,7 @@ const MOSAIC_SETS: MosaicItem[][] = [
   [
     { type: "image", src: "/media/bitanbat/massage-treatment.jpg" },
     { type: "image", src: "/media/bitanbat/yoga.jpg" },
-    { type: "image", src: "/media/bitanbat/fitgipsy-class.jpg" },
+    { type: "image", src: "/media/bitanbat/fitgypsy.jpg" },
     { type: "image", src: "/media/bitanbat/jumping.jpg" },
     { type: "image", src: "/media/bitanbat/bachata.jpg" },
     { type: "image", src: "/media/bitanbat/barrefit.jpg" },
