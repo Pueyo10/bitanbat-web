@@ -38,6 +38,7 @@ const scheduledClassSlugs = new Set([
   "e-funcional-txiki",
   "entrenamiento-funcional",
   "fitgipsy",
+  "jumping",
   "pilates",
   "predantza",
   "salsa",

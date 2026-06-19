@@ -52,7 +52,7 @@ const DISCIPLINES = [
   "Pilates",
   "BarreFit",
   "Bungee",
-  "Jumping",
+  "Power Jump",
   "Boxeo",
   "FitGipsy",
   "Funcional",
