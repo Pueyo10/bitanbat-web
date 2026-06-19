@@ -18,7 +18,7 @@ const navItems = [
   { href: "/sobre-nosotros", labelKey: "about" },
   { href: "/contacto", labelKey: "contact" },
   { href: "/galeria", labelKey: "gallery" },
-  { href: "/tienda", labelKey: "shop" },
+  // { href: "/tienda", labelKey: "shop" }, // oculta temporalmente
 ] as const;
 
 export default function Header() {

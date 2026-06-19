@@ -11,23 +11,23 @@ type MosaicItem =
 
 const MOSAIC_SETS: MosaicItem[][] = [
   [
-    { type: "image", src: "/media/bitanbat/functional-training.jpg" },
+    { type: "image", src: "/media/bitanbat/entrenamiento-funcional.jpg" },
     { type: "image", src: "/media/bitanbat/studio-room.jpg" },
     { type: "image", src: "/media/bitanbat/boxing-class.jpg" },
-    { type: "image", src: "/media/bitanbat/bungee-class.jpg" },
+    { type: "image", src: "/media/bitanbat/bungee.jpg" },
     { type: "image", src: "/media/bitanbat/sevillanas-class.jpg" },
-    { type: "image", src: "/media/bitanbat/pilates-class.jpg" },
-    { type: "image", src: "/media/bitanbat/urban-dance.jpg" },
+    { type: "image", src: "/media/bitanbat/pilates.jpg" },
+    { type: "image", src: "/media/bitanbat/urbano-adultos.jpg" },
     { type: "image", src: "/media/bitanbat/stage-show.jpg" },
   ],
   [
     { type: "image", src: "/media/bitanbat/massage-treatment.jpg" },
-    { type: "image", src: "/media/bitanbat/yoga-class.jpg" },
+    { type: "image", src: "/media/bitanbat/yoga.jpg" },
     { type: "image", src: "/media/bitanbat/fitgipsy-class.jpg" },
-    { type: "image", src: "/media/bitanbat/jumping-class.jpg" },
-    { type: "image", src: "/media/bitanbat/bachata-couple.jpg" },
-    { type: "image", src: "/media/bitanbat/barrefit-class.jpg" },
-    { type: "image", src: "/media/bitanbat/kids-dance.jpg" },
+    { type: "image", src: "/media/bitanbat/jumping.jpg" },
+    { type: "image", src: "/media/bitanbat/bachata.jpg" },
+    { type: "image", src: "/media/bitanbat/barrefit.jpg" },
+    { type: "image", src: "/media/bitanbat/urbano-kids.jpg" },
     { type: "image", src: "/media/bitanbat/team-room.jpg" },
   ],
 ];

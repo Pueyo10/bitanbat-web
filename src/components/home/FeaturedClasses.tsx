@@ -12,28 +12,28 @@ const classHighlights = [
     nameEu: "Entrenamendu Funtzionala",
     descEs: "Fuerza, resistencia y resultados. Adaptado a todos los niveles.",
     descEu: "Indarra, erresistentzia eta emaitzak. Maila guztietara egokitua.",
-    image: "/media/bitanbat/functional-training.jpg",
+    image: "/media/bitanbat/entrenamiento-funcional.jpg",
   },
   {
     nameEs: "Bachata",
     nameEu: "Bachata",
     descEs: "Clases desde iniciacion hasta nivel intermedio/avanzado.",
     descEu: "Hasieratik maila ertain/aurreratura arteko klaseak.",
-    image: "/media/bitanbat/bachata-couple.jpg",
+    image: "/media/bitanbat/bachata.jpg",
   },
   {
     nameEs: "Bungee",
     nameEu: "Bungee",
     descEs: "Fitness con arnes de bungee. Una experiencia unica de entrenamiento.",
     descEu: "Bungee arnesarekin fitnessa. Entrenamendu esperientzia berezia.",
-    image: "/media/bitanbat/bungee-class.jpg",
+    image: "/media/bitanbat/bungee.jpg",
   },
   {
     nameEs: "Barrefit",
     nameEu: "Barrefit",
     descEs: "Combina ballet, pilates y fitness para un cuerpo tonificado.",
     descEu: "Baleta, pilatesa eta fitnessa uztartzen dituen klasea.",
-    image: "/media/bitanbat/barrefit-class.jpg",
+    image: "/media/bitanbat/barrefit.jpg",
   },
   {
     nameEs: "Boxeo",
@@ -47,7 +47,7 @@ const classHighlights = [
     nameEu: "Predantza",
     descEs: "Iniciacion a la danza para los mas pequenos.",
     descEu: "Txikienentzako dantzarako hastapena.",
-    image: "/media/bitanbat/predantza-class.jpg",
+    image: "/media/bitanbat/predantza.jpg",
   },
 ];
 
