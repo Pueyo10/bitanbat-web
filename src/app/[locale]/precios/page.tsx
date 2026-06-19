@@ -108,6 +108,7 @@ export default async function PreciosPage({
         label={locale === "eu" ? "Planak" : "Planes"}
         title={t("title")}
         subtitle={t("subtitle")}
+        serif
       />
 
       {/* ── DANTZA ─────────────────────────────────────── */}

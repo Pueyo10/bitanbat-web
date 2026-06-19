@@ -10,7 +10,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const classImages: Record<string, string> = {
   "e-funcional-txikiak": "/media/bitanbat/functional-kids-young.jpg",
-  "e-funcional-txiki": "/media/bitanbat/functional-kids-older.jpg",
+  "e-funcional-txiki": "/media/bitanbat/e-funcional-txiki.jpg",
   "entrenamiento-funcional": "/media/bitanbat/entrenamiento-funcional.jpg",
   pilates: "/media/bitanbat/pilates.jpg",
   barrefit: "/media/bitanbat/barrefit.jpg",
@@ -22,7 +22,7 @@ const classImages: Record<string, string> = {
   salsa: "/media/bitanbat/salsa.jpg",
   sevillanas: "/media/bitanbat/sevillanas-class.jpg",
   urbano: "/media/bitanbat/urbano-adultos.jpg",
-  zumba: "/media/bitanbat/zumba-class.jpg",
+  zumba: "/media/bitanbat/zumba.jpg",
   fitgipsy: "/media/bitanbat/fitgipsy-class.jpg",
   jumping: "/media/bitanbat/jumping.jpg",
   predantza: "/media/bitanbat/predantza.jpg",

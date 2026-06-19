@@ -61,7 +61,7 @@ function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string
 }
 
 const stats = [
-  { number: 200, suffix: "+", labelKey: "statsStudents" },
+  { number: 400, suffix: "+", labelKey: "statsStudents" },
   { number: 15, suffix: "+", labelKey: "statsClasses" },
   { number: 2, suffix: "", labelKey: "statsLocations" },
   { number: 5, suffix: "", labelKey: "statsDays" },
