@@ -64,16 +64,9 @@ const fitnessPrices = [
   { sessions: 24, price: 156 },
 ];
 
-const boxeoPrices = [
-  { sessions: 4, price: 38 },
-  { sessions: 8, price: 58 },
-];
+const boxeoPrices = [{ sessions: 4, price: 38 }];
 
-const yogaPrices = [
-  { sessions: 4, price: 45, studentPrice: 35 },
-  { sessions: 8, price: 70, studentPrice: 55 },
-  { sessions: 12, price: 85, studentPrice: 65 },
-];
+const yogaPrices = [{ sessions: 4, price: 45 }];
 
 const masajeTreatments = [
   "Ventosas",
@@ -263,7 +256,7 @@ export default async function PreciosPage({
                   <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
                     {t("boxeo")}
                   </h2>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 gap-4">
                     {boxeoPrices.map((item) => (
                       <div
                         key={item.sessions}
@@ -311,12 +304,6 @@ export default async function PreciosPage({
                             {item.price}
                           </span>
                           <span className="text-accent/50 text-sm font-heading">€</span>
-                          <p className="text-[11px] text-white/60 mt-0.5">
-                            {t("yogaStudents")}:{" "}
-                            <span className="text-white/60 font-semibold">
-                              {item.studentPrice}€
-                            </span>
-                          </p>
                         </div>
                       </div>
                     ))}
