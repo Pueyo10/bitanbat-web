@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { Phone, Gift, Users, Star, Crown } from "lucide-react";
+import { Phone, Gift, Users, Crown } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import PageHero from "@/components/ui/PageHero";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -20,48 +20,36 @@ const dantzaDisciplines = [
     name: "Predantza",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
-    options: [{ es: "Mensual", eu: "Hilekoa", price: 35 }],
+    options: [{ es: "4 clases", eu: "4 klase", price: 35 }],
   },
   {
     name: "Urbano",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
     options: [
-      { es: "Txiki", eu: "Txiki", price: 38 },
-      { es: "Urbano", eu: "Urbano", price: 38 },
-      { es: "Adultos", eu: "Helduak", price: 40 },
+      { es: "Txiki · 4 clases", eu: "Txiki · 4 klase", price: 38 },
+      { es: "Urbano · 4 clases", eu: "Urbano · 4 klase", price: 38 },
+      { es: "Adultos · 4 clases", eu: "Helduak · 4 klase", price: 40 },
     ],
   },
   {
     name: "Sevillanas / FitGipsy",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
-    options: [
-      { es: "Sevillanas / FitGipsy", eu: "Sevillanak / FitGipsy", price: 40 },
-      { es: "Sevillanas noche", eu: "Sevillanak gauez", price: 50 },
-    ],
+    options: [{ es: "4 clases", eu: "4 klase", price: 40 }],
   },
   {
     name: "Salsa",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
-    options: [{ es: "Mensual", eu: "Hilekoa", price: 40 }],
+    options: [{ es: "4 clases", eu: "4 klase", price: 40 }],
   },
   {
     name: "Bachata",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
-    options: [{ es: "Mensual", eu: "Hilekoa", price: 40 }],
+    options: [{ es: "4 clases", eu: "4 klase", price: 40 }],
   },
-];
-
-const fitnessPrices = [
-  { sessions: 4, price: 38 },
-  { sessions: 8, price: 55 },
-  { sessions: 12, price: 93 },
-  { sessions: 16, price: 105, popular: true },
-  { sessions: 20, price: 137 },
-  { sessions: 24, price: 156 },
 ];
 
 const boxeoPrices = [{ sessions: 4, price: 38 }];
@@ -150,89 +138,6 @@ export default async function PreciosPage({
                     </div>
                   </div>
                 </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Section divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-
-      {/* ── FITNESS ────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-[#070707] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(200,170,110,0.04)_0%,transparent_50%)]" />
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <ScrollReveal>
-            <div className="text-center mb-4">
-              <p className="text-accent text-sm tracking-[0.2em] uppercase font-medium mb-3">
-                {t("fitnessDesc")}
-              </p>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-white">
-                {t("fitness")}
-              </h2>
-            </div>
-            <p className="text-center text-xs text-white/60 mb-12 max-w-lg mx-auto">
-              {t("fitnessClasses")}
-            </p>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 min-[420px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {fitnessPrices.map((item, i) => (
-              <ScrollReveal key={item.sessions} delay={i * 0.06}>
-                {item.popular ? (
-                  /* ── Popular card: animated gradient border + glow ── */
-                  <div className="relative z-10 h-full">
-                    {/* Outer glow pulse */}
-                    <div className="absolute -inset-3 bg-accent/15 rounded-3xl blur-xl motion-safe:animate-glow-pulse" />
-
-                    {/* Badge above border container */}
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-                      <span className="bg-accent text-primary text-[11px] font-bold px-4 py-1 rounded-full flex items-center gap-1 whitespace-nowrap shadow-lg">
-                        <Star size={10} fill="currentColor" />
-                        {t("featured")}
-                      </span>
-                    </div>
-
-                    {/* Animated border container */}
-                    <div className="relative rounded-2xl p-[1.5px] overflow-hidden h-full">
-                      <div className="absolute inset-[-200%] motion-safe:animate-spin-slow bg-[conic-gradient(from_0deg,#C9A96E_0%,transparent_25%,transparent_75%,#C9A96E_100%)]" />
-                      <div className="relative bg-[#0a0a0a] rounded-[14px] p-5 pt-6 text-center h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                        <p className="text-xs mb-1 text-white/50">
-                          {item.sessions} {t("sessions")}
-                        </p>
-                        <div>
-                          <span className="font-heading text-3xl sm:text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
-                            {item.price}
-                          </span>
-                          <span className="text-accent/50 text-lg font-heading font-bold">€</span>
-                        </div>
-                        <p className="text-[11px] mt-2 text-white/60">
-                          {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  /* ── Regular fitness card ── */
-                  <div className="group relative h-full">
-                    <div className="relative text-center p-5 rounded-2xl bg-white/[0.04] border border-white/[0.08] hover:border-white/20 hover:-translate-y-1 transition-all duration-300 h-full flex flex-col justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                      <p className="text-xs mb-1 text-white/60">
-                        {item.sessions} {t("sessions")}
-                      </p>
-                      <div>
-                        <span className="font-heading text-3xl sm:text-4xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
-                          {item.price}
-                        </span>
-                        <span className="text-accent/50 text-lg font-heading font-bold">€</span>
-                      </div>
-                      <p className="text-[11px] mt-2 text-white/60">
-                        {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
-                      </p>
-                    </div>
-                  </div>
-                )}
               </ScrollReveal>
             ))}
           </div>
