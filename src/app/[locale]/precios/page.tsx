@@ -20,15 +20,16 @@ const dantzaDisciplines = [
     name: "Predantza",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
-    options: [{ hours: "1H", price: 30 }],
+    options: [{ es: "Mensual", eu: "Hilekoa", price: 35 }],
   },
   {
     name: "Urbano",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
     options: [
-      { hours: "1H", price: 35 },
-      { hours: "1H 15min", price: 38 },
+      { es: "Txiki", eu: "Txiki", price: 38 },
+      { es: "Urbano", eu: "Urbano", price: 38 },
+      { es: "Adultos", eu: "Helduak", price: 40 },
     ],
   },
   {
@@ -36,26 +37,21 @@ const dantzaDisciplines = [
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
     options: [
-      { hours: "1H", price: 38 },
-      { hours: "1.5H", price: 45 },
-      { hours: "2H", price: 70 },
-      { hours: "2.5H", price: 75 },
+      { es: "Sevillanas / FitGipsy", eu: "Sevillanak / FitGipsy", price: 40 },
+      { es: "Sevillanas noche", eu: "Sevillanak gauez", price: 50 },
     ],
   },
   {
     name: "Salsa",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
-    options: [{ hours: "1H", price: 38 }],
+    options: [{ es: "Mensual", eu: "Hilekoa", price: 40 }],
   },
   {
     name: "Bachata",
     color: "from-accent/20 to-accent/5",
     accent: "bg-accent",
-    options: [
-      { hours: "1H", price: 38 },
-      { hours: "2H", price: 70 },
-    ],
+    options: [{ es: "Mensual", eu: "Hilekoa", price: 40 }],
   },
 ];
 
@@ -143,11 +139,11 @@ export default async function PreciosPage({
                     <div className="space-y-2.5">
                       {discipline.options.map((opt) => (
                         <div
-                          key={opt.hours}
-                          className="flex items-center justify-between py-2.5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.06] transition-colors"
+                          key={opt.es}
+                          className="flex items-center justify-between gap-3 py-2.5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.06] transition-colors"
                         >
                           <span className="text-sm text-white/50">
-                            {opt.hours} / {locale === "eu" ? "astean" : "sem"}
+                            {locale === "eu" ? opt.eu : opt.es}
                           </span>
                           <div className="text-right">
                             <span className="font-heading text-2xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
