@@ -11,6 +11,7 @@ import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import { SITE_CONFIG } from "@/lib/constants";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -149,6 +150,7 @@ export default async function LocaleLayout({
           <WhatsAppButton />
         </NextIntlClientProvider>
         <LocalBusinessSchema />
+        <Analytics />
       </body>
     </html>
   );
