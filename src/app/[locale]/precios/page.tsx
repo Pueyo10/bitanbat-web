@@ -195,21 +195,24 @@ export default async function PreciosPage({
                   <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
                     {t("yoga")}
                   </h2>
-                  <div className="space-y-3">
+                  <div className="grid grid-cols-1 gap-4">
                     {yogaPrices.map((item) => (
                       <div
                         key={item.sessions}
-                        className="flex items-center justify-between p-4 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors"
+                        className="text-center p-5 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors"
                       >
-                        <span className="text-sm text-white/60">
+                        <p className="text-xs text-white/60 mb-2">
                           {item.sessions} {t("sessions")}
-                        </span>
-                        <div className="text-right">
-                          <span className="font-heading text-2xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
+                        </p>
+                        <div>
+                          <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
                             {item.price}
                           </span>
-                          <span className="text-accent/50 text-sm font-heading">€</span>
+                          <span className="text-accent/50 text-lg font-heading font-bold">€</span>
                         </div>
+                        <p className="text-[11px] text-white/60 mt-2">
+                          {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
+                        </p>
                       </div>
                     ))}
                   </div>
