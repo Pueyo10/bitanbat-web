@@ -10,7 +10,8 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import ScrollToTop from "@/components/ui/ScrollToTop";
 import SmoothScroll from "@/components/ui/SmoothScroll";
-import { SITE_CONFIG } from "@/lib/constants";
+import ConstructionGate from "@/components/ui/ConstructionGate";
+import { CONSTRUCTION_MODE, SITE_CONFIG } from "@/lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -147,6 +148,7 @@ export default async function LocaleLayout({
           <Footer />
           <ScrollToTop />
           <WhatsAppButton />
+          {CONSTRUCTION_MODE && <ConstructionGate />}
         </NextIntlClientProvider>
         <LocalBusinessSchema />
       </body>
