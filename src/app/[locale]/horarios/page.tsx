@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import Image from "next/image";
 import { Download } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import ScheduleViewer from "@/components/ui/ScheduleViewer";
 
 export const revalidate = 3600;
 
@@ -10,8 +10,8 @@ const SCHEDULES = [
     key: "gelas",
     image: "/media/horarios/ordutegia-gelas-v2.png",
     pdf: "/media/horarios/ordutegia-gelas-v2.pdf",
-    width: 3572,
-    height: 2526,
+    width: 3418,
+    height: 1985,
     labelEs: "Salas 1 y 2 · Fitness & Dantza",
     labelEu: "1. eta 2. gelak · Fitness & Dantza",
   },
@@ -19,8 +19,8 @@ const SCHEDULES = [
     key: "clases",
     image: "/media/horarios/ordutegia-clases.png",
     pdf: "/media/horarios/ordutegia-clases.pdf",
-    width: 2526,
-    height: 1786,
+    width: 2425,
+    height: 1492,
     labelEs: "BarreFit · Pilates · Yoga · Bachata",
     labelEu: "BarreFit · Pilates · Yoga · Bachata",
   },
@@ -114,29 +114,21 @@ export default async function HorariosPage({
                 </a>
               </div>
 
-              <a
-                href={schedule.image}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={locale === "eu" ? "Handiago ikusi" : "Ver a tamaño completo"}
-                className="block overflow-hidden rounded-2xl border border-border bg-white shadow-[0_18px_50px_rgba(10,10,10,0.08)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(10,10,10,0.14)]"
-              >
-                <Image
-                  src={schedule.image}
-                  alt={locale === "eu" ? schedule.labelEu : schedule.labelEs}
-                  width={schedule.width}
-                  height={schedule.height}
-                  sizes="(max-width: 1280px) 100vw, 1280px"
-                  className="h-auto w-full"
-                />
-              </a>
+              <ScheduleViewer
+                src={schedule.image}
+                alt={locale === "eu" ? schedule.labelEu : schedule.labelEs}
+                width={schedule.width}
+                height={schedule.height}
+                hint={locale === "eu" ? "Handiago ikusi" : "Ver más grande"}
+                closeLabel={locale === "eu" ? "Itxi" : "Cerrar"}
+              />
             </ScrollReveal>
           ))}
 
           <p className="text-center text-sm text-muted-foreground">
             {locale === "eu"
-              ? "Sakatu ordutegi bat handiago ikusteko."
-              : "Pulsa sobre un horario para verlo a tamaño completo."}
+              ? "Sakatu ordutegi baten gainean handiago ikusteko."
+              : "Pulsa sobre un horario para verlo más grande."}
           </p>
         </div>
       </section>
