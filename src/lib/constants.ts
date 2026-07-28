@@ -1,5 +1,5 @@
 // Pantalla de "web en construcción": ponlo en false para abrir la web
-export const CONSTRUCTION_MODE = true;
+export const CONSTRUCTION_MODE = false;
 
 export const SITE_CONFIG = {
   name: "BitanBat",

@@ -1,9 +1,30 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { createClient } from "@/lib/supabase/server";
-import type { Schedule } from "@/types/database";
-import ScheduleContent from "./ScheduleContent";
+import Image from "next/image";
+import { Download } from "lucide-react";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const revalidate = 3600;
+
+const SCHEDULES = [
+  {
+    key: "gelas",
+    image: "/media/horarios/ordutegia-gelas-v2.png",
+    pdf: "/media/horarios/ordutegia-gelas-v2.pdf",
+    width: 3572,
+    height: 2526,
+    labelEs: "Salas 1 y 2 · Fitness & Dantza",
+    labelEu: "1. eta 2. gelak · Fitness & Dantza",
+  },
+  {
+    key: "clases",
+    image: "/media/horarios/ordutegia-clases.png",
+    pdf: "/media/horarios/ordutegia-clases.pdf",
+    width: 2526,
+    height: 1786,
+    labelEs: "BarreFit · Pilates · Yoga · Bachata",
+    labelEu: "BarreFit · Pilates · Yoga · Bachata",
+  },
+] as const;
 
 export default async function HorariosPage({
   params,
@@ -13,20 +34,6 @@ export default async function HorariosPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Schedule");
-
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("schedules")
-    .select("*, class:classes(*)")
-    .eq("is_active", true)
-    .order("day_of_week")
-    .order("start_time");
-
-  if (error) {
-    console.error("Error fetching schedules:", error);
-  }
-
-  const schedules = (data || []) as Schedule[];
 
   return (
     <>
@@ -85,13 +92,52 @@ export default async function HorariosPage({
         </div>
       </section>
 
-      {/* Calendar */}
+      {/* Horarios oficiales — tal cual el diseño original */}
       <section className="relative overflow-hidden bg-background py-16 md:py-24">
         <div className="pointer-events-none absolute left-0 top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute bottom-12 right-0 h-72 w-72 rounded-full bg-black/5 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ScheduleContent schedules={schedules} />
+        <div className="relative mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8 md:space-y-24">
+          {SCHEDULES.map((schedule) => (
+            <ScrollReveal key={schedule.key}>
+              <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                <h2 className="font-heading text-xl font-bold text-foreground md:text-2xl">
+                  {locale === "eu" ? schedule.labelEu : schedule.labelEs}
+                </h2>
+                <a
+                  href={schedule.pdf}
+                  download
+                  className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:border-accent hover:text-accent"
+                >
+                  <Download size={16} />
+                  {locale === "eu" ? "PDFa deskargatu" : "Descargar PDF"}
+                </a>
+              </div>
+
+              <a
+                href={schedule.image}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={locale === "eu" ? "Handiago ikusi" : "Ver a tamaño completo"}
+                className="block overflow-hidden rounded-2xl border border-border bg-white shadow-[0_18px_50px_rgba(10,10,10,0.08)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(10,10,10,0.14)]"
+              >
+                <Image
+                  src={schedule.image}
+                  alt={locale === "eu" ? schedule.labelEu : schedule.labelEs}
+                  width={schedule.width}
+                  height={schedule.height}
+                  sizes="(max-width: 1280px) 100vw, 1280px"
+                  className="h-auto w-full"
+                />
+              </a>
+            </ScrollReveal>
+          ))}
+
+          <p className="text-center text-sm text-muted-foreground">
+            {locale === "eu"
+              ? "Sakatu ordutegi bat handiago ikusteko."
+              : "Pulsa sobre un horario para verlo a tamaño completo."}
+          </p>
         </div>
       </section>
     </>
