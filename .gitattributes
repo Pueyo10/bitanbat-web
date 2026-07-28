@@ -1,0 +1,12 @@
+# Archivos binarios: git no debe convertir saltos de linea ni hacer diff de texto
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.woff binary
+*.woff2 binary
