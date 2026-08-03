@@ -13,7 +13,7 @@ const MOSAIC_SETS: MosaicItem[][] = [
   [
     { type: "image", src: "/media/bitanbat/entrenamiento-funcional.jpg" },
     { type: "image", src: "/media/bitanbat/studio-room.jpg" },
-    { type: "image", src: "/media/bitanbat/boxing-class.jpg" },
+    { type: "image", src: "/media/bitanbat/zumba.jpg" },
     { type: "image", src: "/media/bitanbat/bungee.jpg" },
     { type: "image", src: "/media/bitanbat/sevillanas-class.jpg" },
     { type: "image", src: "/media/bitanbat/pilates.jpg" },
@@ -53,7 +53,6 @@ const DISCIPLINES = [
   "BarreFit",
   "Bungee",
   "Power Jump",
-  "Boxeo",
   "FitGipsy",
   "Funcional",
   "Yoga",

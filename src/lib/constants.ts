@@ -35,8 +35,6 @@ export const CLASS_COLORS: Record<string, string> = {
   sevillanas: "#E91E63",
   fitgipsy: "#9C27B0",
   predantza: "#FF9800",
-  "boxeo-txiki": "#F44336",
-  boxeo: "#F44336",
   zumba: "#FFEB3B",
   bungee: "#00BCD4",
   urbano: "#9C27B0",

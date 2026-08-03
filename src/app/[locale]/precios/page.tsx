@@ -11,7 +11,6 @@ export const revalidate = 3600;
 /* ── Data ─────────────────────────────────────────────── */
 
 const PLAN_COLORS = {
-  boxeo: { glow: "from-accent/15", bar: "bg-accent" },
   yoga: { glow: "from-accent/15", bar: "bg-accent" },
 } as const;
 
@@ -51,8 +50,6 @@ const dantzaDisciplines = [
     options: [{ es: "4 clases", eu: "4 klase", price: 40 }],
   },
 ];
-
-const boxeoPrices = [{ sessions: 4, price: 38 }];
 
 const yogaPrices = [{ sessions: 4, price: 45 }];
 
@@ -146,48 +143,14 @@ export default async function PreciosPage({
 
       <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
 
-      {/* ── BOXEO + YOGA ──────────────────────────────── */}
+      {/* ── YOGA ──────────────────────────────────────── */}
       <section className="py-16 md:py-24 bg-[#0a0a0a] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(244,67,54,0.04)_0%,transparent_50%),radial-gradient(circle_at_70%_30%,rgba(156,39,176,0.04)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(156,39,176,0.04)_0%,transparent_50%)]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Boxeo */}
-            <ScrollReveal>
-              <div className="group relative h-full">
-                <div className={`absolute -inset-0.5 bg-gradient-to-b ${PLAN_COLORS.boxeo.glow} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
-                <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
-                  <div className={`absolute top-0 left-8 right-8 h-[2px] ${PLAN_COLORS.boxeo.bar} rounded-full opacity-60`} />
-                  <h2 className="font-heading text-2xl font-bold text-white mb-8 mt-1 text-center">
-                    {t("boxeo")}
-                  </h2>
-                  <div className="grid grid-cols-1 gap-4">
-                    {boxeoPrices.map((item) => (
-                      <div
-                        key={item.sessions}
-                        className="text-center p-5 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.06] transition-colors"
-                      >
-                        <p className="text-xs text-white/60 mb-2">
-                          {item.sessions} {t("sessions")}
-                        </p>
-                        <div>
-                          <span className="font-heading text-3xl font-bold bg-gradient-to-b from-accent to-accent/50 bg-clip-text text-transparent">
-                            {item.price}
-                          </span>
-                          <span className="text-accent/50 text-lg font-heading font-bold">€</span>
-                        </div>
-                        <p className="text-[11px] text-white/60 mt-2">
-                          {(item.price / item.sessions).toFixed(1)}€ {t("perClass")}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
+          <div className="mx-auto max-w-md">
             {/* Yoga */}
-            <ScrollReveal delay={0.1}>
+            <ScrollReveal>
               <div className="group relative h-full">
                 <div className={`absolute -inset-0.5 bg-gradient-to-b ${PLAN_COLORS.yoga.glow} to-transparent rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500`} />
                 <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-2xl p-8 h-full hover:border-white/20 transition-all duration-300 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">

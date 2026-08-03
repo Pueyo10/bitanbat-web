@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "BitanBat - Dantza & Fitness | Hernani",
-    "description": "Dantza eta fitness zentroa Hernanin. Entrenamendu funtzionala, pilates, barrefit, boxeo, zumba, sevillanoak, bachata, urbanoa eta askoz gehiago."
+    "description": "Dantza eta fitness zentroa Hernanin. Entrenamendu funtzionala, pilates, barrefit, power jump, zumba, sevillanoak, bachata, urbanoa eta askoz gehiago."
   },
   "Nav": {
     "home": "Hasiera",
@@ -88,7 +88,6 @@
     "perClass": "/klase",
     "dantza": "Dantza",
     "dantzaDesc": "Hilabeteko kuota · 4 klase hilean",
-    "boxeo": "Boxeo",
     "yoga": "Yoga",
     "masajes": "Masajeak",
     "masajesDesc": "Zentroko erabiltzaileentzako prezioa",

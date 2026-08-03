@@ -14,8 +14,6 @@ const classImages: Record<string, string> = {
   "entrenamiento-funcional": "/media/bitanbat/entrenamiento-funcional.jpg",
   pilates: "/media/bitanbat/pilates.jpg",
   barrefit: "/media/bitanbat/barrefit.jpg",
-  boxeo: "/media/bitanbat/boxing-class.jpg",
-  "boxeo-txiki": "/media/bitanbat/boxing-kids.jpg",
   yoga: "/media/bitanbat/yoga.jpg",
   bungee: "/media/bitanbat/bungee.jpg",
   bachata: "/media/bitanbat/bachata.jpg",
@@ -31,8 +29,6 @@ const classImages: Record<string, string> = {
 const scheduledClassSlugs = new Set([
   "bachata",
   "barrefit",
-  "boxeo",
-  "boxeo-txiki",
   "bungee",
   "e-funcional-txikiak",
   "e-funcional-txiki",

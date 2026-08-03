@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "BitanBat - Dantza & Fitness | Hernani",
-    "description": "Centro de danza y fitness en Hernani. Clases de entrenamiento funcional, pilates, barrefit, boxeo, zumba, sevillanas, bachata, urbano y mucho más."
+    "description": "Centro de danza y fitness en Hernani. Clases de entrenamiento funcional, pilates, barrefit, power jump, zumba, sevillanas, bachata, urbano y mucho más."
   },
   "Nav": {
     "home": "Inicio",
@@ -88,7 +88,6 @@
     "perClass": "/clase",
     "dantza": "Dantza",
     "dantzaDesc": "Cuota mensual · 4 clases al mes",
-    "boxeo": "Boxeo",
     "yoga": "Yoga",
     "masajes": "Masajes",
     "masajesDesc": "Precio para usuarios del centro",

@@ -36,11 +36,11 @@ const classHighlights = [
     image: "/media/bitanbat/barrefit.jpg",
   },
   {
-    nameEs: "Boxeo",
-    nameEu: "Boxeoa",
-    descEs: "Potencia, tecnica y descarga. Entrenamiento de cuerpo completo.",
-    descEu: "Potentzia, teknika eta deskarga. Gorputz osoko entrenamendua.",
-    image: "/media/bitanbat/boxing-class.jpg",
+    nameEs: "Power Jump",
+    nameEu: "Power Jump",
+    descEs: "Cardio sobre mini-trampolin. Quema calorias cuidando tus articulaciones.",
+    descEu: "Kardioa mini-tranpolinaren gainean. Kaloriak erre artikulazioak zainduz.",
+    image: "/media/bitanbat/jumping.jpg",
   },
   {
     nameEs: "Predantza",
