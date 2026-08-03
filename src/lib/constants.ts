@@ -8,6 +8,8 @@ export const SITE_CONFIG = {
   phoneFormatted: "747 436 503",
   whatsapp: "https://wa.me/34747436503",
   location: "Hernani, Gipuzkoa",
+  // Ficha de Google Business (CID): abre la ubicacion en Google Maps
+  maps: "https://maps.google.com/?cid=5199943363790475113",
   instagram: "https://www.instagram.com/bitanbat_/",
   instagramHandle: "@bitanbat_",
 } as const;

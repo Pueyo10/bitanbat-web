@@ -67,15 +67,25 @@ export default function Footer() {
             <p className="text-white/50 text-sm leading-relaxed max-w-sm">
               {t("tagline")}
             </p>
-            <div className="space-y-3 text-white/60 text-sm">
-              <p className="flex items-center gap-3">
+            <div className="space-y-3 text-sm">
+              <a
+                href={SITE_CONFIG.maps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-fit items-center gap-3 text-white/60 transition-colors hover:text-accent"
+              >
                 <MapPin size={16} className="text-accent shrink-0" />
                 {t("address")}
-              </p>
-              <p className="flex items-center gap-3">
+              </a>
+              <a
+                href={SITE_CONFIG.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-fit items-center gap-3 text-white/60 transition-colors hover:text-accent"
+              >
                 <Phone size={16} className="text-accent shrink-0" />
                 {t("phone")}
-              </p>
+              </a>
             </div>
           </div>
 
