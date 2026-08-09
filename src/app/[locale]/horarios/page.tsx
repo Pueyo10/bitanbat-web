@@ -100,10 +100,7 @@ export default async function HorariosPage({
         <div className="relative mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8 md:space-y-24">
           {SCHEDULES.map((schedule) => (
             <ScrollReveal key={schedule.key}>
-              <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <h2 className="font-heading text-xl font-bold text-foreground md:text-2xl">
-                  {locale === "eu" ? schedule.labelEu : schedule.labelEs}
-                </h2>
+              <div className="mb-6 flex justify-end">
                 <a
                   href={schedule.pdf}
                   download

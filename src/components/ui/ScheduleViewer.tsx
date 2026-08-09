@@ -59,10 +59,7 @@ export default function ScheduleViewer({
       onClick={close}
       className="animate-fade-in fixed inset-0 z-[100] flex flex-col bg-black/92 backdrop-blur-md"
     >
-      <div className="flex shrink-0 items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <p className="truncate font-heading text-sm font-medium text-white/85 md:text-base">
-          {alt}
-        </p>
+      <div className="flex shrink-0 justify-end px-4 py-3 sm:px-6">
         <button
           type="button"
           onClick={(event) => {
