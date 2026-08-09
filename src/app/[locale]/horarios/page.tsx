@@ -8,17 +8,17 @@ export const revalidate = 3600;
 const SCHEDULES = [
   {
     key: "gelas",
-    image: "/media/horarios/ordutegia-gelas-v2.png",
-    pdf: "/media/horarios/ordutegia-gelas-v2.pdf",
+    image: "/media/horarios/ordutegia-gelas-v3.png",
+    pdf: "/media/horarios/ordutegia-gelas-v3.pdf",
     width: 3418,
-    height: 1985,
+    height: 2088,
     labelEs: "Salas 1 y 2 · Fitness & Dantza",
     labelEu: "1. eta 2. gelak · Fitness & Dantza",
   },
   {
     key: "clases",
-    image: "/media/horarios/ordutegia-clases.png",
-    pdf: "/media/horarios/ordutegia-clases.pdf",
+    image: "/media/horarios/ordutegia-clases-v2.png",
+    pdf: "/media/horarios/ordutegia-clases-v2.pdf",
     width: 2425,
     height: 1492,
     labelEs: "BarreFit · Pilates · Yoga · Bachata",
