@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | BitanBat",
   },
   description:
-    "Centro de danza y fitness en Hernani, Gipuzkoa. Clases de entrenamiento funcional, pilates, barrefit, power jump, zumba, sevillanas, bachata, urbano y más.",
+    "Centro de danza y fitness en Hernani, Gipuzkoa. Clases de entrenamiento funcional, pilates, barrefit, power jump, fusion & ritmo, sevillanas, bachata, urbano y más.",
   icons: {
     icon: "/favicon.png",
     apple: "/apple-icon.png",

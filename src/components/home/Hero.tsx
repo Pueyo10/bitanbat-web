@@ -48,7 +48,7 @@ const DISCIPLINES = [
   "Bachata",
   "Salsa",
   "Urbano",
-  "Zumba",
+  "Fusion & ritmo",
   "Pilates",
   "BarreFit",
   "Bungee",

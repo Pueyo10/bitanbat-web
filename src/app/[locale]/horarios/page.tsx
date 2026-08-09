@@ -8,8 +8,8 @@ export const revalidate = 3600;
 const SCHEDULES = [
   {
     key: "gelas",
-    image: "/media/horarios/ordutegia-gelas-v5.png",
-    pdf: "/media/horarios/ordutegia-gelas-v5.pdf",
+    image: "/media/horarios/ordutegia-gelas-v6.png",
+    pdf: "/media/horarios/ordutegia-gelas-v6.pdf",
     width: 3418,
     height: 2088,
     labelEs: "Salas 1 y 2 · Fitness & Dantza",
