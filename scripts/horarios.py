@@ -22,7 +22,7 @@ FONT = "hebo"  # Helvetica-Bold
 PAD = 24  # margen al recortar el PNG
 
 # Nombres de salida (cambiar el sufijo refresca la cache de imagenes de Next)
-SALIDA_GELAS = "ordutegia-gelas-v6"
+SALIDA_GELAS = "ordutegia-gelas-v7"
 SALIDA_CLASES = "ordutegia-clases-v3"
 
 # ---------------------------------------------------------------- geometria
@@ -63,7 +63,7 @@ CAMBIOS_GELAS = {
     "reemplazos": [
         {
             "rect": (79.4, 610.3, 187.1, 644.9),
-            "texto": ["Fusion & ritmo"],
+            "texto": ["Fusión & Ritmo"],
             "fondo": "#34507C",
             "color": BLANCO,
         },
@@ -77,7 +77,7 @@ CAMBIOS_GELAS = {
         {
             "rect": (725.7, 610.3, 833.4, 644.9),
             # apostrofo recto: el tipografico (’) no existe en la fuente del PDF
-            "texto": ["Fusion & ritmo 80's"],
+            "texto": ["Fusión & Ritmo 80's"],
             "fondo": "#34507C",
             "color": BLANCO,
         },

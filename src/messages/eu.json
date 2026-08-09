@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "BitanBat - Dantza & Fitness | Hernani",
-    "description": "Dantza eta fitness zentroa Hernanin. Entrenamendu funtzionala, pilates, barrefit, power jump, fusion & ritmo, sevillanoak, bachata, urbanoa eta askoz gehiago."
+    "description": "Dantza eta fitness zentroa Hernanin. Entrenamendu funtzionala, pilates, barrefit, power jump, fusión & ritmo, sevillanoak, bachata, urbanoa eta askoz gehiago."
   },
   "Nav": {
     "home": "Hasiera",
@@ -93,7 +93,7 @@
     "masajesDesc": "Zentroko erabiltzaileentzako prezioa",
     "discounts": "Deskontuak",
     "familyDiscount": "Familiak: %10 deskontua",
-    "singleClass": "Klase soltea: 10€",
+    "singleClass": "Klase soltea: 12€",
     "sessions": "klase",
     "week": "/aste"
   },

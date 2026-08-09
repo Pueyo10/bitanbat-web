@@ -1,7 +1,7 @@
 {
   "Metadata": {
     "title": "BitanBat - Dantza & Fitness | Hernani",
-    "description": "Centro de danza y fitness en Hernani. Clases de entrenamiento funcional, pilates, barrefit, power jump, fusion & ritmo, sevillanas, bachata, urbano y mucho más."
+    "description": "Centro de danza y fitness en Hernani. Clases de entrenamiento funcional, pilates, barrefit, power jump, fusión & ritmo, sevillanas, bachata, urbano y mucho más."
   },
   "Nav": {
     "home": "Inicio",
@@ -93,7 +93,7 @@
     "masajesDesc": "Precio para usuarios del centro",
     "discounts": "Descuentos",
     "familyDiscount": "Familias: 10% de descuento",
-    "singleClass": "Clase suelta: 10€",
+    "singleClass": "Clase suelta: 12€",
     "sessions": "clases",
     "week": "/semana"
   },
