@@ -53,8 +53,8 @@ SECCIONES = [
         "filas": [
             ("1 hora a la semana", "Clase de 1 hora semanal (ej. Salsa, Bachata o Sevillanas)", "40"),
             ("1,5 horas a la semana", "Clase intensiva de 1 hora y 30 minutos", "48"),
-            ("2 horas a la semana (Pack 2)", "Combo de 2 clases semanales de 1 hora", "64"),
-            ("2,5 horas a la semana", "1 clase de 1,5 h + 1 clase de 1 h", "72"),
+            ("2 horas a la semana (Pack 2)", "Combo de 2 clases semanales de 1 hora", "70"),
+            ("2,5 horas a la semana", "1 clase de 1,5 h + 1 clase de 1 h", "75"),
             ("3 horas a la semana (Pack 3)", "Combo de 3 clases semanales de 1 hora", "85"),
         ],
     },

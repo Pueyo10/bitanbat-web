@@ -88,14 +88,14 @@ const SECCIONES: Seccion[] = [
         eu: "2 ordu astean (2. packa)",
         detalleEs: "Combo de 2 clases semanales de 1 hora",
         detalleEu: "Asteko ordu 1eko 2 klaseren konboa",
-        precio: 64,
+        precio: 70,
       },
       {
         es: "2,5 horas a la semana",
         eu: "2,5 ordu astean",
         detalleEs: "1 clase de 1,5 h + 1 clase de 1 h",
         detalleEu: "1,5 orduko klase 1 + ordu 1eko klase 1",
-        precio: 72,
+        precio: 75,
       },
       {
         es: "3 horas a la semana (Pack 3)",
