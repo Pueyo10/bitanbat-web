@@ -8,7 +8,7 @@ export const revalidate = 3600;
 const SCHEDULES = [
   {
     key: "danza",
-    image: "/media/horarios/horario-danza-v4.jpg",
+    image: "/media/horarios/horario-danza-v8.jpg",
     width: 1449,
     height: 663,
     labelEs: "Horario de danza: urbano, salsa, sevillanas, FitGipsy, bungee y predantza",
@@ -16,7 +16,7 @@ const SCHEDULES = [
   },
   {
     key: "barrefit-pilates",
-    image: "/media/horarios/horario-barrefit-pilates-v4.jpg",
+    image: "/media/horarios/horario-barrefit-pilates-v8.jpg",
     width: 1450,
     height: 664,
     labelEs: "Horario de BarreFit, Pilates y Batxata",
@@ -24,7 +24,7 @@ const SCHEDULES = [
   },
   {
     key: "funcional",
-    image: "/media/horarios/horario-funcional-v4.jpg",
+    image: "/media/horarios/horario-funcional-v8.jpg",
     width: 1000,
     height: 941,
     labelEs: "Horario de entrenamiento funcional, TotalBody y sala abierta",
