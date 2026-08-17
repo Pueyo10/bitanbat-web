@@ -106,7 +106,7 @@ export default function ScheduleViewer({
           alt={alt}
           width={width}
           height={height}
-          sizes="(max-width: 1280px) 100vw, 1280px"
+          sizes="(max-width: 1560px) 100vw, 1560px"
           className="h-auto w-full"
         />
         <span className="pointer-events-none absolute right-4 top-4 flex items-center gap-2 rounded-full bg-primary/85 px-3.5 py-2 text-xs font-medium text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">

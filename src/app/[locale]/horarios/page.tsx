@@ -7,22 +7,28 @@ export const revalidate = 3600;
 
 const SCHEDULES = [
   {
-    key: "gelas",
-    image: "/media/horarios/ordutegia-gelas-v7.png",
-    pdf: "/media/horarios/ordutegia-gelas-v7.pdf",
-    width: 3418,
-    height: 2088,
-    labelEs: "Salas 1 y 2 · Fitness & Dantza",
-    labelEu: "1. eta 2. gelak · Fitness & Dantza",
+    key: "danza",
+    image: "/media/horarios/horario-danza-v4.jpg",
+    width: 1449,
+    height: 663,
+    labelEs: "Horario de danza: urbano, salsa, sevillanas, FitGipsy, bungee y predantza",
+    labelEu: "Dantza ordutegia: urbano, salsa, sevillanak, FitGipsy, bungee eta predantza",
   },
   {
-    key: "clases",
-    image: "/media/horarios/ordutegia-clases-v3.png",
-    pdf: "/media/horarios/ordutegia-clases-v3.pdf",
-    width: 2425,
-    height: 1587,
-    labelEs: "BarreFit · Pilates · Yoga · Bachata",
-    labelEu: "BarreFit · Pilates · Yoga · Bachata",
+    key: "barrefit-pilates",
+    image: "/media/horarios/horario-barrefit-pilates-v4.jpg",
+    width: 1450,
+    height: 664,
+    labelEs: "Horario de BarreFit, Pilates y Batxata",
+    labelEu: "BarreFit, Pilates eta Batxata ordutegia",
+  },
+  {
+    key: "funcional",
+    image: "/media/horarios/horario-funcional-v4.jpg",
+    width: 1000,
+    height: 941,
+    labelEs: "Horario de entrenamiento funcional, TotalBody y sala abierta",
+    labelEu: "Entrenamendu funtzionala, TotalBody eta gela irekia ordutegia",
   },
 ] as const;
 
@@ -97,17 +103,17 @@ export default async function HorariosPage({
         <div className="pointer-events-none absolute left-0 top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute bottom-12 right-0 h-72 w-72 rounded-full bg-black/5 blur-3xl" />
 
-        <div className="relative mx-auto max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8 md:space-y-24">
+        <div className="relative mx-auto max-w-[1560px] space-y-16 px-4 sm:px-6 lg:px-8 md:space-y-24">
           {SCHEDULES.map((schedule) => (
             <ScrollReveal key={schedule.key}>
               <div className="mb-6 flex justify-end">
                 <a
-                  href={schedule.pdf}
+                  href={schedule.image}
                   download
                   className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:border-accent hover:text-accent"
                 >
                   <Download size={16} />
-                  {locale === "eu" ? "PDFa deskargatu" : "Descargar PDF"}
+                  {locale === "eu" ? "Deskargatu" : "Descargar"}
                 </a>
               </div>
 
