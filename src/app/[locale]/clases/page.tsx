@@ -19,14 +19,18 @@ export default async function ClasesPage({
   const t = await getTranslations("Classes");
 
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("classes")
-    .select("*")
-    .order("name");
+  const [{ data, error }, { data: scheduled }] = await Promise.all([
+    supabase.from("classes").select("*").order("name"),
+    supabase.from("schedules").select("class_id").eq("is_active", true),
+  ]);
   if (error) {
     console.error("Error fetching classes:", error);
   }
   const classes = (data || []) as ClassType[];
+  // solo se muestran las clases que tienen alguna sesion en el horario
+  const scheduledIds = Array.from(
+    new Set((scheduled ?? []).map((s) => s.class_id as string))
+  );
 
   return (
     <>
@@ -42,7 +46,11 @@ export default async function ClasesPage({
         <div className="absolute right-0 bottom-12 h-72 w-72 rounded-full bg-black/5 blur-3xl" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ClassesContent classes={classes} locale={locale} />
+          <ClassesContent
+            classes={classes}
+            locale={locale}
+            scheduledIds={scheduledIds}
+          />
         </div>
       </section>
 

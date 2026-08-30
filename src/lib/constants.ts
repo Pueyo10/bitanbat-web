@@ -1,6 +1,10 @@
 // Pantalla de "web en construcción": ponlo en false para abrir la web
 export const CONSTRUCTION_MODE = false;
 
+// Filas de la tabla classes que no son clases de cara al publico:
+// no se muestran como tarjeta en /clases aunque tengan horario.
+export const CLASSES_HIDDEN_FROM_LIST: readonly string[] = ["masajes", "open"];
+
 export const SITE_CONFIG = {
   name: "BitanBat",
   fullName: "BitanBat - Dantza & Fitness",

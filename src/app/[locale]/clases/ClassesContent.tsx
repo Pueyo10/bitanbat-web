@@ -7,42 +7,8 @@ import { BadgeCheck, ChevronRight, Crown, Sparkles } from "lucide-react";
 import type { ClassType, ClassCategory } from "@/types/database";
 import { getLocalizedField } from "@/lib/utils";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-
-const classImages: Record<string, string> = {
-  "e-funcional-txikiak": "/media/bitanbat/functional-kids-young.jpg",
-  "e-funcional-txiki": "/media/bitanbat/e-funcional-txiki.jpg",
-  "entrenamiento-funcional": "/media/bitanbat/entrenamiento-funcional.jpg",
-  pilates: "/media/bitanbat/pilates.jpg",
-  barrefit: "/media/bitanbat/barrefit.jpg",
-  yoga: "/media/bitanbat/yoga.jpg",
-  bungee: "/media/bitanbat/bungee.jpg",
-  bachata: "/media/bitanbat/bachata.jpg",
-  salsa: "/media/bitanbat/salsa.jpg",
-  sevillanas: "/media/bitanbat/sevillanas-class.jpg",
-  urbano: "/media/bitanbat/urbano-adultos.jpg",
-  zumba: "/media/bitanbat/zumba.jpg",
-  fitgipsy: "/media/bitanbat/fitgypsy.jpg",
-  jumping: "/media/bitanbat/jumping.jpg",
-  predantza: "/media/bitanbat/predantza.jpg",
-};
-
-const scheduledClassSlugs = new Set([
-  "bachata",
-  "barrefit",
-  "bungee",
-  "e-funcional-txikiak",
-  "e-funcional-txiki",
-  "entrenamiento-funcional",
-  "fitgipsy",
-  "jumping",
-  "pilates",
-  "predantza",
-  "salsa",
-  "sevillanas",
-  "urbano",
-  "yoga",
-  "zumba",
-]);
+import { CLASSES_HIDDEN_FROM_LIST } from "@/lib/constants";
+import { CLASS_IMAGES } from "@/lib/class-images";
 
 const filters: { key: string; value: ClassCategory | "all" | "kids" }[] = [
   { key: "filterAll", value: "all" },
@@ -62,19 +28,24 @@ const categoryLabels: Record<string, { es: string; eu: string }> = {
 export default function ClassesContent({
   classes,
   locale,
+  scheduledIds,
 }: {
   classes: ClassType[];
   locale: string;
+  scheduledIds: string[];
 }) {
   const t = useTranslations("Classes");
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const filtered = useMemo(() => {
-    const visible = classes.filter((c) => scheduledClassSlugs.has(c.slug));
+    const scheduled = new Set(scheduledIds);
+    const visible = classes.filter(
+      (c) => scheduled.has(c.id) && !CLASSES_HIDDEN_FROM_LIST.includes(c.slug)
+    );
     if (activeFilter === "all") return visible;
     if (activeFilter === "kids") return visible.filter((c) => c.min_age !== null);
     return visible.filter((c) => c.category === activeFilter);
-  }, [activeFilter, classes]);
+  }, [activeFilter, classes, scheduledIds]);
 
   return (
     <>
@@ -109,7 +80,8 @@ export default function ClassesContent({
       ) : (
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
         {filtered.map((cls, i) => {
-          const img = classImages[cls.slug] || cls.image_url;
+          // la foto subida desde el panel manda; si no hay, la de siempre
+          const img = cls.image_url || CLASS_IMAGES[cls.slug];
           const categoryLabel = categoryLabels[cls.category ?? ""] ?? {
             es: "Clase",
             eu: "Klase",

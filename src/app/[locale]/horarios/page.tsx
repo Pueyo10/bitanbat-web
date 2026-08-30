@@ -1,36 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Download } from "lucide-react";
-import ScrollReveal from "@/components/ui/ScrollReveal";
-import ScheduleViewer from "@/components/ui/ScheduleViewer";
+import { createClient } from "@/lib/supabase/server";
+import ScheduleBoards, {
+  type BoardSession,
+} from "@/components/schedule/ScheduleBoards";
 
 export const revalidate = 3600;
-
-const SCHEDULES = [
-  {
-    key: "danza",
-    image: "/media/horarios/horario-danza-v8.jpg",
-    width: 1449,
-    height: 663,
-    labelEs: "Horario de danza: urbano, salsa, sevillanas, FitGipsy, bungee y predantza",
-    labelEu: "Dantza ordutegia: urbano, salsa, sevillanak, FitGipsy, bungee eta predantza",
-  },
-  {
-    key: "barrefit-pilates",
-    image: "/media/horarios/horario-barrefit-pilates-v8.jpg",
-    width: 1450,
-    height: 664,
-    labelEs: "Horario de BarreFit, Pilates y Batxata",
-    labelEu: "BarreFit, Pilates eta Batxata ordutegia",
-  },
-  {
-    key: "funcional",
-    image: "/media/horarios/horario-funcional-v8.jpg",
-    width: 1000,
-    height: 941,
-    labelEs: "Horario de entrenamiento funcional, TotalBody y sala abierta",
-    labelEu: "Entrenamendu funtzionala, TotalBody eta gela irekia ordutegia",
-  },
-] as const;
 
 export default async function HorariosPage({
   params,
@@ -40,6 +14,21 @@ export default async function HorariosPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Schedule");
+
+  const supabase = await createClient();
+  const { data: sessionsData, error } = await supabase
+    .from("schedules")
+    .select(
+      "id,day_of_week,start_time,end_time,notes,location_id,class:classes(name,slug,category)"
+    )
+    .eq("is_active", true)
+    .order("day_of_week")
+    .order("start_time");
+  if (error) {
+    console.error("Error fetching schedules:", error);
+  }
+
+  const sessions = (sessionsData ?? []) as unknown as BoardSession[];
 
   return (
     <>
@@ -98,41 +87,21 @@ export default async function HorariosPage({
         </div>
       </section>
 
-      {/* Horarios oficiales — tal cual el diseño original */}
+      {/* Cuadro semanal, dibujado desde la base de datos */}
       <section className="relative overflow-hidden bg-background py-16 md:py-24">
         <div className="pointer-events-none absolute left-0 top-24 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute bottom-12 right-0 h-72 w-72 rounded-full bg-black/5 blur-3xl" />
 
-        <div className="relative mx-auto max-w-[1560px] space-y-16 px-4 sm:px-6 lg:px-8 md:space-y-24">
-          {SCHEDULES.map((schedule) => (
-            <ScrollReveal key={schedule.key}>
-              <div className="mb-6 flex justify-end">
-                <a
-                  href={schedule.image}
-                  download
-                  className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:border-accent hover:text-accent"
-                >
-                  <Download size={16} />
-                  {locale === "eu" ? "Deskargatu" : "Descargar"}
-                </a>
-              </div>
-
-              <ScheduleViewer
-                src={schedule.image}
-                alt={locale === "eu" ? schedule.labelEu : schedule.labelEs}
-                width={schedule.width}
-                height={schedule.height}
-                hint={locale === "eu" ? "Handiago ikusi" : "Ver más grande"}
-                closeLabel={locale === "eu" ? "Itxi" : "Cerrar"}
-              />
-            </ScrollReveal>
-          ))}
-
-          <p className="text-center text-sm text-muted-foreground">
-            {locale === "eu"
-              ? "Sakatu ordutegi baten gainean handiago ikusteko."
-              : "Pulsa sobre un horario para verlo más grande."}
-          </p>
+        <div className="relative mx-auto max-w-[1560px] px-4 sm:px-6 lg:px-8">
+          {sessions.length === 0 ? (
+            <p className="py-16 text-center text-muted-foreground">
+              {locale === "eu"
+                ? "Ordutegia laster argitaratuko dugu."
+                : "Publicaremos el horario muy pronto."}
+            </p>
+          ) : (
+            <ScheduleBoards sessions={sessions} />
+          )}
         </div>
       </section>
     </>

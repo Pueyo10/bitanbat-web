@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react"],
+    // las fotos de clase se suben desde el panel mediante server actions
+    serverActions: { bodySizeLimit: "10mb" },
   },
   images: {
     formats: ["image/avif", "image/webp"],
