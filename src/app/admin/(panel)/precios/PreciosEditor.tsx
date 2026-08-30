@@ -11,6 +11,7 @@ import {
   Trash2,
 } from "lucide-react";
 import type { Tarifas, TarifaFormato } from "@/lib/tarifas";
+import { SESION_CADUCADA } from "../../types";
 import { saveTarifas } from "./actions";
 
 /* ── Estado del editor: igual que el documento pero con ids estables
@@ -199,6 +200,11 @@ export default function PreciosEditor({ inicial }: { inicial: Tarifas }) {
         setDirty(false);
         setNotice({ type: "ok", text: "Precios guardados y publicados en la web." });
         router.refresh();
+      } else if (r.error === SESION_CADUCADA) {
+        // sin sesión: al login (los cambios se pierden, pero el aviso de
+        // beforeunload no aplica a navegaciones internas)
+        setDirty(false);
+        router.replace("/admin/login");
       } else {
         setNotice({ type: "error", text: r.error });
       }

@@ -35,14 +35,19 @@ async function adminMiddleware(request: NextRequest) {
   } = await supabase.auth.getUser();
   const isAdmin = user?.app_metadata?.role === "admin";
   const isLogin = request.nextUrl.pathname === "/admin/login";
+  // Solo se redirigen las navegaciones. Los POST de las server actions pasan:
+  // cada acción comprueba la sesión y responde con un error legible. Si se
+  // redirigieran aquí, el navegador recibiría HTML en vez de la respuesta de
+  // la acción ("An unexpected response was received from the server").
+  const esNavegacion = request.method === "GET" || request.method === "HEAD";
 
-  if (!isAdmin && !isLogin) {
+  if (!isAdmin && !isLogin && esNavegacion) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/login";
     url.search = "";
     return NextResponse.redirect(url);
   }
-  if (isAdmin && isLogin) {
+  if (isAdmin && isLogin && esNavegacion) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin";
     return NextResponse.redirect(url);

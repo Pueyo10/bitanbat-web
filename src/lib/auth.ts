@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { SESION_CADUCADA } from "@/app/admin/types";
 
 export interface AdminUser {
   id: string;
@@ -20,6 +21,6 @@ export async function getAdminUser(): Promise<AdminUser | null> {
 
 export async function requireAdmin(): Promise<AdminUser> {
   const user = await getAdminUser();
-  if (!user) throw new Error("La sesión ha caducado. Vuelve a iniciar sesión.");
+  if (!user) throw new Error(SESION_CADUCADA);
   return user;
 }

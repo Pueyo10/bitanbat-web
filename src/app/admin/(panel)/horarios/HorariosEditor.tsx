@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Pencil, Plus, RefreshCw, Trash2, X } from "lucide-react";
 import { DAYS_ES } from "@/lib/constants";
+import { SESION_CADUCADA } from "../../types";
 import {
   deleteSession,
   publish,
@@ -89,6 +90,15 @@ export default function HorariosEditor({
     return days;
   }, [sessions, tab, classById]);
 
+  /** Sin sesión se vuelve al login; cualquier otro error se muestra. */
+  function fallo(error: string) {
+    if (error === SESION_CADUCADA) {
+      router.replace("/admin/login");
+      return;
+    }
+    setNotice({ type: "error", text: error });
+  }
+
   /** Local más habitual de esa clase, para no tener que elegirlo cada vez. */
   function localHabitual(classId: string) {
     const cuenta = new Map<string, number>();
@@ -147,7 +157,7 @@ export default function HorariosEditor({
         setNotice({ type: "ok", text: "Guardado y publicado en la web." });
         router.refresh();
       } else {
-        setNotice({ type: "error", text: r.error });
+        fallo(r.error);
       }
     });
   }
@@ -164,7 +174,7 @@ export default function HorariosEditor({
         setNotice({ type: "ok", text: "Clase quitada y web actualizada." });
         router.refresh();
       } else {
-        setNotice({ type: "error", text: r.error });
+        fallo(r.error);
       }
     });
   }
@@ -172,11 +182,8 @@ export default function HorariosEditor({
   function republicar() {
     startTransition(async () => {
       const r = await publish();
-      setNotice(
-        r.ok
-          ? { type: "ok", text: "Web actualizada." }
-          : { type: "error", text: r.error }
-      );
+      if (r.ok) setNotice({ type: "ok", text: "Web actualizada." });
+      else fallo(r.error);
     });
   }
 

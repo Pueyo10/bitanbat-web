@@ -7,6 +7,7 @@ import { Check, Eye, EyeOff, Pencil, Plus, Trash2, Upload, X } from "lucide-reac
 import type { ClassType } from "@/types/database";
 import { CLASSES_HIDDEN_FROM_LIST } from "@/lib/constants";
 import { CLASS_IMAGES } from "@/lib/class-images";
+import { SESION_CADUCADA } from "../../types";
 import { deleteClass, saveClass } from "./actions";
 
 const CATEGORIAS = [
@@ -40,6 +41,15 @@ export default function ClasesEditor({
   const current = editing === "new" ? null : editing;
   const currentImg = current ? current.image_url || CLASS_IMAGES[current.slug] : undefined;
 
+  /** Sin sesión se vuelve al login; cualquier otro error se muestra. */
+  function fallo(error: string) {
+    if (error === SESION_CADUCADA) {
+      router.replace("/admin/login");
+      return;
+    }
+    setNotice({ type: "error", text: error });
+  }
+
   function esVisible(c: ClassType) {
     return (sessionsByClass[c.id] ?? 0) > 0 && !CLASSES_HIDDEN_FROM_LIST.includes(c.slug);
   }
@@ -60,7 +70,7 @@ export default function ClasesEditor({
         setNotice({ type: "ok", text: "Guardado y publicado en la web." });
         router.refresh();
       } else {
-        setNotice({ type: "error", text: r.error });
+        fallo(r.error);
       }
     });
   }
@@ -76,7 +86,7 @@ export default function ClasesEditor({
         setNotice({ type: "ok", text: "Clase eliminada y web actualizada." });
         router.refresh();
       } else {
-        setNotice({ type: "error", text: r.error });
+        fallo(r.error);
       }
     });
   }
