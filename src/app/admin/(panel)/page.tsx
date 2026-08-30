@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarDays, LayoutGrid, Zap } from "lucide-react";
+import { CalendarDays, Euro, LayoutGrid, Zap } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -29,6 +29,13 @@ export default async function AdminHome() {
       stat: `${classes ?? 0} clases`,
       icon: LayoutGrid,
     },
+    {
+      href: "/admin/precios",
+      title: "Precios",
+      description: "Cuotas, packs, clase suelta y precios de masajes.",
+      stat: "Tarifas de la web",
+      icon: Euro,
+    },
   ];
 
   return (
@@ -40,7 +47,7 @@ export default async function AdminHome() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map(({ href, title, description, stat, icon: Icon }) => (
           <Link
             key={href}

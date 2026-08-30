@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { CalendarDays, ExternalLink, Home, LayoutGrid, LogOut } from "lucide-react";
+import { CalendarDays, Euro, ExternalLink, Home, LayoutGrid, LogOut } from "lucide-react";
 import { getAdminUser } from "@/lib/auth";
 import { signOut } from "../actions";
 
@@ -8,6 +8,7 @@ const NAV = [
   { href: "/admin", label: "Inicio", icon: Home },
   { href: "/admin/horarios", label: "Horarios", icon: CalendarDays },
   { href: "/admin/clases", label: "Clases", icon: LayoutGrid },
+  { href: "/admin/precios", label: "Precios", icon: Euro },
 ] as const;
 
 export default async function PanelLayout({
